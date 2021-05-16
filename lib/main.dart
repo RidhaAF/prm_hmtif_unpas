@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prm_hmtif_unpas/pages/home_page.dart';
+import 'package:prm_hmtif_unpas/ui/pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
