@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/ui/pages/detail_vote_page.dart';
 
 class VotePage extends StatelessWidget {
   Widget buildVoteCard(
       BuildContext context, String voteImage, String name, String nrp) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailVotePage(),
+          ),
+        );
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 16.0),
         padding: EdgeInsets.all(8.0),
