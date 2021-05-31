@@ -7,15 +7,15 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0XFF007B3D),
-        title: Center(
-          child: Text(
-            'Profile',
-            style: GoogleFonts.poppins(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+        brightness: Brightness.dark,
+        title: Text(
+          'Profile',
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -94,32 +94,124 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-                        child: Text(
-                          'Ubah Profil',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0XFF1D1D1D),
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Ubah Profil',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Color(0XFF1D1D1D),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-                        child: Text(
-                          'Pemberitahuan',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0XFF1D1D1D),
-                          ),
-                        ),
+                      Divider(
+                        indent: 16.0,
+                        endIndent: 16.0,
                       ),
                       Container(
-                        margin: EdgeInsets.all(16.0),
-                        child: Text(
-                          'Keamanan',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0XFF1D1D1D),
-                          ),
+                        margin: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.notifications,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Pemberitahuan',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Color(0XFF1D1D1D),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Divider(
+                        indent: 16.0,
+                        endIndent: 16.0,
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.lock,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Keamanan',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Color(0XFF1D1D1D),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -146,32 +238,124 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-                        child: Text(
-                          'Menilai Aplikasi',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0XFF1D1D1D),
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.star,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Menilai Aplikasi',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Color(0XFF1D1D1D),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-                        child: Text(
-                          'Syarat dan Ketentuan',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0XFF1D1D1D),
-                          ),
-                        ),
+                      Divider(
+                        indent: 16.0,
+                        endIndent: 16.0,
                       ),
                       Container(
-                        margin: EdgeInsets.all(16.0),
-                        child: Text(
-                          'Pusat Bantuan',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0XFF1D1D1D),
-                          ),
+                        margin: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.text_snippet,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Syarat dan Ketentuan',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Color(0XFF1D1D1D),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Divider(
+                        indent: 16.0,
+                        endIndent: 16.0,
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.help,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Pusat Bantuan',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Color(0XFF1D1D1D),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Color(0XFF007B3D),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -187,7 +371,10 @@ class ProfilePage extends StatelessWidget {
                 vertical: 32.0,
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', (route) => false);
+                },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0XFF007B3D),
                   minimumSize: Size(380, 56),
