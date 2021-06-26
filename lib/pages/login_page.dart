@@ -7,7 +7,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController nrpController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isObscure = true;
 
@@ -35,19 +35,18 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                  margin: EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
                     'PEMILU RAYA MAHASISWA \nHMTIF-UNPAS',
                     style: GoogleFonts.poppins(
+                      color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.655,
                   width: double.infinity,
                   padding: EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
@@ -60,82 +59,87 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        child: Text(
-                          'Masuk',
-                          style: GoogleFonts.poppins(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0XFF007B3D),
-                          ),
+                      Text(
+                        'Masuk',
+                        style: GoogleFonts.poppins(
+                          color: Color(0xFF007B3D),
+                          fontSize: 32,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          'Selamat datang',
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0XFF1D1D1D),
-                          ),
+                      Text(
+                        'Selamat datang',
+                        style: GoogleFonts.poppins(
+                          color: Color(0xFF1D1D1D),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 32.0),
-                        child: Text(
-                          'Email',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0XFF1D1D1D),
-                          ),
+                      SizedBox(
+                        height: 32.0,
+                      ),
+                      Text(
+                        'NRP',
+                        style: GoogleFonts.poppins(
+                          color: Color(0xFF1D1D1D),
+                          fontWeight: FontWeight.w500,
                         ),
+                      ),
+                      SizedBox(
+                        height: 8.0,
                       ),
                       Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 8.0),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             width: 1.0,
-                            color: Color(0XFF007B3D),
+                            color: Color(0xFF007B3D),
                           ),
                         ),
                         child: TextField(
-                          controller: emailController,
+                          controller: nrpController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Masukkan alamat email',
+                            hintText: 'Masukkan NRP',
                             hintStyle: GoogleFonts.poppins(
                               textStyle: TextStyle(
-                                color: Color(0XFFC4C4C4),
+                                color: Color(0xFFC4C4C4),
                                 fontSize: 13,
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 16.0),
-                        child: Text(
-                          'Kata Sandi',
                           style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0XFF1D1D1D),
+                            textStyle: TextStyle(
+                              color: Color(0xFF1D1D1D),
+                              fontSize: 13,
+                            ),
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      Text(
+                        'Kata Sandi',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF1D1D1D),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8.0,
+                      ),
                       Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 8.0),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.only(left: 12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             width: 1.0,
-                            color: Color(0XFF007B3D),
+                            color: Color(0xFF007B3D),
                           ),
                         ),
                         child: TextField(
@@ -146,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: 'Masukkan kata sandi',
                             hintStyle: GoogleFonts.poppins(
                               textStyle: TextStyle(
-                                color: Color(0XFFC4C4C4),
+                                color: Color(0xFFC4C4C4),
                                 fontSize: 13,
                               ),
                             ),
@@ -156,8 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: this._isObscure
-                                    ? Color(0XFF007B3D)
-                                    : Color(0XFF007B3D),
+                                    ? Color(0xFF007B3D)
+                                    : Color(0xFF007B3D),
                               ),
                               onPressed: () {
                                 setState(() {
@@ -166,54 +170,58 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             ),
                           ),
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: Color(0xFF1D1D1D),
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Lupa kata sandi?',
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/forgot-password',
+                              );
+                            },
+                            child: Text(
+                              "Lupa kata sandi?",
                               style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
-                                  color: Color(0XFF1D1D1D),
+                                  color: Color(0xFF007B3D),
                                   fontSize: 12,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "Reset",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Color(0XFF007B3D),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 32.0,
                       ),
                       Container(
-                        alignment: Alignment.center,
+                        height: 48,
                         width: double.infinity,
-                        margin: EdgeInsets.symmetric(
-                          vertical: 32.0,
-                        ),
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamedAndRemoveUntil(
-                                context, '/main', (route) => false);
+                              context,
+                              '/main',
+                              (route) => false,
+                            );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0XFF007B3D),
-                            minimumSize: Size(380, 56),
+                            primary: Color(0xFF007B3D),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(24),
                             ),
                           ),
                           child: Text(

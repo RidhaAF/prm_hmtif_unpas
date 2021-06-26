@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/ui/pages/home_page.dart';
-import 'package:prm_hmtif_unpas/ui/pages/profile_page.dart';
-import 'package:prm_hmtif_unpas/ui/pages/quick_count_page.dart';
-import 'package:prm_hmtif_unpas/ui/pages/vote_page.dart';
+import 'package:prm_hmtif_unpas/pages/home_page.dart';
+import 'package:prm_hmtif_unpas/pages/profile_page.dart';
+import 'package:prm_hmtif_unpas/pages/quick_count_page.dart';
+import 'package:prm_hmtif_unpas/pages/vote_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -46,25 +46,25 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(
               Icons.home,
             ),
-            label: 'Home',
+            label: 'Beranda',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.how_to_vote,
             ),
-            label: 'Vote',
+            label: 'Pilih',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.graphic_eq,
             ),
-            label: 'Quick Count',
+            label: 'Hitung Cepat',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person,
             ),
-            label: 'Profile',
+            label: 'Profil',
           ),
         ],
         currentIndex: _selectedIndex,
