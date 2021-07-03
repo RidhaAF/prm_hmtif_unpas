@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/theme/theme.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget header() {
       return Container(
-        color: Colors.white,
+        color: lightColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.all(16.0),
+                  margin: EdgeInsets.all(defaultMargin),
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: AssetImage('assets/prof_pic.jpg'),
+                        image: AssetImage('assets/img_prof_pic.jpg'),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -31,7 +32,7 @@ class ProfilePage extends StatelessWidget {
                         'Ridha Ahmad Firdaus',
                         style: GoogleFonts.poppins(
                           fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: semiBold,
                         ),
                       ),
                     ),
@@ -39,8 +40,7 @@ class ProfilePage extends StatelessWidget {
                       child: Text(
                         'Teknik Informatika',
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Color(0xFF1D1D1D),
+                          color: titleColor,
                         ),
                       ),
                     ),
@@ -48,8 +48,7 @@ class ProfilePage extends StatelessWidget {
                       child: Text(
                         '183040083',
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Color(0xFF1D1D1D),
+                          color: titleColor,
                         ),
                       ),
                     ),
@@ -62,17 +61,17 @@ class ProfilePage extends StatelessWidget {
       );
     }
 
-    Widget section(String sectionName) {
+    Widget sectionList(String sectionName) {
       return Container(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(defaultMargin),
         width: double.infinity,
-        color: Colors.white,
+        color: lightColor,
         child: Text(
           sectionName,
           style: GoogleFonts.poppins(
+            color: primaryColor,
             fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF007B3D),
+            fontWeight: semiBold,
           ),
         ),
       );
@@ -81,9 +80,9 @@ class ProfilePage extends StatelessWidget {
     Widget menuList(IconData menuIcon, String menuName, bool isDivider) {
       return Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 16.0,
+          horizontal: defaultMargin,
         ),
-        color: Colors.white,
+        color: lightColor,
         child: Column(
           children: [
             Row(
@@ -91,7 +90,7 @@ class ProfilePage extends StatelessWidget {
               children: [
                 Icon(
                   menuIcon,
-                  color: Color(0xFF007B3D),
+                  color: primaryColor,
                 ),
                 SizedBox(
                   width: 8.0,
@@ -100,14 +99,13 @@ class ProfilePage extends StatelessWidget {
                   child: Text(
                     menuName,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: Color(0xFF1D1D1D),
+                      color: titleColor,
                     ),
                   ),
                 ),
                 Icon(
                   Icons.keyboard_arrow_right,
-                  color: Color(0xFF007B3D),
+                  color: primaryColor,
                 ),
               ],
             ),
@@ -126,7 +124,7 @@ class ProfilePage extends StatelessWidget {
         height: 48,
         width: double.infinity,
         margin: EdgeInsets.symmetric(
-          horizontal: 16.0,
+          horizontal: defaultMargin,
           vertical: 32.0,
         ),
         child: ElevatedButton(
@@ -134,18 +132,13 @@ class ProfilePage extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/login', (route) => false);
           },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-          ),
+          style: secondaryButtonStyle,
           child: Text(
             'Keluar',
             style: GoogleFonts.poppins(
-              color: Colors.white,
+              color: lightColor,
               fontSize: 18,
-              fontWeight: FontWeight.w600,
+              fontWeight: semiBold,
             ),
           ),
         ),
@@ -153,34 +146,34 @@ class ProfilePage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFC),
       appBar: AppBar(
-        backgroundColor: Color(0xFF007B3D),
+        backgroundColor: primaryColor,
         brightness: Brightness.dark,
         title: Text(
-          'Profile',
+          'Profil',
           style: GoogleFonts.poppins(
             fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,
       ),
+      backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
         child: Column(
           children: [
             header(),
             SizedBox(
-              height: 16.0,
+              height: defaultMargin,
             ),
-            section('Akun'),
+            sectionList('Akun'),
             menuList(Icons.edit, 'Ubah Profil', true),
             menuList(Icons.notifications, 'Pemberitahuan', true),
             menuList(Icons.lock, 'Keamanan', false),
             SizedBox(
-              height: 16.0,
+              height: defaultMargin,
             ),
-            section('Tentang'),
+            sectionList('Tentang'),
             menuList(Icons.star, 'Menilai Aplikasi', true),
             menuList(Icons.text_snippet, 'Syarat dan Ketentuan', true),
             menuList(Icons.help, 'Pusat Bantuan', false),

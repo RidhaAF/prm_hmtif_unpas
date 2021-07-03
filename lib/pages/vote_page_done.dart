@@ -1,37 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/theme/theme.dart';
 
 class VotePageDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0XFF007B3D),
+        backgroundColor: primaryColor,
         brightness: Brightness.dark,
         title: Text(
-          'Vote',
+          'Pilih',
           style: GoogleFonts.poppins(
             fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,
       ),
+      backgroundColor: backgroundColor1,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.how_to_vote,
-              color: Color(0XFF007B3D),
+              color: primaryColor,
               size: 256,
             ),
             Text(
               'Terima kasih pilihan anda sudah tersimpan!',
               style: GoogleFonts.poppins(
+                color: primaryColor,
                 fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Color(0XFF007B3D),
+                fontWeight: medium,
               ),
               textAlign: TextAlign.center,
             ),

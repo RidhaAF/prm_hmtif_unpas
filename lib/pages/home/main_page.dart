@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/pages/home_page.dart';
-import 'package:prm_hmtif_unpas/pages/profile_page.dart';
-import 'package:prm_hmtif_unpas/pages/quick_count_page.dart';
-import 'package:prm_hmtif_unpas/pages/vote_page.dart';
+import 'package:prm_hmtif_unpas/pages/home/home_page.dart';
+import 'package:prm_hmtif_unpas/pages/home/profile_page.dart';
+import 'package:prm_hmtif_unpas/pages/home/quick_count_page.dart';
+import 'package:prm_hmtif_unpas/pages/home/vote_page.dart';
 
 class MainPage extends StatefulWidget {
   @override

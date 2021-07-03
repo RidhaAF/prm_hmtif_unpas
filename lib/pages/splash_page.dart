@@ -2,55 +2,45 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/theme/theme.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashPage extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashPageState createState() => _SplashPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
 
     Timer(Duration(seconds: 3), () {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/login',
-        (route) => false,
-      );
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              'assets/background.png',
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
+      backgroundColor: primaryColor,
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               child: Image.asset(
                 'assets/logo_hmtif.png',
+                width: 120,
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 16.0),
+              margin: EdgeInsets.only(top: defaultMargin),
               child: Text(
                 'PEMILU RAYA MAHASISWA \nHMTIF-UNPAS',
                 style: GoogleFonts.poppins(
+                  color: lightColor,
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  fontWeight: bold,
                 ),
                 textAlign: TextAlign.center,
               ),
