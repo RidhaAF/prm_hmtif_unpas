@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 
@@ -13,7 +14,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
   Widget build(BuildContext context) {
     Widget candidatePicture() {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.50,
+        height: 250,
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -32,7 +33,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
         children: [
           Text(
             'Ridha Ahmad Firdaus',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: titleColor,
               fontSize: 24,
               fontWeight: bold,
@@ -40,7 +41,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
           ),
           Text(
             '183040083',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: subtitleColor,
             ),
           ),
@@ -57,15 +58,15 @@ class _DetailVotePageState extends State<DetailVotePage> {
         children: [
           Text(
             'Visi',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: titleColor,
               fontSize: 20,
-              fontWeight: semiBold,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             'Menjadikan HMTIF-UNPAS menjadi lembaga kemahasiswaan yang optimal dalam pengembangan kualitas sumberdaya mahasiswa baik segi akademik maupun non akademik dengan menjunjung tinggi pancasila dan tri dharma perguruan tinggi.',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: subtitleColor,
             ),
           ),
@@ -82,15 +83,15 @@ class _DetailVotePageState extends State<DetailVotePage> {
         children: [
           Text(
             'Misi',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: titleColor,
               fontSize: 20,
-              fontWeight: semiBold,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             '1. Menjalin komunikasi yang baik dengan stakeholder terkait. \n2. Mengembangkan ide dari mahasiswa. \n3. Mengoptimalkan pengembangan dan pembinaan mahasiswa.',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: subtitleColor,
             ),
           ),
@@ -107,15 +108,15 @@ class _DetailVotePageState extends State<DetailVotePage> {
         builder: (_) => AlertDialog(
           title: Text(
             'Pilih',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: titleColor,
               fontSize: 18,
-              fontWeight: semiBold,
+              fontWeight: FontWeight.w600,
             ),
           ),
           content: Text(
-            'Pilih Ridha Ahmad Firdaus sebagai Ketua HMTIF-UNPAS Periode 2021/2022',
-            style: GoogleFonts.poppins(
+            'Pilih Ridha Ahmad Firdaus sebagai Ketua Umum HMTIF-UNPAS Periode 2022/2023',
+            style: GoogleFonts.inter(
               color: titleColor,
               fontSize: 16,
             ),
@@ -125,8 +126,8 @@ class _DetailVotePageState extends State<DetailVotePage> {
               onPressed: () => Navigator.pop(context, 'Batal'),
               child: Text(
                 'Batal',
-                style: GoogleFonts.poppins(
-                  color: titleColor,
+                style: GoogleFonts.inter(
+                  color: greyColor,
                 ),
               ),
             ),
@@ -134,9 +135,9 @@ class _DetailVotePageState extends State<DetailVotePage> {
               onPressed: () => Navigator.pushNamed(context, '/voted'),
               child: Text(
                 'Pilih',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: primaryColor,
-                  fontWeight: bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -157,10 +158,10 @@ class _DetailVotePageState extends State<DetailVotePage> {
           style: primaryButtonStyle,
           child: Text(
             'Pilih Kandidat',
-            style: GoogleFonts.poppins(
-              color: lightColor,
+            style: GoogleFonts.inter(
+              color: whiteColor,
               fontSize: 18,
-              fontWeight: semiBold,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
@@ -171,17 +172,8 @@ class _DetailVotePageState extends State<DetailVotePage> {
       return Column(
         children: [
           Container(
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.4),
             padding: EdgeInsets.all(defaultMargin),
             width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-              color: backgroundColor1,
-            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -199,19 +191,19 @@ class _DetailVotePageState extends State<DetailVotePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Pilih',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: semiBold,
+            fontWeight: FontWeight.w600,
           ),
         ),
         centerTitle: true,
       ),
-      backgroundColor: backgroundColor1,
+      backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
-        child: Stack(
+        child: Column(
           children: [
             candidatePicture(),
             content(),

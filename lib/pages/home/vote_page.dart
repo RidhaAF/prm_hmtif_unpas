@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 
@@ -9,13 +10,13 @@ class VotePage extends StatelessWidget {
         BuildContext context, String voteImage, String name, String nrp) {
       return GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/candidate-profile');
+          Navigator.pushNamed(context, '/candidate');
         },
         child: Container(
           margin: EdgeInsets.only(bottom: defaultMargin),
           width: MediaQuery.of(context).size.width / 2 - 24,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(defaultRadius),
             color: backgroundColor1,
             boxShadow: [
               primaryBoxShadow,
@@ -34,8 +35,8 @@ class VotePage extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12.0),
-                    topRight: Radius.circular(12.0),
+                    topLeft: Radius.circular(defaultRadius),
+                    topRight: Radius.circular(defaultRadius),
                   ),
                 ),
               ),
@@ -46,19 +47,18 @@ class VotePage extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                      style: GoogleFonts.inter(
                         color: titleColor,
+                        fontWeight: FontWeight.w600,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       nrp,
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
+                      style: GoogleFonts.inter(
                         color: subtitleColor,
+                        fontSize: 12,
                       ),
                     ),
                   ],
@@ -73,20 +73,20 @@ class VotePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Pilih',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: semiBold,
+            fontWeight: FontWeight.w600,
           ),
         ),
         centerTitle: true,
       ),
-      backgroundColor: backgroundColor1,
+      backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(defaultMargin),
+          margin: EdgeInsets.all(defaultMargin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

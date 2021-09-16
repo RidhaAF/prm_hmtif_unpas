@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -11,57 +13,65 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController _nrpController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool _isObscure = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    Widget header() {
-      return Center(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: defaultMargin),
-              child: Image.asset(
-                'assets/logo_hmtif.png',
-                width: 96,
-              ),
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleSignIn() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await authProvider.login(
+        nrp: _nrpController.text,
+        password: _passwordController.text,
+      )) {
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: redColor,
+            content: Text(
+              'Login Gagal!',
+              textAlign: TextAlign.center,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: defaultMargin),
-              child: Text(
-                'PEMILU RAYA MAHASISWA \nHMTIF-UNPAS',
-                style: GoogleFonts.poppins(
-                  color: lightColor,
-                  fontSize: 24,
-                  fontWeight: bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      );
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
     }
 
-    Widget title() {
+    Widget header() {
       return Container(
-        margin: EdgeInsets.only(bottom: defaultMargin * 2),
+        padding: EdgeInsets.only(
+          left: defaultMargin,
+          right: defaultMargin,
+        ),
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: double.infinity,
+        color: primaryColor,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Masuk',
-              style: GoogleFonts.poppins(
-                color: primaryColor,
-                fontSize: 32,
-                fontWeight: semiBold,
+              style: GoogleFonts.inter().copyWith(
+                color: whiteColor,
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
               ),
             ),
             Text(
-              'Selamat datang',
-              style: GoogleFonts.poppins(
-                color: titleColor,
-                fontSize: 18,
-                fontWeight: medium,
+              'Silahkan masuk untuk melanjutkan',
+              style: GoogleFonts.inter().copyWith(
+                color: greyColor,
+                fontSize: 12,
               ),
             ),
           ],
@@ -75,8 +85,8 @@ class _SignInPageState extends State<SignInPage> {
         children: [
           Text(
             'NRP',
-            style: GoogleFonts.poppins(
-              color: titleColor,
+            style: GoogleFonts.inter(
+              color: primaryColor,
               fontWeight: medium,
             ),
           ),
@@ -96,12 +106,12 @@ class _SignInPageState extends State<SignInPage> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Masukkan NRP',
-                hintStyle: GoogleFonts.poppins(
+                hintStyle: GoogleFonts.inter(
                   color: greyColor,
                   fontSize: 13,
                 ),
               ),
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: titleColor,
                 ),
@@ -118,8 +128,8 @@ class _SignInPageState extends State<SignInPage> {
         children: [
           Text(
             'Kata Sandi',
-            style: GoogleFonts.poppins(
-              color: titleColor,
+            style: GoogleFonts.inter(
+              color: primaryColor,
               fontWeight: medium,
             ),
           ),
@@ -137,7 +147,7 @@ class _SignInPageState extends State<SignInPage> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Masukkan kata sandi',
-                hintStyle: GoogleFonts.poppins(
+                hintStyle: GoogleFonts.inter(
                   color: greyColor,
                   fontSize: 13,
                 ),
@@ -153,7 +163,7 @@ class _SignInPageState extends State<SignInPage> {
                   },
                 ),
               ),
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: titleColor,
               ),
             ),
@@ -175,10 +185,11 @@ class _SignInPageState extends State<SignInPage> {
             },
             child: Text(
               "Lupa kata sandi?",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: primaryColor,
                 fontSize: 12,
                 fontWeight: medium,
+                decoration: TextDecoration.underline,
               ),
             ),
           ),
@@ -191,19 +202,17 @@ class _SignInPageState extends State<SignInPage> {
         height: 48,
         width: double.infinity,
         margin: EdgeInsets.only(
-          top: 32.0,
           bottom: defaultMargin,
         ),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/main', (route) => false);
+            handleSignIn();
           },
           style: primaryButtonStyle,
           child: Text(
             'Masuk',
-            style: GoogleFonts.poppins(
-              color: lightColor,
+            style: GoogleFonts.inter(
+              color: whiteColor,
               fontSize: 18,
               fontWeight: semiBold,
             ),
@@ -214,49 +223,33 @@ class _SignInPageState extends State<SignInPage> {
 
     Widget content() {
       return Container(
-        height: 470,
-        width: double.infinity,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.4),
-        padding: EdgeInsets.all(defaultMargin),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          color: backgroundColor1,
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultMargin,
+          vertical: 64,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            title(),
             inputNRP(),
             inputPassword(),
             forgotPassword(),
-            loginButton(),
+            SizedBox(height: 32),
+            isLoading
+                ? CircularProgressIndicator(
+                    color: primaryColor,
+                  )
+                : loginButton(),
           ],
         ),
       );
     }
 
     return Scaffold(
+      backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
-        child: Stack(
+        child: Column(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/img_background.png',
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SafeArea(
-              child: header(),
-            ),
+            header(),
             content(),
           ],
         ),

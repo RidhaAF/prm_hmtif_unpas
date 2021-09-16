@@ -4,6 +4,9 @@ import 'package:prm_hmtif_unpas/pages/home/home_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/profile_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/quick_count_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/vote_page.dart';
+import 'package:prm_hmtif_unpas/providers/page_provider.dart';
+import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -11,7 +14,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     VotePage(),
@@ -19,26 +21,22 @@ class _MainPageState extends State<MainPage> {
     ProfilePage(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
+
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(pageProvider.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: Color(0XFF007B3D),
-        unselectedItemColor: Color(0XFFC4C4C4),
-        selectedLabelStyle: GoogleFonts.poppins(
+        backgroundColor: backgroundColor1,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: greyColor,
+        selectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: GoogleFonts.poppins(
+        unselectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,
         ),
         items: const <BottomNavigationBarItem>[
@@ -56,7 +54,7 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.graphic_eq,
+              Icons.bar_chart_rounded,
             ),
             label: 'Hitung Cepat',
           ),
@@ -67,8 +65,10 @@ class _MainPageState extends State<MainPage> {
             label: 'Profil',
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        currentIndex: pageProvider.currentIndex,
+        onTap: (index) {
+          pageProvider.currentIndex = index;
+        },
       ),
     );
   }

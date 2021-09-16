@@ -1,13 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:provider/provider.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     Widget header() {
       return Container(
-        color: lightColor,
+        color: whiteColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -20,7 +52,9 @@ class ProfilePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: AssetImage('assets/img_prof_pic.jpg'),
+                        image: NetworkImage(
+                          authProvider.user.profilePhotoUrl ?? 'Foto Profil',
+                        ),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -29,25 +63,25 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     Container(
                       child: Text(
-                        'Ridha Ahmad Firdaus',
-                        style: GoogleFonts.poppins(
+                        authProvider.user.name ?? 'Nama',
+                        style: GoogleFonts.inter(
                           fontSize: 18,
-                          fontWeight: semiBold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                     Container(
                       child: Text(
-                        'Teknik Informatika',
-                        style: GoogleFonts.poppins(
+                        authProvider.user.major ?? 'Jurusan',
+                        style: GoogleFonts.inter(
                           color: titleColor,
                         ),
                       ),
                     ),
                     Container(
                       child: Text(
-                        '183040083',
-                        style: GoogleFonts.poppins(
+                        authProvider.user.nrp ?? 'NRP',
+                        style: GoogleFonts.inter(
                           color: titleColor,
                         ),
                       ),
@@ -65,13 +99,13 @@ class ProfilePage extends StatelessWidget {
       return Container(
         padding: EdgeInsets.all(defaultMargin),
         width: double.infinity,
-        color: lightColor,
+        color: whiteColor,
         child: Text(
           sectionName,
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             color: primaryColor,
             fontSize: 18,
-            fontWeight: semiBold,
+            fontWeight: FontWeight.w600,
           ),
         ),
       );
@@ -82,7 +116,7 @@ class ProfilePage extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: defaultMargin,
         ),
-        color: lightColor,
+        color: whiteColor,
         child: Column(
           children: [
             Row(
@@ -98,7 +132,7 @@ class ProfilePage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     menuName,
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       color: titleColor,
                     ),
                   ),
@@ -119,13 +153,31 @@ class ProfilePage extends StatelessWidget {
       );
     }
 
+    Widget _infoPackage(String title, String packageInfo) {
+      return Container(
+        margin: EdgeInsets.only(
+          top: defaultMargin,
+          left: defaultMargin,
+        ),
+        child: Text(
+          '$title $packageInfo',
+          style: GoogleFonts.inter(
+            color: greyColor,
+            fontSize: 12,
+          ),
+        ),
+      );
+    }
+
     Widget logoutButton() {
       return Container(
         height: 48,
         width: double.infinity,
-        margin: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
-          vertical: 32.0,
+        margin: EdgeInsets.fromLTRB(
+          defaultMargin,
+          defaultMargin,
+          defaultMargin,
+          64,
         ),
         child: ElevatedButton(
           onPressed: () {
@@ -135,10 +187,10 @@ class ProfilePage extends StatelessWidget {
           style: secondaryButtonStyle,
           child: Text(
             'Keluar',
-            style: GoogleFonts.poppins(
-              color: lightColor,
+            style: GoogleFonts.inter(
+              color: whiteColor,
               fontSize: 18,
-              fontWeight: semiBold,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
@@ -148,12 +200,12 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Profil',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: semiBold,
+            fontWeight: FontWeight.w600,
           ),
         ),
         centerTitle: true,
@@ -161,6 +213,7 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             header(),
             SizedBox(
@@ -177,6 +230,7 @@ class ProfilePage extends StatelessWidget {
             menuList(Icons.star, 'Menilai Aplikasi', true),
             menuList(Icons.text_snippet, 'Syarat dan Ketentuan', true),
             menuList(Icons.help, 'Pusat Bantuan', false),
+            _infoPackage('Versi', _packageInfo.version),
             logoutButton(),
           ],
         ),

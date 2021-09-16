@@ -1,43 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 
 class VotePageDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Widget illustration() {
+      return Container(
+        height: 250,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/il_voted.png'),
+          ),
+        ),
+      );
+    }
+
+    Widget descriptionText() {
+      return Text(
+        'Terima kasih pilihan anda\nsudah tersimpan!',
+        style: GoogleFonts.inter(
+          color: primaryColor,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+        textAlign: TextAlign.center,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Pilih',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: semiBold,
+            fontWeight: FontWeight.w600,
           ),
         ),
         centerTitle: true,
       ),
-      backgroundColor: backgroundColor1,
+      backgroundColor: backgroundColor2,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.how_to_vote,
-              color: primaryColor,
-              size: 256,
-            ),
-            Text(
-              'Terima kasih pilihan anda sudah tersimpan!',
-              style: GoogleFonts.poppins(
-                color: primaryColor,
-                fontSize: 18,
-                fontWeight: medium,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
+        child: Container(
+          margin: EdgeInsets.all(defaultMargin),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              illustration(),
+              SizedBox(height: 32),
+              descriptionText(),
+            ],
+          ),
         ),
       ),
     );
