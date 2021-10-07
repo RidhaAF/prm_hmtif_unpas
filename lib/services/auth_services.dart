@@ -4,7 +4,7 @@ import 'package:prm_hmtif_unpas/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  String baseUrl = 'https://15ca-103-23-33-214.ngrok.io/api';
+  String baseUrl = 'https://0926-103-23-33-214.ngrok.io/api';
 
   Future<UserModel> register({
     String? nrp,
