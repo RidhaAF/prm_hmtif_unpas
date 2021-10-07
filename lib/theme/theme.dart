@@ -6,14 +6,17 @@ double defaultRadius = 8.0;
 
 Color primaryColor = Color(0xFF007B3D);
 Color accentColor = Color(0xFF007B3D).withOpacity(0.5);
+Color lightGreenColor = Color(0xFF00A351);
 Color titleColor = Color(0xFF1D1D1D);
 Color subtitleColor = Color(0xFF505050);
 Color blackColor = Color(0xFF000000);
 Color whiteColor = Color(0xFFFFFFFF);
 Color lightColor = Color(0xFFFAFAFC);
 Color greyColor = Color(0XFFC4C4C4);
+Color lightGreyColor = Color(0XFFEEEEEE);
 Color darkGreyColor = Color(0xFF999999);
 Color redColor = Color(0XFFDD0000);
+Color lightRedColor = Color(0XFFFF0000);
 Color darkRedColor = Color(0XFFB63C2F);
 Color yellowColor = Color(0XFFFFF500);
 Color backgroundColor1 = Color(0xFFFFFFFF);
@@ -55,17 +58,21 @@ FontWeight extraBold = FontWeight.w800;
 FontWeight black = FontWeight.w900;
 
 ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
+  padding: EdgeInsets.zero,
   primary: primaryColor,
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(defaultRadius),
   ),
+  shadowColor: lightGreenColor,
 );
 
 ButtonStyle secondaryButtonStyle = ElevatedButton.styleFrom(
+  padding: EdgeInsets.zero,
   primary: redColor,
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(defaultRadius),
   ),
+  shadowColor: lightRedColor,
 );
 
 Border primaryBorder = Border.all(
@@ -74,8 +81,26 @@ Border primaryBorder = Border.all(
 );
 
 BoxShadow primaryBoxShadow = BoxShadow(
-  color: blackColor.withOpacity(0.15),
+  color: blackColor.withOpacity(0.10),
   spreadRadius: 0,
-  blurRadius: 24,
-  offset: Offset(0, 8), // changes position of shadow
+  blurRadius: 16,
+  offset: Offset(0, 0), // changes position of shadow
+);
+
+LinearGradient primaryGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [
+    primaryColor,
+    lightGreenColor,
+  ],
+);
+
+LinearGradient secondaryGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [
+    lightRedColor,
+    redColor,
+  ],
 );
