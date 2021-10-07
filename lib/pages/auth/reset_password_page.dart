@@ -20,7 +20,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ),
         height: MediaQuery.of(context).size.height * 0.2,
         width: double.infinity,
-        color: primaryColor,
+        decoration: BoxDecoration(
+          gradient: primaryGradient,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,9 +36,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ),
             ),
             Text(
-              'Silahkan masukkan email anda untuk melanjutkan',
+              'Silakan masukkan email anda untuk melanjutkan',
               style: GoogleFonts.inter().copyWith(
-                color: greyColor,
+                color: lightGreyColor,
                 fontSize: 12,
               ),
             ),
@@ -52,8 +54,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           Text(
             'Email',
             style: GoogleFonts.inter(
-              color: primaryColor,
-              fontWeight: medium,
+              color: titleColor,
+              fontWeight: FontWeight.w500,
             ),
           ),
           Container(
@@ -101,7 +103,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               style: GoogleFonts.inter(
                 color: primaryColor,
                 fontSize: 12,
-                fontWeight: medium,
                 decoration: TextDecoration.underline,
               ),
             ),
@@ -112,10 +113,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
     Widget sendButton() {
       return Container(
-        height: 48,
-        width: double.infinity,
         margin: EdgeInsets.only(
-          top: 32.0,
+          top: defaultMargin,
           bottom: defaultMargin,
         ),
         child: ElevatedButton(
@@ -124,12 +123,23 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 context, '/main', (route) => false);
           },
           style: primaryButtonStyle,
-          child: Text(
-            'Kirim',
-            style: GoogleFonts.inter(
-              color: whiteColor,
-              fontSize: 18,
-              fontWeight: semiBold,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: primaryGradient,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Container(
+              height: 48,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                'Kirim',
+                style: GoogleFonts.inter(
+                  color: whiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),
@@ -138,9 +148,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
     Widget content() {
       return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
-          vertical: 64,
+        padding: EdgeInsets.fromLTRB(
+          defaultMargin,
+          defaultMargin,
+          defaultMargin,
+          64,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

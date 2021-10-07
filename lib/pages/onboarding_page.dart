@@ -42,8 +42,6 @@ class OnboardingPage extends StatelessWidget {
 
     Widget getStartedButton() {
       return Container(
-        height: 48,
-        width: 152,
         margin: EdgeInsets.only(
           top: 64,
           bottom: defaultMargin,
@@ -54,12 +52,23 @@ class OnboardingPage extends StatelessWidget {
                 context, '/login', (route) => false);
           },
           style: primaryButtonStyle,
-          child: Text(
-            'Mulai',
-            style: GoogleFonts.inter(
-              color: whiteColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: primaryGradient,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Container(
+              height: 48,
+              width: 152,
+              alignment: Alignment.center,
+              child: Text(
+                'Mulai',
+                style: GoogleFonts.inter(
+                  color: whiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),

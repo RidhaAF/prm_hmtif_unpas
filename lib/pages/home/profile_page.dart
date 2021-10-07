@@ -39,7 +39,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Widget header() {
       return Container(
-        color: whiteColor,
+        margin: EdgeInsets.all(defaultMargin),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(defaultRadius),
+          color: whiteColor,
+          boxShadow: [
+            primaryBoxShadow,
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,10 +59,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: NetworkImage(
-                          authProvider.user.profilePhotoUrl ?? 'Foto Profil',
-                        ),
-                        fit: BoxFit.cover),
+                      // image: NetworkImage(
+                      //   authProvider.user.profilePhotoUrl ?? 'Foto Profil',
+                      // ),
+                      image: AssetImage('assets/img_prof_pic.jpg'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Column(
@@ -63,26 +72,32 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Container(
                       child: Text(
-                        authProvider.user.name ?? 'Nama',
+                        // authProvider.user.name ?? 'Nama',
+                        'Ridha Ahmad Firdaus',
                         style: GoogleFonts.inter(
+                          color: titleColor,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
+                    SizedBox(height: 4),
                     Container(
                       child: Text(
-                        authProvider.user.major ?? 'Jurusan',
+                        // authProvider.user.major ?? 'Jurusan',
+                        'Teknik Informatika',
                         style: GoogleFonts.inter(
-                          color: titleColor,
+                          color: subtitleColor,
                         ),
                       ),
                     ),
+                    SizedBox(height: 4),
                     Container(
                       child: Text(
-                        authProvider.user.nrp ?? 'NRP',
+                        // authProvider.user.nrp ?? 'NRP',
+                        '183040083',
                         style: GoogleFonts.inter(
-                          color: titleColor,
+                          color: subtitleColor,
                         ),
                       ),
                     ),
@@ -96,60 +111,43 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
     Widget sectionList(String sectionName) {
-      return Container(
-        padding: EdgeInsets.all(defaultMargin),
-        width: double.infinity,
-        color: whiteColor,
-        child: Text(
-          sectionName,
-          style: GoogleFonts.inter(
-            color: primaryColor,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
+      return Text(
+        sectionName,
+        style: GoogleFonts.inter(
+          color: primaryColor,
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
         ),
       );
     }
 
     Widget menuList(IconData menuIcon, String menuName, bool isDivider) {
-      return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
-        ),
-        color: whiteColor,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  menuIcon,
-                  color: primaryColor,
-                ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Expanded(
-                  child: Text(
-                    menuName,
-                    style: GoogleFonts.inter(
-                      color: titleColor,
-                    ),
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                menuIcon,
+                color: primaryColor,
+              ),
+              SizedBox(width: 8.0),
+              Expanded(
+                child: Text(
+                  menuName,
+                  style: GoogleFonts.inter(
+                    color: titleColor,
                   ),
                 ),
-                Icon(
-                  Icons.keyboard_arrow_right,
-                  color: primaryColor,
-                ),
-              ],
-            ),
-            isDivider
-                ? Divider()
-                : SizedBox(
-                    height: 8.0,
-                  ),
-          ],
-        ),
+              ),
+              Icon(
+                Icons.keyboard_arrow_right,
+                color: primaryColor,
+              ),
+            ],
+          ),
+          isDivider ? Divider() : SizedBox(),
+        ],
       );
     }
 
@@ -171,8 +169,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Widget logoutButton() {
       return Container(
-        height: 48,
-        width: double.infinity,
         margin: EdgeInsets.fromLTRB(
           defaultMargin,
           defaultMargin,
@@ -185,12 +181,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 context, '/login', (route) => false);
           },
           style: secondaryButtonStyle,
-          child: Text(
-            'Keluar',
-            style: GoogleFonts.inter(
-              color: whiteColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: secondaryGradient,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Container(
+              height: 48,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                'Keluar',
+                style: GoogleFonts.inter(
+                  color: whiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),
@@ -200,6 +207,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
+        elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Profil',
@@ -216,20 +224,69 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             header(),
-            SizedBox(
-              height: defaultMargin,
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              padding: EdgeInsets.all(defaultMargin),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(defaultRadius),
+                color: backgroundColor1,
+                boxShadow: [
+                  primaryBoxShadow,
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sectionList('Akun'),
+                  SizedBox(height: 8.0),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/edit-profile'),
+                    child: menuList(Icons.edit, 'Ubah Profil', true),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                    child: menuList(Icons.notifications, 'Pemberitahuan', true),
+                  ),
+                  GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, '/change-password'),
+                    child: menuList(Icons.lock, 'Ubah Kata Sandi', false),
+                  ),
+                ],
+              ),
             ),
-            sectionList('Akun'),
-            menuList(Icons.edit, 'Ubah Profil', true),
-            menuList(Icons.notifications, 'Pemberitahuan', true),
-            menuList(Icons.lock, 'Keamanan', false),
-            SizedBox(
-              height: defaultMargin,
+            SizedBox(height: defaultMargin),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              padding: EdgeInsets.all(defaultMargin),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(defaultRadius),
+                color: backgroundColor1,
+                boxShadow: [
+                  primaryBoxShadow,
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sectionList('Tentang'),
+                  SizedBox(height: 8.0),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                    child: menuList(Icons.star, 'Menilai Aplikasi', true),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                    child: menuList(
+                        Icons.text_snippet, 'Syarat dan Ketentuan', true),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                    child: menuList(Icons.help, 'Pusat Bantuan', false),
+                  ),
+                ],
+              ),
             ),
-            sectionList('Tentang'),
-            menuList(Icons.star, 'Menilai Aplikasi', true),
-            menuList(Icons.text_snippet, 'Syarat dan Ketentuan', true),
-            menuList(Icons.help, 'Pusat Bantuan', false),
             _infoPackage('Versi', _packageInfo.version),
             logoutButton(),
           ],

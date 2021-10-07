@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prm_hmtif_unpas/pages/change_password_page.dart';
+import 'package:prm_hmtif_unpas/pages/coming_soon_page.dart';
+import 'package:prm_hmtif_unpas/pages/edit_profile_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +47,9 @@ class MyApp extends StatelessWidget {
           '/voted': (context) => VotePageDone(),
           '/quick-count': (context) => QuickCountPage(),
           '/profile': (context) => ProfilePage(),
+          '/edit-profile': (context) => EditProfilePage(),
+          '/change-password': (context) => ChangePasswordPage(),
+          '/coming-soon': (context) => ComingSoonPage(),
         },
       ),
     );

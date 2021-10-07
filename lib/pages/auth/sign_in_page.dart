@@ -52,9 +52,11 @@ class _SignInPageState extends State<SignInPage> {
           left: defaultMargin,
           right: defaultMargin,
         ),
-        height: MediaQuery.of(context).size.height * 0.2,
+        height: MediaQuery.of(context).size.height * 0.25,
         width: double.infinity,
-        color: primaryColor,
+        decoration: BoxDecoration(
+          gradient: primaryGradient,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,9 +70,9 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             Text(
-              'Silahkan masuk untuk melanjutkan',
+              'Silakan masuk untuk melanjutkan',
               style: GoogleFonts.inter().copyWith(
-                color: greyColor,
+                color: lightGreyColor,
                 fontSize: 12,
               ),
             ),
@@ -86,8 +88,8 @@ class _SignInPageState extends State<SignInPage> {
           Text(
             'NRP',
             style: GoogleFonts.inter(
-              color: primaryColor,
-              fontWeight: medium,
+              color: titleColor,
+              fontWeight: FontWeight.w500,
             ),
           ),
           Container(
@@ -129,8 +131,8 @@ class _SignInPageState extends State<SignInPage> {
           Text(
             'Kata Sandi',
             style: GoogleFonts.inter(
-              color: primaryColor,
-              fontWeight: medium,
+              color: titleColor,
+              fontWeight: FontWeight.w500,
             ),
           ),
           Container(
@@ -153,7 +155,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isObscure ? Icons.visibility_off : Icons.visibility,
+                    _isObscure ? Icons.visibility : Icons.visibility_off,
                     color: this._isObscure ? primaryColor : primaryColor,
                   ),
                   onPressed: () {
@@ -188,7 +190,6 @@ class _SignInPageState extends State<SignInPage> {
               style: GoogleFonts.inter(
                 color: primaryColor,
                 fontSize: 12,
-                fontWeight: medium,
                 decoration: TextDecoration.underline,
               ),
             ),
@@ -199,22 +200,34 @@ class _SignInPageState extends State<SignInPage> {
 
     Widget loginButton() {
       return Container(
-        height: 48,
-        width: double.infinity,
-        margin: EdgeInsets.only(
-          bottom: defaultMargin,
-        ),
+        margin: EdgeInsets.only(bottom: defaultMargin),
         child: ElevatedButton(
           onPressed: () {
-            handleSignIn();
+            // handleSignIn();
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/main',
+              (route) => false,
+            );
           },
           style: primaryButtonStyle,
-          child: Text(
-            'Masuk',
-            style: GoogleFonts.inter(
-              color: whiteColor,
-              fontSize: 18,
-              fontWeight: semiBold,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: primaryGradient,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Container(
+              height: 48,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                'Masuk',
+                style: GoogleFonts.inter(
+                  color: whiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),
@@ -223,9 +236,11 @@ class _SignInPageState extends State<SignInPage> {
 
     Widget content() {
       return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
-          vertical: 64,
+        padding: EdgeInsets.fromLTRB(
+          defaultMargin,
+          defaultMargin,
+          defaultMargin,
+          64,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

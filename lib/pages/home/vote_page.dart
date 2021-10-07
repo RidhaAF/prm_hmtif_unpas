@@ -73,6 +73,7 @@ class VotePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
+        elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Pilih',

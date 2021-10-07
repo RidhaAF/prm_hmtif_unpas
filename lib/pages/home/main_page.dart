@@ -34,7 +34,6 @@ class _MainPageState extends State<MainPage> {
         unselectedItemColor: greyColor,
         selectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,
-          fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,

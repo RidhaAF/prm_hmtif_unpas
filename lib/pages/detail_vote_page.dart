@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 
@@ -12,9 +11,40 @@ class DetailVotePage extends StatefulWidget {
 class _DetailVotePageState extends State<DetailVotePage> {
   @override
   Widget build(BuildContext context) {
+    Widget backButton() {
+      return SafeArea(
+        child: Container(
+          margin: EdgeInsets.only(
+            top: defaultMargin,
+            left: defaultMargin,
+          ),
+          height: 32,
+          width: 32,
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.circular(64),
+            boxShadow: [
+              primaryBoxShadow,
+            ],
+          ),
+          child: GestureDetector(
+            onTap: () => Navigator.pop(
+              context,
+              'Back',
+            ),
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: whiteColor,
+              size: 20,
+            ),
+          ),
+        ),
+      );
+    }
+
     Widget candidatePicture() {
       return Container(
-        height: 250,
+        height: 300,
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -148,20 +178,29 @@ class _DetailVotePageState extends State<DetailVotePage> {
 
     Widget voteButton() {
       return Container(
-        height: 48,
-        width: double.infinity,
         margin: EdgeInsets.only(bottom: defaultMargin),
         child: ElevatedButton(
           onPressed: () {
             _handleShowDialog();
           },
           style: primaryButtonStyle,
-          child: Text(
-            'Pilih Kandidat',
-            style: GoogleFonts.inter(
-              color: whiteColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: primaryGradient,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Container(
+              height: 48,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                'Pilih Kandidat',
+                style: GoogleFonts.inter(
+                  color: whiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),
@@ -189,24 +228,17 @@ class _DetailVotePageState extends State<DetailVotePage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        title: Text(
-          'Pilih',
-          style: GoogleFonts.inter(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
       backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            candidatePicture(),
-            content(),
+            Column(
+              children: [
+                candidatePicture(),
+                content(),
+              ],
+            ),
+            backButton(),
           ],
         ),
       ),

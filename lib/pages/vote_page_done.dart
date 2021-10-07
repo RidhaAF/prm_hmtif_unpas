@@ -24,7 +24,7 @@ class VotePageDone extends StatelessWidget {
         style: GoogleFonts.inter(
           color: primaryColor,
           fontSize: 18,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
         textAlign: TextAlign.center,
       );
@@ -33,6 +33,7 @@ class VotePageDone extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
+        elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Pilih',

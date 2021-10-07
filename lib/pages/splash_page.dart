@@ -22,31 +22,41 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget logo() {
+      return Container(
+        child: Image.asset(
+          'assets/logo_hmtif.png',
+          width: 96,
+        ),
+      );
+    }
+
+    Widget titleText() {
+      return Text(
+        'PEMILU RAYA MAHASISWA\nHMTIF-UNPAS',
+        style: GoogleFonts.inter(
+          color: whiteColor,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      );
+    }
+
     return Scaffold(
-      backgroundColor: primaryColor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Image.asset(
-                'assets/logo_hmtif.png',
-                width: 120,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: defaultMargin),
-              child: Text(
-                'PEMILU RAYA MAHASISWA \nHMTIF-UNPAS',
-                style: GoogleFonts.poppins(
-                  color: lightColor,
-                  fontSize: 24,
-                  fontWeight: bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: primaryGradient,
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              logo(),
+              SizedBox(height: defaultMargin),
+              titleText(),
+            ],
+          ),
         ),
       ),
     );
