@@ -4,14 +4,14 @@ import 'package:prm_hmtif_unpas/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  String baseUrl = 'https://0926-103-23-33-214.ngrok.io/api';
+  String baseUrl = 'https://prm-hmtif-unpas-backend.herokuapp.com/api';
 
   Future<UserModel> register({
     String? nrp,
     String? name,
+    String? username,
     String? email,
     String? password,
-    String? major,
     String? classYear,
   }) async {
     var url = '$baseUrl/register';
@@ -19,9 +19,9 @@ class AuthService {
     var body = jsonEncode({
       'nrp': nrp,
       'name': name,
+      'username': username,
       'email': email,
       'password': password,
-      'major': major,
       'class_year': classYear,
     });
 

@@ -2,9 +2,13 @@ class UserModel {
   int? id;
   String? nrp;
   String? name;
+  String? username;
   String? email;
+  String? roles;
   String? major;
   String? classYear;
+  int? voteStatus;
+  String? photo;
   String? profilePhotoUrl;
   String? token;
 
@@ -12,9 +16,13 @@ class UserModel {
     this.id,
     this.nrp,
     this.name,
+    this.username,
     this.email,
+    this.roles,
     this.major,
     this.classYear,
+    this.voteStatus,
+    this.photo,
     this.profilePhotoUrl,
     this.token,
   });
@@ -23,9 +31,13 @@ class UserModel {
     id = json['id'];
     nrp = json['nrp'];
     name = json['name'];
+    username = json['username'];
     email = json['email'];
+    roles = json['roles'];
     major = json['major'];
     classYear = json['class_year'];
+    voteStatus = json['vote_status'];
+    photo = json['photo'];
     profilePhotoUrl = json['profile_photo_url'];
     token = json['token'];
   }
@@ -35,9 +47,13 @@ class UserModel {
       'id': id,
       'nrp': nrp,
       'name': name,
+      'username': username,
       'email': email,
       'major': major,
+      'roles': roles,
       'class_year': classYear,
+      'vote_status': voteStatus,
+      'photo': photo,
       'profile_photo_url': profilePhotoUrl,
       'token': token,
     };
