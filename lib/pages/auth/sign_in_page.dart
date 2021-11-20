@@ -203,12 +203,12 @@ class _SignInPageState extends State<SignInPage> {
         margin: EdgeInsets.only(bottom: defaultMargin),
         child: ElevatedButton(
           onPressed: () {
-            // handleSignIn();
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              '/main',
-              (route) => false,
-            );
+            handleSignIn();
+            // Navigator.pushNamedAndRemoveUntil(
+            //   context,
+            //   '/main',
+            //   (route) => false,
+            // );
           },
           style: primaryButtonStyle,
           child: Ink(

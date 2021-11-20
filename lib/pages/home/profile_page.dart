@@ -47,64 +47,63 @@ class _ProfilePageState extends State<ProfilePage> {
             primaryBoxShadow,
           ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(defaultMargin),
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      // image: NetworkImage(
-                      //   authProvider.user.profilePhotoUrl ?? 'Foto Profil',
-                      // ),
-                      image: AssetImage('assets/img_prof_pic.jpg'),
-                      fit: BoxFit.cover,
+            Container(
+              margin: EdgeInsets.all(defaultMargin),
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    authProvider.user.profilePhotoUrl ?? 'Foto Profil',
+                  ),
+                  // image: AssetImage('assets/img_prof_pic.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Text(
+                      authProvider.user.name ?? 'Nama',
+                      // 'Ridha Ahmad Firdaus',
+                      style: GoogleFonts.inter(
+                        color: titleColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      child: Text(
-                        // authProvider.user.name ?? 'Nama',
-                        'Ridha Ahmad Firdaus',
-                        style: GoogleFonts.inter(
-                          color: titleColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
+                  SizedBox(height: 4),
+                  Container(
+                    child: Text(
+                      authProvider.user.major ?? 'Jurusan',
+                      // 'Teknik Informatika',
+                      style: GoogleFonts.inter(
+                        color: subtitleColor,
                       ),
                     ),
-                    SizedBox(height: 4),
-                    Container(
-                      child: Text(
-                        // authProvider.user.major ?? 'Jurusan',
-                        'Teknik Informatika',
-                        style: GoogleFonts.inter(
-                          color: subtitleColor,
-                        ),
+                  ),
+                  SizedBox(height: 4),
+                  Container(
+                    child: Text(
+                      authProvider.user.nrp ?? 'NRP',
+                      // '183040083',
+                      style: GoogleFonts.inter(
+                        color: subtitleColor,
                       ),
                     ),
-                    SizedBox(height: 4),
-                    Container(
-                      child: Text(
-                        // authProvider.user.nrp ?? 'NRP',
-                        '183040083',
-                        style: GoogleFonts.inter(
-                          color: subtitleColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       );

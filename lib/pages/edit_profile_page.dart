@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     Widget changeProfilePicture() {
       return Center(
         child: Column(
@@ -26,7 +30,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage('assets/img_prof_pic.jpg'),
+                  image: NetworkImage(
+                    authProvider.user.profilePhotoUrl ?? 'Foto Profil',
+                  ),
+                  // image: AssetImage('assets/img_prof_pic.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),

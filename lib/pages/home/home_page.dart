@@ -113,27 +113,31 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Selamat datang,',
-                          style: GoogleFonts.inter(
-                            color: whiteColor,
-                            fontSize: 16,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Selamat datang,',
+                            style: GoogleFonts.inter(
+                              color: whiteColor,
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          // authProvider.user.name ?? 'Nama',
-                          'Ridha Ahmad Firdaus',
-                          style: GoogleFonts.inter(
-                            color: whiteColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                          SizedBox(height: 4),
+                          Text(
+                            authProvider.user.name ?? 'Nama',
+                            // 'Ridha Ahmad Firdaus',
+                            style: GoogleFonts.inter(
+                              color: whiteColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -145,10 +149,11 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              // image: NetworkImage(
-                              //   authProvider.user.profilePhotoUrl ?? 'Foto Profil',
-                              // ),
-                              image: AssetImage('assets/img_prof_pic.jpg'),
+                              image: NetworkImage(
+                                authProvider.user.profilePhotoUrl ??
+                                    'Foto Profil',
+                              ),
+                              // image: AssetImage('assets/img_prof_pic.jpg'),
                               fit: BoxFit.cover),
                         ),
                       ),
