@@ -3,6 +3,7 @@ import 'package:prm_hmtif_unpas/pages/change_password_page.dart';
 import 'package:prm_hmtif_unpas/pages/coming_soon_page.dart';
 import 'package:prm_hmtif_unpas/pages/edit_profile_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
+import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:prm_hmtif_unpas/pages/detail_vote_page.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PageProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => CandidateProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
