@@ -31,9 +31,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: NetworkImage(
-                    authProvider.user.profilePhotoUrl ?? 'Foto Profil',
+                    authProvider.user.profilePhotoUrl ?? '',
                   ),
-                  // image: AssetImage('assets/img_prof_pic.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -77,10 +76,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               controller: _nameController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Masukkan nama',
+                hintText: authProvider.user.name,
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
-                  fontSize: 13,
+                  color: titleColor,
                 ),
               ),
               style: GoogleFonts.inter(
@@ -120,10 +118,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               controller: _emailController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Masukkan email',
+                hintText: authProvider.user.email,
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
-                  fontSize: 13,
+                  color: titleColor,
                 ),
               ),
               style: GoogleFonts.inter(

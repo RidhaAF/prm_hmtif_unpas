@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            authProvider.user.name ?? 'Nama',
+                            authProvider.user.name ?? '',
                             // 'Ridha Ahmad Firdaus',
                             style: GoogleFonts.inter(
                               color: whiteColor,
@@ -150,8 +150,7 @@ class _HomePageState extends State<HomePage> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: NetworkImage(
-                                authProvider.user.profilePhotoUrl ??
-                                    'Foto Profil',
+                                authProvider.user.profilePhotoUrl ?? '',
                               ),
                               // image: AssetImage('assets/img_prof_pic.jpg'),
                               fit: BoxFit.cover),

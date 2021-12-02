@@ -57,9 +57,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: NetworkImage(
-                    authProvider.user.profilePhotoUrl ?? 'Foto Profil',
+                    authProvider.user.profilePhotoUrl ?? '',
                   ),
-                  // image: AssetImage('assets/img_prof_pic.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -70,8 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Container(
                     child: Text(
-                      authProvider.user.name ?? 'Nama',
-                      // 'Ridha Ahmad Firdaus',
+                      authProvider.user.name ?? '',
                       style: GoogleFonts.inter(
                         color: titleColor,
                         fontSize: 18,
@@ -84,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 4),
                   Container(
                     child: Text(
-                      authProvider.user.major ?? 'Jurusan',
+                      authProvider.user.major ?? '',
                       // 'Teknik Informatika',
                       style: GoogleFonts.inter(
                         color: subtitleColor,
@@ -94,8 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 4),
                   Container(
                     child: Text(
-                      authProvider.user.nrp ?? 'NRP',
-                      // '183040083',
+                      authProvider.user.nrp ?? '',
                       style: GoogleFonts.inter(
                         color: subtitleColor,
                       ),
