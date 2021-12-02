@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/models/candidate_model.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 
 class DetailVotePage extends StatefulWidget {
+  final CandidateModel? candidate;
+  const DetailVotePage({Key? key, this.candidate}) : super(key: key);
+
   @override
   _DetailVotePageState createState() => _DetailVotePageState();
 }
@@ -21,7 +25,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
           height: 32,
           width: 32,
           decoration: BoxDecoration(
-            color: primaryColor,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(64),
             boxShadow: [
               primaryBoxShadow,
@@ -33,8 +37,8 @@ class _DetailVotePageState extends State<DetailVotePage> {
               'Back',
             ),
             child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: whiteColor,
+              Icons.arrow_back_rounded,
+              color: primaryColor,
               size: 20,
             ),
           ),
@@ -48,8 +52,9 @@ class _DetailVotePageState extends State<DetailVotePage> {
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              'assets/img_prof_pic.jpg',
+            image: NetworkImage(
+              widget.candidate?.photo ??
+                  'https://prm-hmtif-unpas-backend.herokuapp.com/assets/images/profile-picture-default.png',
             ),
             fit: BoxFit.cover,
           ),
@@ -62,7 +67,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Ridha Ahmad Firdaus',
+            widget.candidate?.name ?? '',
             style: GoogleFonts.inter(
               color: titleColor,
               fontSize: 24,
@@ -70,7 +75,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
             ),
           ),
           Text(
-            '183040083',
+            widget.candidate?.nrp ?? '',
             style: GoogleFonts.inter(
               color: subtitleColor,
             ),
@@ -95,7 +100,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
             ),
           ),
           Text(
-            'Menjadikan HMTIF-UNPAS menjadi lembaga kemahasiswaan yang optimal dalam pengembangan kualitas sumberdaya mahasiswa baik segi akademik maupun non akademik dengan menjunjung tinggi pancasila dan tri dharma perguruan tinggi.',
+            widget.candidate?.vision ?? '',
             style: GoogleFonts.inter(
               color: subtitleColor,
             ),
@@ -120,7 +125,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
             ),
           ),
           Text(
-            '1. Menjalin komunikasi yang baik dengan stakeholder terkait. \n2. Mengembangkan ide dari mahasiswa. \n3. Mengoptimalkan pengembangan dan pembinaan mahasiswa.',
+            widget.candidate?.mission ?? '',
             style: GoogleFonts.inter(
               color: subtitleColor,
             ),
@@ -145,7 +150,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
             ),
           ),
           content: Text(
-            'Pilih Ridha Ahmad Firdaus sebagai Ketua Umum HMTIF-UNPAS Periode 2022/2023',
+            'Pilih ${widget.candidate?.name ?? ''} sebagai Ketua Umum HMTIF-UNPAS Periode 2022/2023',
             style: GoogleFonts.inter(
               color: titleColor,
               fontSize: 16,

@@ -1,8 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -12,12 +12,16 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    super.initState();
+    getInit();
 
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/onboarding', (route) => false);
-    });
+    super.initState();
+  }
+
+  getInit() async {
+    await Provider.of<CandidateProvider>(context, listen: false)
+        .getCandidates();
+
+    Navigator.pushNamedAndRemoveUntil(context, '/onboarding', (route) => false);
   }
 
   @override
