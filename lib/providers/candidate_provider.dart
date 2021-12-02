@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
-import 'package:prm_hmtif_unpas/services/candidate_services.dart';
+import 'package:prm_hmtif_unpas/services/candidate_service.dart';
 
 class CandidateProvider with ChangeNotifier {
   List<CandidateModel> _candidate = [];
 
   List<CandidateModel> get candidates => _candidate;
 
-  set candidate(List<CandidateModel> candidates) {
+  set candidates(List<CandidateModel> candidates) {
     _candidate = candidates;
     notifyListeners();
   }

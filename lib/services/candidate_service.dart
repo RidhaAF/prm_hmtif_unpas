@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
 
@@ -18,10 +17,7 @@ class CandidateService {
     print(response.body);
 
     if (response.statusCode == 200) {
-      // var data = jsonDecode(response.body)['data'];
-      // CandidateModel candidate = CandidateModel.fromJson(data['candidate']);
-
-      List data = jsonDecode(response.body)['data']['data'];
+      List data = jsonDecode(response.body)['data'];
       List<CandidateModel> candidates = [];
 
       for (var item in data) {
