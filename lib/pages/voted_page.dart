@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 
-class VotePageDone extends StatelessWidget {
+class VotedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget illustration() {
@@ -27,6 +27,41 @@ class VotePageDone extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
         textAlign: TextAlign.center,
+      );
+    }
+
+    Widget backToHomeButton() {
+      return Container(
+        margin: EdgeInsets.all(defaultMargin),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/main',
+              (route) => false,
+            );
+          },
+          style: primaryButtonStyle,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: primaryGradient,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Container(
+              height: 48,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                'Kembali ke Beranda',
+                style: GoogleFonts.inter(
+                  color: whiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ),
       );
     }
 
@@ -54,6 +89,8 @@ class VotePageDone extends StatelessWidget {
               illustration(),
               SizedBox(height: 32),
               descriptionText(),
+              SizedBox(height: 32),
+              backToHomeButton(),
             ],
           ),
         ),
