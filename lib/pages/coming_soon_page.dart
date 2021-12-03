@@ -26,7 +26,7 @@ class ComingSoonPage extends StatelessWidget {
         style: GoogleFonts.inter(
           color: primaryColor,
           fontSize: 18,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
         ),
         textAlign: TextAlign.center,
       );
