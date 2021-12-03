@@ -204,11 +204,6 @@ class _SignInPageState extends State<SignInPage> {
         child: ElevatedButton(
           onPressed: () {
             handleSignIn();
-            // Navigator.pushNamedAndRemoveUntil(
-            //   context,
-            //   '/main',
-            //   (route) => false,
-            // );
           },
           style: primaryButtonStyle,
           child: Ink(
