@@ -82,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 4),
                   Container(
                     child: Text(
-                      authProvider.user.major ?? '',
+                      '${authProvider.user.major} | ${authProvider.user.classYear}',
                       style: GoogleFonts.inter(
                         color: subtitleColor,
                       ),
