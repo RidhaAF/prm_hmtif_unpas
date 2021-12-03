@@ -55,8 +55,6 @@ class VoteCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    // candidateProvider.candidates[0].name ?? '',
-                    // 'Ridha Ahmad Firdaus',
                     candidate?.name ?? '',
                     style: GoogleFonts.inter(
                       color: titleColor,
@@ -66,8 +64,6 @@ class VoteCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    // candidateProvider.candidates[0].nrp ?? '',
-                    // '183040083',
                     candidate?.nrp ?? '',
                     style: GoogleFonts.inter(
                       color: subtitleColor,

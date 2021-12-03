@@ -83,7 +83,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     child: Text(
                       authProvider.user.major ?? '',
-                      // 'Teknik Informatika',
                       style: GoogleFonts.inter(
                         color: subtitleColor,
                       ),

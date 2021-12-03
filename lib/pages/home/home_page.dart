@@ -127,7 +127,6 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: 4),
                           Text(
                             authProvider.user.name ?? '',
-                            // 'Ridha Ahmad Firdaus',
                             style: GoogleFonts.inter(
                               color: whiteColor,
                               fontSize: 20,
@@ -152,7 +151,6 @@ class _HomePageState extends State<HomePage> {
                               image: NetworkImage(
                                 authProvider.user.profilePhotoUrl ?? '',
                               ),
-                              // image: AssetImage('assets/img_prof_pic.jpg'),
                               fit: BoxFit.cover),
                         ),
                       ),
