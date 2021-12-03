@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/vote_card.dart';
@@ -11,6 +12,7 @@ class VotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     CandidateProvider candidateProvider =
         Provider.of<CandidateProvider>(context);
 
@@ -31,6 +33,36 @@ class VotePage extends StatelessWidget {
       );
     }
 
+    Widget voted() {
+      return Container(
+        margin: EdgeInsets.all(defaultMargin),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 250,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/il_voted.png'),
+                ),
+              ),
+            ),
+            SizedBox(height: 32),
+            Text(
+              'Terima kasih pilihan anda\nsudah tersimpan!',
+              style: GoogleFonts.inter(
+                color: primaryColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -46,7 +78,7 @@ class VotePage extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: backgroundColor2,
-      body: gridView(),
+      body: authProvider.user.voteStatus == 0 ? gridView() : voted(),
     );
   }
 }

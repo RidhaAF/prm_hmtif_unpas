@@ -2,7 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
+import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
+import 'package:prm_hmtif_unpas/providers/page_provider.dart';
+import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class DetailVotePage extends StatefulWidget {
   final CandidateModel? candidate;
@@ -13,8 +17,13 @@ class DetailVotePage extends StatefulWidget {
 }
 
 class _DetailVotePageState extends State<DetailVotePage> {
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    VoteProvider voteProvider = Provider.of<VoteProvider>(context);
+
     Widget backButton() {
       return SafeArea(
         child: Container(
@@ -137,6 +146,28 @@ class _DetailVotePageState extends State<DetailVotePage> {
       );
     }
 
+    _handleVote() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await voteProvider.vote(
+        authProvider.user.token,
+        authProvider.user.id,
+        widget.candidate?.id,
+      )) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/voted',
+          (route) => false,
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+
     _handleShowDialog() {
       return showDialog(
         context: context,
@@ -167,7 +198,9 @@ class _DetailVotePageState extends State<DetailVotePage> {
               ),
             ),
             TextButton(
-              onPressed: () => Navigator.pushNamed(context, '/voted'),
+              onPressed: () {
+                _handleVote();
+              },
               child: Text(
                 'Pilih',
                 style: GoogleFonts.inter(
