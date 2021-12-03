@@ -5,6 +5,7 @@ import 'package:prm_hmtif_unpas/pages/edit_profile_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
+import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:prm_hmtif_unpas/pages/detail_vote_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/home_page.dart';
@@ -16,7 +17,7 @@ import 'package:prm_hmtif_unpas/pages/auth/reset_password_page.dart';
 import 'package:prm_hmtif_unpas/pages/onboarding_page.dart';
 import 'package:prm_hmtif_unpas/pages/splash_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/vote_page.dart';
-import 'package:prm_hmtif_unpas/pages/vote_page_done.dart';
+import 'package:prm_hmtif_unpas/pages/voted_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,7 +36,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CandidateProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => VoteProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => HomePage(),
           '/vote': (context) => VotePage(),
           '/candidate': (context) => DetailVotePage(),
-          '/voted': (context) => VotePageDone(),
+          '/voted': (context) => VotedPage(),
           '/quick-count': (context) => QuickCountPage(),
           '/profile': (context) => ProfilePage(),
           '/edit-profile': (context) => EditProfilePage(),
