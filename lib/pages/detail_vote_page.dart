@@ -7,6 +7,7 @@ import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailVotePage extends StatefulWidget {
   final CandidateModel? candidate;
@@ -156,6 +157,14 @@ class _DetailVotePageState extends State<DetailVotePage> {
         authProvider.user.id,
         widget.candidate?.id,
       )) {
+        final prefs = await SharedPreferences.getInstance();
+
+        if (prefs.containsKey("vote")) {
+          prefs.setBool('vote', true);
+        } else {
+          prefs.setBool('vote', false);
+        }
+
         Navigator.push(
           context,
           MaterialPageRoute(

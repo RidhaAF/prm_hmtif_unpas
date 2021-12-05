@@ -7,6 +7,7 @@ import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/vote_card.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VotePage extends StatefulWidget {
   const VotePage({Key? key}) : super(key: key);
@@ -18,6 +19,12 @@ class VotePage extends StatefulWidget {
 class _VotePageState extends State<VotePage> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
+  @override
+  initState() {
+    super.initState();
+    _getVote();
+  }
 
   void _onRefresh() async {
     // monitor network fetch
@@ -35,6 +42,12 @@ class _VotePageState extends State<VotePage> {
     Provider.of<AuthProvider>(context, listen: false).user;
     if (mounted) setState(() {});
     _refreshController.loadComplete();
+  }
+
+  void _getVote() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final voted = (prefs.getBool('vote') ?? true);
   }
 
   @override

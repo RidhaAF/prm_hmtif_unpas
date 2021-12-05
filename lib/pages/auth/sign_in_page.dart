@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
-    handleSignIn() async {
+    void _handleSignIn() async {
       setState(() {
         isLoading = true;
       });
@@ -28,6 +29,11 @@ class _SignInPageState extends State<SignInPage> {
         nrp: _nrpController.text,
         password: _passwordController.text,
       )) {
+        final prefs = await SharedPreferences.getInstance();
+
+        prefs.setString('token', authProvider.user.token ?? '');
+        prefs.setBool('isFirstTime', false);
+
         Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -203,7 +209,7 @@ class _SignInPageState extends State<SignInPage> {
         margin: EdgeInsets.only(bottom: defaultMargin),
         child: ElevatedButton(
           onPressed: () {
-            handleSignIn();
+            _handleSignIn();
           },
           style: primaryButtonStyle,
           child: Ink(

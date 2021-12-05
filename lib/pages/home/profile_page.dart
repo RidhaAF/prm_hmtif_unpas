@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     buildNumber: 'Unknown',
     buildSignature: 'Unknown',
   );
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -36,6 +38,34 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    void _handleLogout() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await authProvider.logout(authProvider.user.token)) {
+        final prefs = await SharedPreferences.getInstance();
+
+        prefs.remove('token');
+
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: redColor,
+            content: Text(
+              'Gagal Keluar!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
 
     Widget header() {
       return Container(
@@ -172,8 +202,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/login', (route) => false);
+            _handleLogout();
           },
           style: secondaryButtonStyle,
           child: Ink(

@@ -32,7 +32,53 @@ class AuthService {
 
       return user;
     } else {
-      throw Exception('Login Gagal');
+      throw Exception('Login Gagal!');
+    }
+  }
+
+  Future<UserModel> getUser(String? token) async {
+    var url = '$baseUrl/voter';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token ?? '',
+    };
+
+    var response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data'];
+      UserModel user = UserModel.fromJson(data);
+
+      return user;
+    } else {
+      throw Exception('Gagal Fetch User!');
+    }
+  }
+
+  Future<bool> logout(String? token) async {
+    var url = '$baseUrl/logout';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token ?? '',
+    };
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      print('Berhasil Keluar!');
+      return true;
+    } else {
+      throw Exception('Gagal Keluar!');
     }
   }
 }

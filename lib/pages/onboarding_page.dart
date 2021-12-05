@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingPage extends StatefulWidget {
+  @override
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends State<OnboardingPage> {
+  _firstTime() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.containsKey("isFirstTime")) {
+      prefs.setBool('isFirstTime', true);
+    } else {
+      prefs.setBool('isFirstTime', false);
+    }
+
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget illustration() {
@@ -48,8 +66,7 @@ class OnboardingPage extends StatelessWidget {
         ),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/login', (route) => false);
+            _firstTime();
           },
           style: primaryButtonStyle,
           child: Ink(
