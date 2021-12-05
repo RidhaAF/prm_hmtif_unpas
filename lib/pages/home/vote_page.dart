@@ -6,9 +6,36 @@ import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/vote_card.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class VotePage extends StatelessWidget {
+class VotePage extends StatefulWidget {
   const VotePage({Key? key}) : super(key: key);
+
+  @override
+  State<VotePage> createState() => _VotePageState();
+}
+
+class _VotePageState extends State<VotePage> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    Provider.of<AuthProvider>(context, listen: false).user;
+    print('Page refreshed!');
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    Provider.of<AuthProvider>(context, listen: false).user;
+    if (mounted) setState(() {});
+    _refreshController.loadComplete();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +43,7 @@ class VotePage extends StatelessWidget {
     CandidateProvider candidateProvider =
         Provider.of<CandidateProvider>(context);
 
-    Widget gridView() {
+    Widget gridCandidate() {
       return GridView.count(
         crossAxisCount: 2,
         crossAxisSpacing: defaultMargin,
@@ -78,7 +105,16 @@ class VotePage extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: backgroundColor2,
-      body: authProvider.user.voteStatus == 0 ? gridView() : voted(),
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropHeader(),
+        footer: ClassicFooter(),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
+        child: authProvider.user.voteStatus == 0 ? gridCandidate() : voted(),
+      ),
     );
   }
 }

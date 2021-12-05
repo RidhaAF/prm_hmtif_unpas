@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
+import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
-import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -156,10 +156,23 @@ class _DetailVotePageState extends State<DetailVotePage> {
         authProvider.user.id,
         widget.candidate?.id,
       )) {
-        Navigator.pushNamedAndRemoveUntil(
+        Navigator.push(
           context,
-          '/voted',
-          (route) => false,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ),
+        ).then((value) => setState(() {
+              authProvider.user.voteStatus = 1;
+            }));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: redColor,
+            content: Text(
+              'Gagal melakukan pemilihan!',
+              textAlign: TextAlign.center,
+            ),
+          ),
         );
       }
 
