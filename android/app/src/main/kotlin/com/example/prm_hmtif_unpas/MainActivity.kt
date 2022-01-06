@@ -1,4 +1,4 @@
-package com.example.prm_hmtif_unpas
+package com.ridhaaf.prm_hmtif_unpas
 
 import io.flutter.embedding.android.FlutterActivity
 

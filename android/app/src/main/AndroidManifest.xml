@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.prm_hmtif_unpas">
+    package="com.ridhaaf.prm_hmtif_unpas">
    <application
-        android:label="prm_hmtif_unpas"
+        android:label="PRM HMTIF-UNPAS"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
