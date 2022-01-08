@@ -4,6 +4,7 @@ class UserModel {
   String? name;
   String? username;
   String? email;
+  String? password;
   String? roles;
   String? major;
   String? classYear;
@@ -18,6 +19,7 @@ class UserModel {
     this.name,
     this.username,
     this.email,
+    this.password,
     this.roles,
     this.major,
     this.classYear,
@@ -33,6 +35,7 @@ class UserModel {
     name = json['name'];
     username = json['username'];
     email = json['email'];
+    password = json['password'];
     roles = json['roles'];
     major = json['major'];
     classYear = json['class_year'];
@@ -49,8 +52,9 @@ class UserModel {
       'name': name,
       'username': username,
       'email': email,
-      'major': major,
+      'password': password,
       'roles': roles,
+      'major': major,
       'class_year': classYear,
       'vote_status': voteStatus,
       'photo': photo,
