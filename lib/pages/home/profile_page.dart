@@ -214,14 +214,18 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 48,
               width: double.infinity,
               alignment: Alignment.center,
-              child: Text(
-                'Keluar',
-                style: GoogleFonts.inter(
-                  color: whiteColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: isLoading
+                  ? CircularProgressIndicator(
+                      color: whiteColor,
+                    )
+                  : Text(
+                      'Keluar',
+                      style: GoogleFonts.inter(
+                        color: whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
             ),
           ),
         ),
