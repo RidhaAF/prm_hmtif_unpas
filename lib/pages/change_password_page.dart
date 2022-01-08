@@ -151,11 +151,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       return Container(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              '/profile',
-              (route) => false,
-            );
+            // Navigator.pushNamedAndRemoveUntil(
+            //   context,
+            //   '/profile',
+            //   (route) => false,
+            // );
           },
           style: primaryButtonStyle,
           child: Ink(
