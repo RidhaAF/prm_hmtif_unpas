@@ -35,6 +35,14 @@ dependencies:
   pull_to_refresh: ^2.0.0
   shared_preferences: ^2.0.9
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/ic_launcher.png"
+  adaptive_icon_background: "#007B3D"
+  adaptive_icon_foreground: "assets/ic_launcher_foreground.png"
+  remove_alpha_ios: true
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
