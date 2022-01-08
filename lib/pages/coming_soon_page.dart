@@ -25,8 +25,7 @@ class ComingSoonPage extends StatelessWidget {
         'Halaman\nbelum tersedia😢',
         style: GoogleFonts.inter(
           color: primaryColor,
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
+          fontSize: 16,
         ),
         textAlign: TextAlign.center,
       );
