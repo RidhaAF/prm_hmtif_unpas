@@ -9,16 +9,10 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-  _firstTime() async {
+  void _firstTime() async {
     final prefs = await SharedPreferences.getInstance();
 
-    if (prefs.containsKey("isFirstTime")) {
-      prefs.setBool('isFirstTime', true);
-    } else {
-      prefs.setBool('isFirstTime', false);
-    }
-
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    prefs.setBool('isFirstTime', false);
   }
 
   @override
@@ -51,7 +45,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       return Text(
         'Pemilu Raya Mahasiswa HMTIF-UNPAS merupakan\nsebuah acara untuk pemilihan Ketua Umum HMTIF-\nUNPAS untuk 1 periode ke depan.',
         style: GoogleFonts.inter(
-          color: primaryColor,
+          color: subtitleColor,
           fontSize: 12,
         ),
         textAlign: TextAlign.center,
@@ -67,6 +61,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
         child: ElevatedButton(
           onPressed: () {
             _firstTime();
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/login', (route) => false);
           },
           style: primaryButtonStyle,
           child: Ink(

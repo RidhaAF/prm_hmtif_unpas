@@ -78,6 +78,7 @@ class CandidateCard extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
+            barRadius: const Radius.circular(24),
             backgroundColor: backgroundColor3,
             progressColor: accentColor,
           ),

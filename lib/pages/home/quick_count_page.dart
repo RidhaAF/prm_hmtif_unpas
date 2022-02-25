@@ -28,14 +28,19 @@ class QuickCountPage extends StatelessWidget {
       ),
       backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
-        child: Column(
-          children: candidateProvider.candidates
-              .map(
-                (candidate) => CandidateCard(
-                  candidate: candidate,
-                ),
-              )
-              .toList(),
+        child: Container(
+          margin: EdgeInsets.only(
+            bottom: defaultMargin,
+          ),
+          child: Column(
+            children: candidateProvider.candidates
+                .map(
+                  (candidate) => CandidateCard(
+                    candidate: candidate,
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ),
     );

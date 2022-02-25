@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -30,11 +31,13 @@ class _SignInPageState extends State<SignInPage> {
         password: _passwordController.text,
       )) {
         final prefs = await SharedPreferences.getInstance();
-
-        prefs.setString('token', authProvider.user.token ?? '');
-        prefs.setBool('isFirstTime', false);
-
-        Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+        await Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MainPage()))
+            .then((value) => setState(() {
+                  prefs.setString('token', authProvider.user.token ?? '');
+                  print(prefs.getString('token'));
+                }));
+        // Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -221,14 +224,18 @@ class _SignInPageState extends State<SignInPage> {
               height: 48,
               width: double.infinity,
               alignment: Alignment.center,
-              child: Text(
-                'Masuk',
-                style: GoogleFonts.inter(
-                  color: whiteColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: isLoading
+                  ? CircularProgressIndicator(
+                      color: whiteColor,
+                    )
+                  : Text(
+                      'Masuk',
+                      style: GoogleFonts.inter(
+                        color: whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
             ),
           ),
         ),
@@ -250,11 +257,7 @@ class _SignInPageState extends State<SignInPage> {
             inputPassword(),
             forgotPassword(),
             SizedBox(height: 32),
-            isLoading
-                ? CircularProgressIndicator(
-                    color: primaryColor,
-                  )
-                : loginButton(),
+            loginButton(),
           ],
         ),
       );

@@ -29,7 +29,6 @@ class _VotePageState extends State<VotePage> {
   void _onRefresh() async {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    Provider.of<AuthProvider>(context, listen: false).user;
     print('Page refreshed!');
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
@@ -39,15 +38,18 @@ class _VotePageState extends State<VotePage> {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
-    Provider.of<AuthProvider>(context, listen: false).user;
-    if (mounted) setState(() {});
+    if (mounted)
+      setState(() {
+        _getVote();
+      });
+    print('Page loaded!');
     _refreshController.loadComplete();
   }
 
   void _getVote() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    final voted = (prefs.getBool('vote') ?? true);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getBool('vote');
+    print(prefs.getBool('vote'));
   }
 
   @override
@@ -74,10 +76,9 @@ class _VotePageState extends State<VotePage> {
     }
 
     Widget voted() {
-      return Container(
-        margin: EdgeInsets.all(defaultMargin),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      return Center(
+        child: ListView(
+          shrinkWrap: true,
           children: [
             Container(
               height: 250,
@@ -88,13 +89,12 @@ class _VotePageState extends State<VotePage> {
                 ),
               ),
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 16),
             Text(
               'Terima kasih pilihan anda\nsudah tersimpan!',
               style: GoogleFonts.inter(
                 color: primaryColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+                fontSize: 16,
               ),
               textAlign: TextAlign.center,
             ),
@@ -120,13 +120,13 @@ class _VotePageState extends State<VotePage> {
       backgroundColor: backgroundColor2,
       body: SmartRefresher(
         enablePullDown: true,
-        enablePullUp: true,
-        header: WaterDropHeader(),
-        footer: ClassicFooter(),
+        header: MaterialClassicHeader(
+          color: primaryColor,
+        ),
         controller: _refreshController,
         onRefresh: _onRefresh,
         onLoading: _onLoading,
-        child: authProvider.user.voteStatus == 0 ? gridCandidate() : voted(),
+        child: authProvider.user.voteStatus == 1 ? voted() : gridCandidate(),
       ),
     );
   }

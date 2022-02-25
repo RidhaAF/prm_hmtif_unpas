@@ -60,6 +60,35 @@ class AuthService {
     }
   }
 
+  Future<bool> updateProfile(
+    String? token,
+    String? name,
+  ) async {
+    var url = '$baseUrl/voter';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token ?? '',
+    };
+    var body = jsonEncode({
+      'name': name,
+    });
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      print('Berhasil Mengubah Profile!');
+      return true;
+    } else {
+      throw Exception('Gagal Mengubah Profile!');
+    }
+  }
+
   Future<bool> logout(String? token) async {
     var url = '$baseUrl/logout';
     var headers = {

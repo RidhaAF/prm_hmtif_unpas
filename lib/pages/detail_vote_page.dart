@@ -158,20 +158,20 @@ class _DetailVotePageState extends State<DetailVotePage> {
       )) {
         final prefs = await SharedPreferences.getInstance();
 
-        if (prefs.containsKey("vote")) {
-          prefs.setBool('vote', true);
-        } else {
-          prefs.setBool('vote', false);
-        }
+        prefs.setBool('vote', true);
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => MainPage(),
           ),
-        ).then((value) => setState(() {
+        ).then(
+          (value) => setState(
+            () {
               authProvider.user.voteStatus = 1;
-            }));
+            },
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
+import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +18,62 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
+
+    void _handleUpdateProfile() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await authProvider.updateProfile(
+        token: authProvider.user.token,
+        name: _nameController.text,
+      )) {
+        // Navigator.pushNamed(context, '/main');
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ),
+        ).then(
+          (value) => setState(
+            () {
+              Provider.of<AuthProvider>(context, listen: false)
+                  .getUser(authProvider.user.token);
+            },
+          ),
+        );
+        pageProvider.currentIndex = 3;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: primaryColor,
+            content: Text(
+              'Update Profile Berhasil!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: redColor,
+            content: Text(
+              'Update Profile Gagal!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
 
     Widget changeProfilePicture() {
       return Center(
@@ -150,7 +205,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
         automaticallyImplyLeading: true,
         actions: [
           IconButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              _handleUpdateProfile();
+            },
             icon: Icon(Icons.check_rounded),
             tooltip: 'Simpan',
           ),
