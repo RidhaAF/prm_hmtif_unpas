@@ -20,15 +20,17 @@ class _SplashPageState extends State<SplashPage> {
     await Provider.of<CandidateProvider>(context, listen: false)
         .getCandidates();
 
-    final prefs = await SharedPreferences.getInstance();
+    Navigator.pushReplacementNamed(context, '/onboarding');
 
-    if (prefs.getBool('isFirstTime') == true) {
-      print(prefs.getBool('isFirstTime'));
-      Navigator.pushReplacementNamed(context, '/onboarding');
-    } else {
-      print(prefs.getBool('isFirstTime'));
-      Navigator.pushReplacementNamed(context, '/login');
-    }
+    // final prefs = await SharedPreferences.getInstance();
+
+    // if (prefs.getBool('isFirstTime') == true) {
+    //   print(prefs.getBool('isFirstTime'));
+    //   Navigator.pushReplacementNamed(context, '/onboarding');
+    // } else {
+    //   print(prefs.getBool('isFirstTime'));
+    //   Navigator.pushReplacementNamed(context, '/login');
+    // }
   }
 
   @override

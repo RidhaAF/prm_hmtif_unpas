@@ -91,10 +91,11 @@ class _VotePageState extends State<VotePage> {
             ),
             SizedBox(height: 16),
             Text(
-              'Terima kasih pilihan anda\nsudah tersimpan!',
+              'Terima kasih pilihan anda\nsudah tersimpan! 😊',
               style: GoogleFonts.inter(
                 color: primaryColor,
                 fontSize: 16,
+                fontWeight: semiBold,
               ),
               textAlign: TextAlign.center,
             ),
@@ -112,7 +113,7 @@ class _VotePageState extends State<VotePage> {
           'Pilih',
           style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,

@@ -18,7 +18,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           left: defaultMargin,
           right: defaultMargin,
         ),
-        height: MediaQuery.of(context).size.height * 0.2,
+        height: MediaQuery.of(context).size.height * 0.25,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: primaryGradient,
@@ -32,14 +32,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               style: GoogleFonts.inter().copyWith(
                 color: whiteColor,
                 fontSize: 24,
-                fontWeight: FontWeight.w600,
+                fontWeight: semiBold,
               ),
             ),
+            SizedBox(height: 4),
             Text(
               'Silakan masukkan email anda untuk melanjutkan',
               style: GoogleFonts.inter().copyWith(
                 color: lightGreyColor,
-                fontSize: 12,
               ),
             ),
           ],
@@ -55,7 +55,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             'Email',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              fontWeight: medium,
             ),
           ),
           Container(
@@ -63,7 +64,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             margin: EdgeInsets.only(top: 8.0),
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(defaultRadius),
               border: primaryBorder,
             ),
             child: TextField(
@@ -73,7 +74,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 hintText: 'Masukkan email',
                 hintStyle: GoogleFonts.inter(
                   color: greyColor,
-                  fontSize: 13,
+                  fontSize: 14,
                 ),
               ),
               style: GoogleFonts.inter(
@@ -93,16 +94,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/login',
-              );
+              Navigator.pop(context);
             },
             child: Text(
               "Kembali ke halaman Masuk",
               style: GoogleFonts.inter(
                 color: primaryColor,
-                fontSize: 12,
                 decoration: TextDecoration.underline,
               ),
             ),
@@ -119,8 +116,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/main', (route) => false);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.amber,
+                content: Text(
+                  'Fitur sedang dalam pengembangan 🔨',
+                  style: GoogleFonts.inter(
+                    color: blackColor,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
           },
           style: primaryButtonStyle,
           child: Ink(
@@ -137,7 +145,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 style: GoogleFonts.inter(
                   color: whiteColor,
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: semiBold,
                 ),
               ),
             ),

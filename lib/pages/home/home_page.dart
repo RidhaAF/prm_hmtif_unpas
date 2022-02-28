@@ -29,15 +29,15 @@ class _HomePageState extends State<HomePage> {
             time,
             style: GoogleFonts.inter(
               color: titleColor,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontSize: 28,
+              fontWeight: bold,
             ),
           ),
           Text(
             subtitle,
             style: GoogleFonts.inter(
               color: subtitleColor,
-              fontSize: 12,
+              fontSize: 16,
             ),
           ),
         ],
@@ -46,11 +46,7 @@ class _HomePageState extends State<HomePage> {
 
     Widget countdownTimer() {
       return Container(
-        margin: EdgeInsets.only(
-          top: 16,
-          left: defaultMargin,
-          right: defaultMargin,
-        ),
+        margin: EdgeInsets.symmetric(horizontal: defaultMargin),
         height: 72,
         decoration: BoxDecoration(
           color: whiteColor,
@@ -65,11 +61,11 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 child: Center(
                   child: Text(
-                    'Waktunya Memilih!🎉',
+                    'Waktunya Memilih! 🎉',
                     style: GoogleFonts.inter(
                       color: primaryColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      fontWeight: bold,
                     ),
                   ),
                 ),
@@ -96,13 +92,13 @@ class _HomePageState extends State<HomePage> {
       return Stack(
         children: [
           Container(
-            height: 185,
+            height: 196,
             width: double.infinity,
             padding: EdgeInsets.all(defaultMargin),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
+                bottomLeft: Radius.circular(defaultRadius),
+                bottomRight: Radius.circular(defaultRadius),
               ),
               gradient: primaryGradient,
             ),
@@ -128,8 +124,8 @@ class _HomePageState extends State<HomePage> {
                             authProvider.user.name ?? '',
                             style: GoogleFonts.inter(
                               color: whiteColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 32,
+                              fontWeight: bold,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
@@ -144,13 +140,15 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         width: 48,
                         height: 48,
+                        margin: EdgeInsets.only(left: 8),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              image: NetworkImage(
-                                authProvider.user.profilePhotoUrl ?? '',
-                              ),
-                              fit: BoxFit.cover),
+                            image: NetworkImage(
+                              authProvider.user.profilePhotoUrl ?? '',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -162,14 +160,14 @@ class _HomePageState extends State<HomePage> {
                   style: GoogleFonts.inter(
                     color: whiteColor,
                     fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: semiBold,
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 132),
+            margin: EdgeInsets.only(top: 156),
             child: countdownTimer(),
           ),
         ],
@@ -178,7 +176,7 @@ class _HomePageState extends State<HomePage> {
 
     Widget card(String emoji, String title, String subtitle) {
       return Container(
-        height: 96,
+        height: 104,
         width: MediaQuery.of(context).size.width / 2 - 24,
         margin: EdgeInsets.only(
           top: defaultMargin,
@@ -207,15 +205,16 @@ class _HomePageState extends State<HomePage> {
               title,
               style: GoogleFonts.inter(
                 color: darkGreyColor,
-                fontSize: 12,
+                fontSize: 16,
               ),
             ),
+            SizedBox(height: 4),
             Text(
               subtitle,
               style: GoogleFonts.inter(
                 color: titleColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                fontWeight: bold,
               ),
             ),
           ],
@@ -226,16 +225,8 @@ class _HomePageState extends State<HomePage> {
     Widget rowCard() {
       return Row(
         children: [
-          card(
-            '🗓',
-            'Senin',
-            '6 Juni 2022',
-          ),
-          card(
-            '🕒',
-            'Pukul',
-            '09:00 WIB',
-          ),
+          card('🗓', 'Senin', '6 Juni 2022'),
+          card('🕒', 'Pukul', '09:00 WIB'),
         ],
       );
     }
@@ -262,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.inter(
                   color: whiteColor,
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: semiBold,
                 ),
               ),
             ),
@@ -280,7 +271,7 @@ class _HomePageState extends State<HomePage> {
           'PRM HMTIF-UNPAS',
           style: GoogleFonts.inter(
             fontSize: 24,
-            fontWeight: FontWeight.w700,
+            fontWeight: bold,
           ),
         ),
         centerTitle: true,

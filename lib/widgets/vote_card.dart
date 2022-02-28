@@ -58,16 +58,17 @@ class VoteCard extends StatelessWidget {
                     candidate?.name ?? '',
                     style: GoogleFonts.inter(
                       color: titleColor,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      fontWeight: semiBold,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  SizedBox(height: 4),
                   Text(
                     candidate?.nrp ?? '',
                     style: GoogleFonts.inter(
                       color: subtitleColor,
-                      fontSize: 12,
                     ),
                   ),
                 ],

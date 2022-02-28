@@ -22,10 +22,11 @@ class ComingSoonPage extends StatelessWidget {
 
     Widget descriptionText() {
       return Text(
-        'Halaman\nbelum tersedia😢',
+        'Halaman\nbelum tersedia 😢',
         style: GoogleFonts.inter(
           color: primaryColor,
           fontSize: 16,
+          fontWeight: semiBold,
         ),
         textAlign: TextAlign.center,
       );
@@ -40,7 +41,7 @@ class ComingSoonPage extends StatelessWidget {
           'Coming Soon',
           style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,

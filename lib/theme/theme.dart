@@ -5,7 +5,7 @@ double defaultMargin = 16.0;
 double defaultRadius = 8.0;
 
 Color primaryColor = Color(0xFF007B3D);
-Color accentColor = Color(0xFF007B3D).withOpacity(0.5);
+Color accentColor = Color(0x00BC5D).withOpacity(0.5);
 Color lightGreenColor = Color(0xFF00A351);
 Color titleColor = Color(0xFF1D1D1D);
 Color subtitleColor = Color(0xFF505050);

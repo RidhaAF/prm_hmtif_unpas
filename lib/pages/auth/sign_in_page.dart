@@ -43,7 +43,10 @@ class _SignInPageState extends State<SignInPage> {
           SnackBar(
             backgroundColor: redColor,
             content: Text(
-              'Login Gagal!',
+              'Gagal masuk!',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -75,14 +78,14 @@ class _SignInPageState extends State<SignInPage> {
               style: GoogleFonts.inter().copyWith(
                 color: whiteColor,
                 fontSize: 24,
-                fontWeight: FontWeight.w600,
+                fontWeight: semiBold,
               ),
             ),
+            SizedBox(height: 4),
             Text(
               'Silakan masuk untuk melanjutkan',
               style: GoogleFonts.inter().copyWith(
                 color: lightGreyColor,
-                fontSize: 12,
               ),
             ),
           ],
@@ -98,7 +101,8 @@ class _SignInPageState extends State<SignInPage> {
             'NRP',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              fontWeight: medium,
             ),
           ),
           Container(
@@ -109,7 +113,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(defaultRadius),
               border: primaryBorder,
             ),
             child: TextField(
@@ -119,7 +123,7 @@ class _SignInPageState extends State<SignInPage> {
                 hintText: 'Masukkan NRP',
                 hintStyle: GoogleFonts.inter(
                   color: greyColor,
-                  fontSize: 13,
+                  fontSize: 14,
                 ),
               ),
               style: GoogleFonts.inter(
@@ -141,7 +145,8 @@ class _SignInPageState extends State<SignInPage> {
             'Kata Sandi',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              fontWeight: medium,
             ),
           ),
           Container(
@@ -149,7 +154,7 @@ class _SignInPageState extends State<SignInPage> {
             margin: EdgeInsets.symmetric(vertical: 8.0),
             padding: EdgeInsets.only(left: 12),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(defaultRadius),
               border: primaryBorder,
             ),
             child: TextField(
@@ -160,7 +165,7 @@ class _SignInPageState extends State<SignInPage> {
                 hintText: 'Masukkan kata sandi',
                 hintStyle: GoogleFonts.inter(
                   color: greyColor,
-                  fontSize: 13,
+                  fontSize: 14,
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -198,7 +203,6 @@ class _SignInPageState extends State<SignInPage> {
               "Lupa kata sandi?",
               style: GoogleFonts.inter(
                 color: primaryColor,
-                fontSize: 12,
                 decoration: TextDecoration.underline,
               ),
             ),
@@ -233,7 +237,7 @@ class _SignInPageState extends State<SignInPage> {
                       style: GoogleFonts.inter(
                         color: whiteColor,
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: semiBold,
                       ),
                     ),
             ),

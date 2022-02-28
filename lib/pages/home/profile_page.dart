@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
+import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     void _handleLogout() async {
       setState(() {
@@ -50,12 +52,16 @@ class _ProfilePageState extends State<ProfilePage> {
         prefs.remove('token');
 
         Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+        pageProvider.currentIndex = 0;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: redColor,
             content: Text(
-              'Gagal Keluar!',
+              'Gagal keluar!',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -103,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: GoogleFonts.inter(
                         color: titleColor,
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: semiBold,
                       ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -112,9 +118,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 4),
                   Container(
                     child: Text(
-                      '${authProvider.user.major} | ${authProvider.user.classYear}',
+                      '${authProvider.user.major} - ${authProvider.user.classYear}',
                       style: GoogleFonts.inter(
                         color: subtitleColor,
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -124,6 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       authProvider.user.nrp ?? '',
                       style: GoogleFonts.inter(
                         color: subtitleColor,
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -140,8 +148,8 @@ class _ProfilePageState extends State<ProfilePage> {
         sectionName,
         style: GoogleFonts.inter(
           color: primaryColor,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
+          fontSize: 24,
+          fontWeight: semiBold,
         ),
       );
     }
@@ -162,6 +170,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   menuName,
                   style: GoogleFonts.inter(
                     color: titleColor,
+                    fontSize: 16,
+                    fontWeight: medium,
                   ),
                 ),
               ),
@@ -179,14 +189,13 @@ class _ProfilePageState extends State<ProfilePage> {
     Widget _infoPackage(String title, String packageInfo) {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin,
+          top: defaultMargin * 3,
           left: defaultMargin,
         ),
         child: Text(
           '$title $packageInfo',
           style: GoogleFonts.inter(
             color: greyColor,
-            fontSize: 12,
           ),
         ),
       );
@@ -223,7 +232,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: GoogleFonts.inter(
                         color: whiteColor,
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: semiBold,
                       ),
                     ),
             ),
@@ -241,7 +250,7 @@ class _ProfilePageState extends State<ProfilePage> {
           'Profil',
           style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,
@@ -253,7 +262,10 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             header(),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              margin: EdgeInsets.symmetric(
+                horizontal: defaultMargin,
+                vertical: defaultMargin,
+              ),
               padding: EdgeInsets.all(defaultMargin),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(defaultRadius),
@@ -266,13 +278,25 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   sectionList('Akun'),
-                  SizedBox(height: 8.0),
+                  SizedBox(height: defaultMargin),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, '/edit-profile'),
                     child: menuList(Icons.edit, 'Ubah Profil', true),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.amber,
+                        content: Text(
+                          'Fitur sedang dalam pengembangan 🔨',
+                          style: GoogleFonts.inter(
+                            color: blackColor,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
                     child: menuList(Icons.notifications, 'Pemberitahuan', true),
                   ),
                   GestureDetector(
@@ -298,13 +322,37 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   sectionList('Tentang'),
-                  SizedBox(height: 8.0),
+                  SizedBox(height: defaultMargin),
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.amber,
+                        content: Text(
+                          'Fitur sedang dalam pengembangan 🔨',
+                          style: GoogleFonts.inter(
+                            color: blackColor,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
                     child: menuList(Icons.star, 'Menilai Aplikasi', true),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.amber,
+                        content: Text(
+                          'Fitur sedang dalam pengembangan 🔨',
+                          style: GoogleFonts.inter(
+                            color: blackColor,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
                     child: menuList(
                         Icons.text_snippet, 'Syarat dan Ketentuan', true),
                   ),

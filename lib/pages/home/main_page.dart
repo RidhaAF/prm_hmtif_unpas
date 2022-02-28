@@ -33,10 +33,10 @@ class _MainPageState extends State<MainPage> {
         selectedItemColor: primaryColor,
         unselectedItemColor: greyColor,
         selectedLabelStyle: GoogleFonts.inter(
-          fontSize: 12,
+          fontSize: 14,
         ),
         unselectedLabelStyle: GoogleFonts.inter(
-          fontSize: 12,
+          fontSize: 14,
         ),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

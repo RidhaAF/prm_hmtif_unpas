@@ -53,7 +53,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
           SnackBar(
             backgroundColor: primaryColor,
             content: Text(
-              'Update Profile Berhasil!',
+              'Berhasil merubah profil!',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -63,7 +66,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
           SnackBar(
             backgroundColor: redColor,
             content: Text(
-              'Update Profile Gagal!',
+              'Gagal mengubah profil!',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -97,6 +103,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               'Ubah Foto',
               style: GoogleFonts.inter(
                 color: primaryColor,
+                fontSize: 16,
                 decoration: TextDecoration.underline,
               ),
             ),
@@ -113,7 +120,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             'Nama',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              fontWeight: semiBold,
             ),
           ),
           Container(
@@ -124,7 +132,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(defaultRadius),
               border: primaryBorder,
             ),
             child: TextField(
@@ -155,7 +163,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             'Email',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontWeight: FontWeight.w500,
+              fontWeight: semiBold,
             ),
           ),
           Container(
@@ -166,7 +174,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(defaultRadius),
               border: primaryBorder,
             ),
             child: TextField(
@@ -193,12 +201,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Ubah Profil',
           style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,
@@ -214,15 +221,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ],
       ),
       backgroundColor: backgroundColor2,
-      body: Container(
-        padding: EdgeInsets.all(defaultMargin),
-        child: Column(
-          children: [
-            changeProfilePicture(),
-            SizedBox(height: 32),
-            changeName(),
-            changeEmail(),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(defaultMargin),
+          child: Column(
+            children: [
+              changeProfilePicture(),
+              SizedBox(height: 32),
+              changeName(),
+              changeEmail(),
+            ],
+          ),
         ),
       ),
     );

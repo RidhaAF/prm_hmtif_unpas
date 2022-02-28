@@ -21,7 +21,7 @@ class QuickCountPage extends StatelessWidget {
           'Hitung Cepat',
           style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,

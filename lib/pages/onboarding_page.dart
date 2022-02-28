@@ -43,10 +43,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
     Widget descriptionText() {
       return Text(
-        'Pemilu Raya Mahasiswa HMTIF-UNPAS merupakan\nsebuah acara untuk pemilihan Ketua Umum HMTIF-\nUNPAS untuk 1 periode ke depan.',
+        'Pemilu Raya Mahasiswa HMTIF-UNPAS merupakan sebuah acara untuk pemilihan Ketua Umum HMTIF-UNPAS untuk 1 periode ke depan.',
         style: GoogleFonts.inter(
           color: subtitleColor,
-          fontSize: 12,
+          fontSize: 16,
         ),
         textAlign: TextAlign.center,
       );
@@ -55,7 +55,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     Widget getStartedButton() {
       return Container(
         margin: EdgeInsets.only(
-          top: 64,
+          top: defaultMargin * 3,
           bottom: defaultMargin,
         ),
         child: ElevatedButton(
@@ -79,7 +79,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 style: GoogleFonts.inter(
                   color: whiteColor,
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: semiBold,
                 ),
               ),
             ),
@@ -89,7 +89,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor2,
+      backgroundColor: backgroundColor1,
       body: Center(
         child: Container(
           margin: EdgeInsets.all(defaultMargin),

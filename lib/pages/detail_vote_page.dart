@@ -31,24 +31,21 @@ class _DetailVotePageState extends State<DetailVotePage> {
             top: defaultMargin,
             left: defaultMargin,
           ),
-          height: 32,
-          width: 32,
+          height: 40,
+          width: 40,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(64),
+            color: whiteColor,
+            shape: BoxShape.circle,
             boxShadow: [
               primaryBoxShadow,
             ],
           ),
           child: GestureDetector(
-            onTap: () => Navigator.pop(
-              context,
-              'Back',
-            ),
+            onTap: () => Navigator.pop(context),
             child: Icon(
               Icons.arrow_back_rounded,
               color: primaryColor,
-              size: 20,
+              size: 24,
             ),
           ),
         ),
@@ -79,19 +76,19 @@ class _DetailVotePageState extends State<DetailVotePage> {
             widget.candidate?.name ?? '',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontSize: 24,
+              fontSize: 32,
               fontWeight: bold,
             ),
           ),
+          SizedBox(height: 4),
           Text(
             widget.candidate?.nrp ?? '',
             style: GoogleFonts.inter(
               color: subtitleColor,
+              fontSize: 16,
             ),
           ),
-          SizedBox(
-            height: defaultMargin,
-          ),
+          SizedBox(height: defaultMargin),
         ],
       );
     }
@@ -104,19 +101,19 @@ class _DetailVotePageState extends State<DetailVotePage> {
             'Visi',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+              fontSize: 24,
+              fontWeight: semiBold,
             ),
           ),
+          SizedBox(height: 4),
           Text(
             widget.candidate?.vision ?? '',
             style: GoogleFonts.inter(
               color: subtitleColor,
+              fontSize: 16,
             ),
           ),
-          SizedBox(
-            height: defaultMargin,
-          ),
+          SizedBox(height: defaultMargin),
         ],
       );
     }
@@ -129,18 +126,20 @@ class _DetailVotePageState extends State<DetailVotePage> {
             'Misi',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+              fontSize: 24,
+              fontWeight: semiBold,
             ),
           ),
+          SizedBox(height: 4),
           Text(
             widget.candidate?.mission ?? '',
             style: GoogleFonts.inter(
               color: subtitleColor,
+              fontSize: 16,
             ),
           ),
           SizedBox(
-            height: 32.0,
+            height: defaultMargin * 3,
           ),
         ],
       );
@@ -178,6 +177,9 @@ class _DetailVotePageState extends State<DetailVotePage> {
             backgroundColor: redColor,
             content: Text(
               'Gagal melakukan pemilihan!',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -194,27 +196,28 @@ class _DetailVotePageState extends State<DetailVotePage> {
         context: context,
         builder: (_) => AlertDialog(
           title: Text(
-            'Pilih',
+            'Pilih Kandidat',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              fontWeight: semiBold,
             ),
           ),
           content: Text(
             'Pilih ${widget.candidate?.name ?? ''} sebagai Ketua Umum HMTIF-UNPAS Periode 2022/2023',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontSize: 16,
+              fontSize: 18,
             ),
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context, 'Batal'),
+              onPressed: () => Navigator.pop(context),
               child: Text(
                 'Batal',
                 style: GoogleFonts.inter(
                   color: greyColor,
+                  fontSize: 16,
                 ),
               ),
             ),
@@ -226,7 +229,8 @@ class _DetailVotePageState extends State<DetailVotePage> {
                 'Pilih',
                 style: GoogleFonts.inter(
                   color: primaryColor,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  fontWeight: semiBold,
                 ),
               ),
             ),
@@ -257,7 +261,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
                 style: GoogleFonts.inter(
                   color: whiteColor,
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: semiBold,
                 ),
               ),
             ),

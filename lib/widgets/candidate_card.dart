@@ -54,7 +54,8 @@ class CandidateCard extends StatelessWidget {
                   candidate?.name ?? '',
                   style: GoogleFonts.inter(
                     color: subtitleColor,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    fontWeight: semiBold,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -68,14 +69,13 @@ class CandidateCard extends StatelessWidget {
           ),
           LinearPercentIndicator(
             width: MediaQuery.of(context).size.width - 162,
-            lineHeight: 20.0,
-            percent: 0.4,
+            lineHeight: 24.0,
+            percent: 0.5,
             center: Text(
-              (0.4 * 100).toString() + '%',
+              (0.5 * 100).toString() + '%',
               style: GoogleFonts.inter(
                 color: titleColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontWeight: bold,
               ),
             ),
             barRadius: const Radius.circular(24),

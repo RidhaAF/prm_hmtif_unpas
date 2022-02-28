@@ -26,15 +26,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             'Ubah kata sandi kamu',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              fontWeight: semiBold,
             ),
           ),
+          SizedBox(height: 8),
           Text(
             'Silakan masukkan kata sandi kamu saat ini dan buat kata sandi baru.',
             style: GoogleFonts.inter(
               color: subtitleColor,
-              fontSize: 12,
             ),
           ),
         ],
@@ -49,7 +49,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             'Kata sandi saat ini',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              fontWeight: semiBold,
             ),
           ),
           Container(
@@ -60,7 +61,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
             padding: EdgeInsets.only(left: 12),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(defaultRadius),
               border: primaryBorder,
             ),
             child: TextField(
@@ -71,7 +72,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 hintText: 'Masukkan kata sandi saat ini',
                 hintStyle: GoogleFonts.inter(
                   color: greyColor,
-                  fontSize: 13,
+                  fontSize: 14,
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -102,7 +103,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             'Kata sandi baru',
             style: GoogleFonts.inter(
               color: titleColor,
-              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              fontWeight: semiBold,
             ),
           ),
           Container(
@@ -113,7 +115,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
             padding: EdgeInsets.only(left: 12),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(defaultRadius),
               border: primaryBorder,
             ),
             child: TextField(
@@ -124,7 +126,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 hintText: 'Masukkan kata sandi baru',
                 hintStyle: GoogleFonts.inter(
                   color: greyColor,
-                  fontSize: 13,
+                  fontSize: 14,
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -151,11 +153,19 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       return Container(
         child: ElevatedButton(
           onPressed: () {
-            // Navigator.pushNamedAndRemoveUntil(
-            //   context,
-            //   '/profile',
-            //   (route) => false,
-            // );
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.amber,
+                content: Text(
+                  'Fitur sedang dalam pengembangan 🔨',
+                  style: GoogleFonts.inter(
+                    color: blackColor,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
           },
           style: primaryButtonStyle,
           child: Ink(
@@ -172,7 +182,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 style: GoogleFonts.inter(
                   color: whiteColor,
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: semiBold,
                 ),
               ),
             ),
@@ -185,28 +195,30 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Ubah Kata Sandi',
           style: GoogleFonts.inter(
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,
         automaticallyImplyLeading: true,
       ),
       backgroundColor: backgroundColor2,
-      body: Container(
-        padding: EdgeInsets.all(defaultMargin),
-        child: Column(
-          children: [
-            header(),
-            SizedBox(height: 32),
-            inputPassword(),
-            inputNewPassword(),
-            confirmButton(),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(defaultMargin),
+          child: Column(
+            children: [
+              header(),
+              SizedBox(height: 32),
+              inputPassword(),
+              inputNewPassword(),
+              SizedBox(height: 32),
+              confirmButton(),
+            ],
+          ),
         ),
       ),
     );
