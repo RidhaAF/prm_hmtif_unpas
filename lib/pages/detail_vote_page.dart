@@ -54,14 +54,15 @@ class _DetailVotePageState extends State<DetailVotePage> {
 
     Widget candidatePicture() {
       return Container(
-        height: 300,
+        height: 350,
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-              widget.candidate?.photo ??
-                  'https://prm-hmtif-unpas-backend.herokuapp.com/assets/images/profile-picture-default.png',
-            ),
+            image: widget.candidate?.photo != null
+                ? NetworkImage(
+                    'https://prm-hmtif-unpas-backend.herokuapp.com/storage/${widget.candidate?.photo}')
+                : AssetImage('assets/profile-picture-default.png')
+                    as ImageProvider,
             fit: BoxFit.cover,
           ),
         ),
@@ -85,7 +86,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
             widget.candidate?.nrp ?? '',
             style: GoogleFonts.inter(
               color: subtitleColor,
-              fontSize: 16,
+              fontSize: 18,
             ),
           ),
           SizedBox(height: defaultMargin),
@@ -292,18 +293,37 @@ class _DetailVotePageState extends State<DetailVotePage> {
 
     return Scaffold(
       backgroundColor: backgroundColor2,
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
               children: [
                 candidatePicture(),
                 content(),
               ],
             ),
-            backButton(),
-          ],
-        ),
+          ),
+          Stack(
+            children: [
+              Container(
+                height: 350,
+                width: double.infinity,
+                foregroundDecoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      blackColor.withOpacity(0.7),
+                      Colors.transparent,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0, 0.2],
+                  ),
+                ),
+              ),
+              backButton(),
+            ],
+          ),
+        ],
       ),
     );
   }
