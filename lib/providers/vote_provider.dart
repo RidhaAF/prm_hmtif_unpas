@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:prm_hmtif_unpas/models/vote_model.dart';
 import 'package:prm_hmtif_unpas/services/vote_service.dart';
 
 class VoteProvider with ChangeNotifier {
+  List<VoteModel> _vote = [];
+
+  List<VoteModel> get votes => _vote;
+
+  set votes(List<VoteModel> candidates) {
+    _vote = candidates;
+    notifyListeners();
+  }
+
   Future<bool> vote(String? token, int? userId, int? candidateId) async {
     try {
       if (await VoteService().vote(token, userId, candidateId)) {
@@ -12,6 +22,15 @@ class VoteProvider with ChangeNotifier {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  Future<void> getVotes() async {
+    try {
+      List<VoteModel> votes = await VoteService().getVotes();
+      _vote = votes;
+    } catch (e) {
+      print(e);
     }
   }
 }
