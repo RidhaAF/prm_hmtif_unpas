@@ -22,15 +22,15 @@ class _SplashPageState extends State<SplashPage> {
 
     Navigator.pushReplacementNamed(context, '/onboarding');
 
-    // final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
-    // if (prefs.getBool('isFirstTime') == true) {
-    //   print(prefs.getBool('isFirstTime'));
-    //   Navigator.pushReplacementNamed(context, '/onboarding');
-    // } else {
-    //   print(prefs.getBool('isFirstTime'));
-    //   Navigator.pushReplacementNamed(context, '/login');
-    // }
+    if (prefs.getBool('isFirstTime') == true) {
+      print(prefs.getBool('isFirstTime'));
+      Navigator.pushReplacementNamed(context, '/onboarding');
+    } else {
+      print(prefs.getBool('isFirstTime'));
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
 
   @override
