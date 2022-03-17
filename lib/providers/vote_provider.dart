@@ -7,8 +7,8 @@ class VoteProvider with ChangeNotifier {
 
   List<VoteModel> get votes => _vote;
 
-  set votes(List<VoteModel> candidates) {
-    _vote = candidates;
+  set votes(List<VoteModel> votes) {
+    _vote = votes;
     notifyListeners();
   }
 
