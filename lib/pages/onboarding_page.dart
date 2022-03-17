@@ -13,6 +13,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.setBool('isFirstTime', false);
+    print(prefs.getBool('isFirstTime'));
   }
 
   @override
@@ -46,7 +47,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         'Pemilu Raya Mahasiswa HMTIF-UNPAS merupakan sebuah acara untuk pemilihan Ketua Umum HMTIF-UNPAS untuk 1 periode ke depan.',
         style: GoogleFonts.inter(
           color: subtitleColor,
-          fontSize: 16,
+          fontSize: 14,
         ),
         textAlign: TextAlign.center,
       );
