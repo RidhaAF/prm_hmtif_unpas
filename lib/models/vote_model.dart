@@ -2,7 +2,7 @@ class VoteModel {
   int? id;
   String? userId;
   String? candidateId;
-  int? voteResult;
+  double? voteResult;
 
   VoteModel({
     this.id,
