@@ -2,20 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
-import 'package:prm_hmtif_unpas/models/vote_model.dart';
-import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
-import 'package:provider/provider.dart';
 
 class CandidateCard extends StatelessWidget {
   final CandidateModel? candidate;
-  final VoteModel? vote;
-  const CandidateCard({Key? key, this.candidate, this.vote}) : super(key: key);
+  const CandidateCard({Key? key, this.candidate}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    VoteProvider voteProvider = Provider.of<VoteProvider>(context);
-
     return Container(
       margin: EdgeInsets.only(
         left: defaultMargin,
@@ -46,8 +40,7 @@ class CandidateCard extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: candidate?.photo != null
-                          ? NetworkImage(
-                              'https://prm-hmtif-unpas-backend.herokuapp.com/storage/${candidate?.photo}')
+                          ? NetworkImage(candidate!.photo!)
                           : AssetImage('assets/profile-picture-default.png')
                               as ImageProvider,
                       fit: BoxFit.cover,

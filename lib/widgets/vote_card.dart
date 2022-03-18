@@ -38,8 +38,7 @@ class VoteCard extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: candidate?.photo != null
-                      ? NetworkImage(
-                          'https://prm-hmtif-unpas-backend.herokuapp.com/storage/${candidate?.photo}')
+                      ? NetworkImage(candidate!.photo!)
                       : AssetImage('assets/profile-picture-default.png')
                           as ImageProvider,
                   fit: BoxFit.cover,

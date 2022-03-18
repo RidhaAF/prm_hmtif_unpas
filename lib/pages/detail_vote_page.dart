@@ -59,8 +59,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: widget.candidate?.photo != null
-                ? NetworkImage(
-                    'https://prm-hmtif-unpas-backend.herokuapp.com/storage/${widget.candidate?.photo}')
+                ? NetworkImage(widget.candidate!.photo!)
                 : AssetImage('assets/profile-picture-default.png')
                     as ImageProvider,
             fit: BoxFit.cover,
