@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:prm_hmtif_unpas/models/vote_model.dart';
 
 class VoteService {
   String baseUrl = 'https://prm-hmtif-unpas-backend.herokuapp.com/api';
@@ -31,31 +30,6 @@ class VoteService {
       return true;
     } else {
       throw Exception('Gagal memilih!');
-    }
-  }
-
-  Future<List<VoteModel>> getVotes() async {
-    var url = '$baseUrl/quick-count';
-    var headers = {'Content-Type': 'application/json'};
-
-    var response = await http.get(
-      Uri.parse(url),
-      headers: headers,
-    );
-
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      List data = jsonDecode(response.body)['data'];
-      List<VoteModel> votes = [];
-
-      for (var item in data) {
-        votes.add(VoteModel.fromJson(item));
-      }
-
-      return votes;
-    } else {
-      throw Exception('Gagal Fetch Quick Count');
     }
   }
 }

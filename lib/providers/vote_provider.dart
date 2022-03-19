@@ -24,13 +24,4 @@ class VoteProvider with ChangeNotifier {
       return false;
     }
   }
-
-  Future<void> getVotes() async {
-    try {
-      List<VoteModel> votes = await VoteService().getVotes();
-      _vote = votes;
-    } catch (e) {
-      print(e);
-    }
-  }
 }
