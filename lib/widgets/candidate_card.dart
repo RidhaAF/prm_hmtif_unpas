@@ -70,9 +70,9 @@ class CandidateCard extends StatelessWidget {
           LinearPercentIndicator(
             width: MediaQuery.of(context).size.width - 162,
             lineHeight: 24.0,
-            percent: 0.5,
+            percent: candidate!.voteResult! / 100,
             center: Text(
-              '50%',
+              '${candidate!.voteResult!.toStringAsFixed(2)}%',
               style: GoogleFonts.inter(
                 color: titleColor,
                 fontWeight: bold,

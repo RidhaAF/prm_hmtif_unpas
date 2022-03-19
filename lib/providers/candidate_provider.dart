@@ -21,4 +21,13 @@ class CandidateProvider with ChangeNotifier {
       print(e);
     }
   }
+
+  Future<void> getVotes() async {
+    try {
+      List<CandidateModel> candidates = await CandidateService().getVotes();
+      _candidate = candidates;
+    } catch (e) {
+      print(e);
+    }
+  }
 }

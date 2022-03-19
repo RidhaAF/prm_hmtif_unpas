@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
-import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,9 +17,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _getInit() async {
-    await Provider.of<CandidateProvider>(context, listen: false)
-        .getCandidates();
-    await Provider.of<VoteProvider>(context, listen: false).getVotes();
+    // get candidates & vote result
+    await Provider.of<CandidateProvider>(context, listen: false).getVotes();
 
     final prefs = await SharedPreferences.getInstance();
 

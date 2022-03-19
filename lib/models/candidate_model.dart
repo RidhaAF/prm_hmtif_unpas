@@ -6,6 +6,7 @@ class CandidateModel {
   String? vision;
   String? mission;
   String? photo;
+  double? voteResult;
 
   CandidateModel({
     this.id,
@@ -15,6 +16,7 @@ class CandidateModel {
     this.vision,
     this.mission,
     this.photo,
+    this.voteResult,
   });
 
   CandidateModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class CandidateModel {
     vision = json['vision'];
     mission = json['mission'];
     photo = json['photo'];
+    voteResult = json['vote_result'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +39,7 @@ class CandidateModel {
       'vision': vision,
       'mission': mission,
       'photo': photo,
+      'vote_result': voteResult,
     };
   }
 }
