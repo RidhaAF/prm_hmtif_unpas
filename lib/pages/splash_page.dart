@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -17,18 +18,18 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _getInit() async {
-    // get candidates & vote result
     await Provider.of<CandidateProvider>(context, listen: false).getVotes();
 
     final prefs = await SharedPreferences.getInstance();
 
     if (prefs.getBool('isFirstTime') ?? true) {
       Navigator.pushReplacementNamed(context, '/onboarding');
+    } else if (prefs.containsKey('token')) {
+      await Provider.of<AuthProvider>(context, listen: false).getUser();
+      Navigator.pushReplacementNamed(context, '/main');
     } else {
       Navigator.pushReplacementNamed(context, '/login');
     }
-
-    print(prefs.getBool('isFirstTime'));
   }
 
   @override

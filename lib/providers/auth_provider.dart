@@ -13,8 +13,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> login({
-    String? nrp,
-    String? password,
+    required String? nrp,
+    required String? password,
   }) async {
     try {
       UserModel user = await AuthService().login(
@@ -30,9 +30,9 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> getUser(String? token) async {
+  Future<void> getUser() async {
     try {
-      UserModel user = await AuthService().getUser(token);
+      UserModel user = await AuthService().getUser();
       _user = user;
     } catch (e) {
       print(e);
@@ -40,12 +40,10 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> updateProfile({
-    String? token,
     String? name,
   }) async {
     try {
       if (await AuthService().updateProfile(
-        token,
         name,
       )) {
         return true;

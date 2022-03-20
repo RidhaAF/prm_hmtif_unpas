@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:prm_hmtif_unpas/models/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   String baseUrl = 'https://prm-hmtif-unpas-backend.herokuapp.com/api';
 
   Future<UserModel> login({
-    String? nrp,
-    String? password,
+    required String? nrp,
+    required String? password,
   }) async {
     var url = '$baseUrl/login';
     var headers = {'Content-Type': 'application/json'};
@@ -30,17 +31,26 @@ class AuthService {
       UserModel user = UserModel.fromJson(data['user']);
       user.token = 'Bearer ' + data['access_token'];
 
+      setToken(user.token!);
+
       return user;
     } else {
       throw Exception('Login Gagal!');
     }
   }
 
-  Future<UserModel> getUser(String? token) async {
+  void setToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
+    print(prefs.getString('token'));
+  }
+
+  Future<UserModel> getUser() async {
+    final prefs = await SharedPreferences.getInstance();
     var url = '$baseUrl/voter';
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': token ?? '',
+      'Authorization': prefs.getString('token') ?? '',
     };
 
     var response = await http.get(
@@ -61,13 +71,13 @@ class AuthService {
   }
 
   Future<bool> updateProfile(
-    String? token,
     String? name,
   ) async {
+    final prefs = await SharedPreferences.getInstance();
     var url = '$baseUrl/voter';
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': token ?? '',
+      'Authorization': prefs.getString('token') ?? '',
     };
     var body = jsonEncode({
       'name': name,
@@ -90,10 +100,11 @@ class AuthService {
   }
 
   Future<bool> logout(String? token) async {
+    final prefs = await SharedPreferences.getInstance();
     var url = '$baseUrl/logout';
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': token ?? '',
+      'Authorization': prefs.getString('token') ?? '',
     };
 
     var response = await http.post(
@@ -104,6 +115,8 @@ class AuthService {
     print(response.body);
 
     if (response.statusCode == 200) {
+      prefs.remove('token');
+
       print('Berhasil Keluar!');
       return true;
     } else {

@@ -6,7 +6,6 @@ import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -27,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     _initPackageInfo();
+    _getUser();
   }
 
   Future<void> _initPackageInfo() async {
@@ -34,6 +34,12 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       _packageInfo = info;
     });
+  }
+
+  void _getUser() async {
+    await Provider.of<AuthProvider>(context, listen: false).getUser();
+    if (!mounted) return;
+    setState(() {});
   }
 
   @override
@@ -47,10 +53,6 @@ class _ProfilePageState extends State<ProfilePage> {
       });
 
       if (await authProvider.logout(authProvider.user.token)) {
-        final prefs = await SharedPreferences.getInstance();
-
-        prefs.remove('token');
-
         Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
         pageProvider.currentIndex = 0;
       } else {
@@ -83,62 +85,66 @@ class _ProfilePageState extends State<ProfilePage> {
             primaryBoxShadow,
           ],
         ),
-        child: Row(
-          children: [
-            Container(
-              margin: EdgeInsets.all(defaultMargin),
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    authProvider.user.profilePhotoUrl ?? '',
+        child: Consumer<AuthProvider>(
+          builder: (context, authProvider, child) {
+            return Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(defaultMargin),
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        authProvider.user.profilePhotoUrl ?? '',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  fit: BoxFit.cover,
                 ),
-              ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      authProvider.user.name ?? '',
-                      style: GoogleFonts.inter(
-                        color: titleColor,
-                        fontSize: 18,
-                        fontWeight: semiBold,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Text(
+                          authProvider.user.name ?? '',
+                          style: GoogleFonts.inter(
+                            color: titleColor,
+                            fontSize: 18,
+                            fontWeight: semiBold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Container(
-                    child: Text(
-                      '${authProvider.user.major} - ${authProvider.user.classYear}',
-                      style: GoogleFonts.inter(
-                        color: subtitleColor,
-                        fontSize: 16,
+                      SizedBox(height: 4),
+                      Container(
+                        child: Text(
+                          '${authProvider.user.major} - ${authProvider.user.classYear}',
+                          style: GoogleFonts.inter(
+                            color: subtitleColor,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Container(
-                    child: Text(
-                      authProvider.user.nrp ?? '',
-                      style: GoogleFonts.inter(
-                        color: subtitleColor,
-                        fontSize: 16,
+                      SizedBox(height: 4),
+                      Container(
+                        child: Text(
+                          authProvider.user.nrp ?? '',
+                          style: GoogleFonts.inter(
+                            color: subtitleColor,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            )
-          ],
+                )
+              ],
+            );
+          },
         ),
       );
     }

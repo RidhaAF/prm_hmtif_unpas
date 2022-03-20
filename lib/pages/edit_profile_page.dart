@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
@@ -30,23 +29,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
       });
 
       if (await authProvider.updateProfile(
-        token: authProvider.user.token,
         name: _nameController.text,
       )) {
-        // Navigator.pushNamed(context, '/main');
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainPage(),
-          ),
-        ).then(
-          (value) => setState(
-            () {
-              Provider.of<AuthProvider>(context, listen: false)
-                  .getUser(authProvider.user.token);
-            },
-          ),
-        );
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
         pageProvider.currentIndex = 3;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
