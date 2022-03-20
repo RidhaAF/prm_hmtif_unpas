@@ -12,9 +12,9 @@ class VoteProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> vote(String? token, int? userId, int? candidateId) async {
+  Future<bool> vote(int? userId, int? candidateId) async {
     try {
-      if (await VoteService().vote(token, userId, candidateId)) {
+      if (await VoteService().vote(userId, candidateId)) {
         return true;
       } else {
         return false;

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
-import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
+import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailVotePage extends StatefulWidget {
   final CandidateModel? candidate;
@@ -23,6 +22,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     VoteProvider voteProvider = Provider.of<VoteProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     Widget backButton() {
       return SafeArea(
@@ -151,26 +151,11 @@ class _DetailVotePageState extends State<DetailVotePage> {
       });
 
       if (await voteProvider.vote(
-        authProvider.user.token,
         authProvider.user.id,
         widget.candidate?.id,
       )) {
-        final prefs = await SharedPreferences.getInstance();
-
-        prefs.setBool('vote', true);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainPage(),
-          ),
-        ).then(
-          (value) => setState(
-            () {
-              authProvider.user.voteStatus = 1;
-            },
-          ),
-        );
+        Navigator.pushReplacementNamed(context, '/main');
+        pageProvider.currentIndex = 1;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

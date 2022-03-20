@@ -6,8 +6,6 @@ import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/vote_card.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class VotePage extends StatefulWidget {
   const VotePage({Key? key}) : super(key: key);
@@ -17,44 +15,20 @@ class VotePage extends StatefulWidget {
 }
 
 class _VotePageState extends State<VotePage> {
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
   @override
-  initState() {
+  void initState() {
+    _getUser();
     super.initState();
-    _getVote();
   }
 
-  void _onRefresh() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    print('Page refreshed!');
-    // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
-  }
-
-  void _onLoading() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    if (mounted)
-      setState(() {
-        _getVote();
-      });
-    print('Page loaded!');
-    _refreshController.loadComplete();
-  }
-
-  void _getVote() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.getBool('vote');
-    print(prefs.getBool('vote'));
+  void _getUser() async {
+    await Provider.of<AuthProvider>(context, listen: false).getUser();
+    if (!mounted) return;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     CandidateProvider candidateProvider =
         Provider.of<CandidateProvider>(context);
 
@@ -77,8 +51,8 @@ class _VotePageState extends State<VotePage> {
 
     Widget voted() {
       return Center(
-        child: ListView(
-          shrinkWrap: true,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 250,
@@ -119,15 +93,10 @@ class _VotePageState extends State<VotePage> {
         centerTitle: true,
       ),
       backgroundColor: backgroundColor2,
-      body: SmartRefresher(
-        enablePullDown: true,
-        header: MaterialClassicHeader(
-          color: primaryColor,
-        ),
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: authProvider.user.voteStatus == 1 ? voted() : gridCandidate(),
+      body: Consumer<AuthProvider>(
+        builder: (context, authProvider, child) {
+          return authProvider.user.voteStatus == 1 ? voted() : gridCandidate();
+        },
       ),
     );
   }

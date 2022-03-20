@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VoteService {
   String baseUrl = 'https://prm-hmtif-unpas-backend.herokuapp.com/api';
 
-  Future<bool> vote(String? token, int? userId, int? candidateId) async {
+  Future<bool> vote(int? userId, int? candidateId) async {
+    final prefs = await SharedPreferences.getInstance();
     var url = '$baseUrl/vote';
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': token ?? '',
+      'Authorization': prefs.getString('token') ?? '',
     };
 
     var body = jsonEncode(
