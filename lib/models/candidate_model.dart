@@ -6,7 +6,7 @@ class CandidateModel {
   String? vision;
   String? mission;
   String? photo;
-  double? voteResult;
+  num? voteResult;
 
   CandidateModel({
     this.id,

@@ -5,12 +5,41 @@ import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/theme/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/candidate_card.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class QuickCountPage extends StatelessWidget {
+class QuickCountPage extends StatefulWidget {
+  @override
+  State<QuickCountPage> createState() => _QuickCountPageState();
+}
+
+class _QuickCountPageState extends State<QuickCountPage> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    await Provider.of<CandidateProvider>(context, listen: false).getVotes();
+    setState(() {});
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (mounted)
+      setState(() {
+        Provider.of<CandidateProvider>(context, listen: false).getVotes();
+      });
+    _refreshController.loadComplete();
+  }
+
   @override
   Widget build(BuildContext context) {
-    CandidateProvider candidateProvider =
-        Provider.of<CandidateProvider>(context);
+    // CandidateProvider candidateProvider =
+    //     Provider.of<CandidateProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,19 +56,29 @@ class QuickCountPage extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: backgroundColor2,
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(
-            bottom: defaultMargin,
-          ),
-          child: Column(
-            children: candidateProvider.candidates
-                .map(
-                  (candidate) => CandidateCard(
-                    candidate: candidate,
-                  ),
-                )
-                .toList(),
+      body: SmartRefresher(
+        controller: _refreshController,
+        header: MaterialClassicHeader(color: primaryColor),
+        onLoading: _onLoading,
+        onRefresh: _onRefresh,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(
+              bottom: defaultMargin,
+            ),
+            child: Consumer<CandidateProvider>(
+              builder: (context, candidateProvider, child) {
+                return Column(
+                  children: candidateProvider.candidates
+                      .map(
+                        (candidate) => CandidateCard(
+                          candidate: candidate,
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+            ),
           ),
         ),
       ),
