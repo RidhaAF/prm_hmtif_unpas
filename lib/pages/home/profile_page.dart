@@ -313,6 +313,44 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
+            // SizedBox(height: defaultMargin),
+            Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: defaultMargin,
+                vertical: defaultMargin,
+              ),
+              padding: EdgeInsets.all(defaultMargin),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(defaultRadius),
+                color: backgroundColor1,
+                boxShadow: [
+                  primaryBoxShadow,
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sectionList('Tampilan'),
+                  SizedBox(height: defaultMargin),
+                  GestureDetector(
+                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.amber,
+                        content: Text(
+                          'Fitur sedang dalam pengembangan 🔨',
+                          style: GoogleFonts.inter(
+                            color: blackColor,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    child: menuList(Icons.sunny, 'Tema', false),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: defaultMargin),
             Container(
               margin: EdgeInsets.symmetric(horizontal: defaultMargin),
