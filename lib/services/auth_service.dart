@@ -72,6 +72,7 @@ class AuthService {
 
   Future<bool> updateProfile(
     String? name,
+    String? email,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     var url = '$baseUrl/voter';
@@ -81,6 +82,7 @@ class AuthService {
     };
     var body = jsonEncode({
       'name': name,
+      'email': email,
     });
 
     var response = await http.post(

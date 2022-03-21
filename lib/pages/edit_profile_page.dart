@@ -23,6 +23,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
 
+    _nameController.text = authProvider.user.name!;
+    _emailController.text = authProvider.user.email!;
+
     void _handleUpdateProfile() async {
       setState(() {
         isLoading = true;
@@ -30,6 +33,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       if (await authProvider.updateProfile(
         name: _nameController.text,
+        email: _emailController.text,
       )) {
         Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
         pageProvider.currentIndex = 3;
@@ -83,12 +87,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             SizedBox(height: 8),
-            Text(
-              'Ubah Foto',
-              style: GoogleFonts.inter(
-                color: primaryColor,
-                fontSize: 16,
-                decoration: TextDecoration.underline,
+            GestureDetector(
+              onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.amber,
+                  content: Text(
+                    'Fitur sedang dalam pengembangan 🔨',
+                    style: GoogleFonts.inter(
+                      color: blackColor,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              child: Text(
+                'Ubah Foto',
+                style: GoogleFonts.inter(
+                  color: primaryColor,
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
           ],
@@ -123,9 +142,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               controller: _nameController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: authProvider.user.name,
+                hintText: 'Masukkan nama',
                 hintStyle: GoogleFonts.inter(
-                  color: titleColor,
+                  color: greyColor,
                 ),
               ),
               style: GoogleFonts.inter(
@@ -165,9 +184,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               controller: _emailController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: authProvider.user.email,
+                hintText: 'Masukkan email',
                 hintStyle: GoogleFonts.inter(
-                  color: titleColor,
+                  color: greyColor,
                 ),
               ),
               style: GoogleFonts.inter(
