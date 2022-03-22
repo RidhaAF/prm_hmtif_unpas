@@ -6,6 +6,8 @@ import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:mailto/mailto.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -48,6 +50,13 @@ class _ProfilePageState extends State<ProfilePage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
+    launchMailto() async {
+      final mailtoLink = Mailto(
+        to: ['prmhmtifunpas@gmail.com'],
+      );
+      await launch('$mailtoLink');
+    }
 
     void _handleLogout() async {
       setState(() {
@@ -356,7 +365,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Icons.text_snippet, 'Syarat dan Ketentuan', true),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                  onTap: () => launchMailto(),
                   child: menuList(Icons.help, 'Pusat Bantuan', false),
                 ),
               ],
