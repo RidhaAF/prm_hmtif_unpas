@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     buildNumber: 'Unknown',
     buildSignature: 'Unknown',
   );
+
   bool isLoading = false;
 
   @override
@@ -46,6 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     void _handleLogout() async {
       setState(() {
@@ -80,7 +82,8 @@ class _ProfilePageState extends State<ProfilePage> {
         margin: EdgeInsets.all(defaultMargin),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(defaultRadius),
-          color: whiteColor,
+          color:
+              themeProvider.darkMode ? darkBackgroundColor3 : backgroundColor1,
           boxShadow: [
             primaryBoxShadow,
           ],
@@ -111,7 +114,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text(
                           authProvider.user.name ?? '',
                           style: GoogleFonts.inter(
-                            color: titleColor,
                             fontSize: 18,
                             fontWeight: semiBold,
                           ),
@@ -124,7 +126,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text(
                           '${authProvider.user.major} - ${authProvider.user.classYear}',
                           style: GoogleFonts.inter(
-                            color: subtitleColor,
+                            color: themeProvider.darkMode
+                                ? greyColor
+                                : subtitleColor,
                             fontSize: 16,
                           ),
                         ),
@@ -134,7 +138,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text(
                           authProvider.user.nrp ?? '',
                           style: GoogleFonts.inter(
-                            color: subtitleColor,
+                            color: themeProvider.darkMode
+                                ? greyColor
+                                : subtitleColor,
                             fontSize: 16,
                           ),
                         ),
@@ -175,7 +181,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Text(
                   menuName,
                   style: GoogleFonts.inter(
-                    color: titleColor,
                     fontSize: 16,
                     fontWeight: medium,
                   ),
@@ -192,16 +197,185 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
 
+    Widget menuListDisplay(IconData menuIcon, String menuName) {
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                menuIcon,
+                color: primaryColor,
+              ),
+              SizedBox(width: 8.0),
+              Expanded(
+                child: Text(
+                  menuName,
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                ),
+              ),
+              Consumer<ThemeProvider>(
+                builder: (context, themeProvider, child) {
+                  return Switch.adaptive(
+                    activeColor: primaryColor,
+                    value: themeProvider.darkMode,
+                    onChanged: (value) {
+                      themeProvider.darkMode = value;
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      );
+    }
+
+    Widget content() {
+      return Column(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: defaultMargin,
+              vertical: defaultMargin,
+            ),
+            padding: EdgeInsets.all(defaultMargin),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(defaultRadius),
+              color: themeProvider.darkMode
+                  ? darkBackgroundColor3
+                  : backgroundColor1,
+              boxShadow: [primaryBoxShadow],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sectionList('Akun'),
+                SizedBox(height: defaultMargin),
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/edit-profile'),
+                  child: menuList(Icons.edit, 'Ubah Profil', true),
+                ),
+                GestureDetector(
+                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.amber,
+                      content: Text(
+                        'Fitur sedang dalam pengembangan 🔨',
+                        style: GoogleFonts.inter(
+                          color: blackColor,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  child: menuList(Icons.notifications, 'Pemberitahuan', true),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/change-password'),
+                  child: menuList(Icons.lock, 'Ubah Kata Sandi', false),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: defaultMargin,
+              vertical: defaultMargin,
+            ),
+            padding: EdgeInsets.all(defaultMargin),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(defaultRadius),
+              color: themeProvider.darkMode
+                  ? darkBackgroundColor3
+                  : backgroundColor1,
+              boxShadow: [primaryBoxShadow],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sectionList('Tampilan'),
+                SizedBox(height: defaultMargin),
+                menuListDisplay(Icons.dark_mode_rounded, 'Mode Gelap'),
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: defaultMargin,
+              vertical: defaultMargin,
+            ),
+            padding: EdgeInsets.all(defaultMargin),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(defaultRadius),
+              color: themeProvider.darkMode
+                  ? darkBackgroundColor3
+                  : backgroundColor1,
+              boxShadow: [primaryBoxShadow],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sectionList('Tentang'),
+                SizedBox(height: defaultMargin),
+                GestureDetector(
+                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.amber,
+                      content: Text(
+                        'Fitur sedang dalam pengembangan 🔨',
+                        style: GoogleFonts.inter(
+                          color: blackColor,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  child: menuList(Icons.star, 'Menilai Aplikasi', true),
+                ),
+                GestureDetector(
+                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.amber,
+                      content: Text(
+                        'Fitur sedang dalam pengembangan 🔨',
+                        style: GoogleFonts.inter(
+                          color: blackColor,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  child: menuList(
+                      Icons.text_snippet, 'Syarat dan Ketentuan', true),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/coming-soon'),
+                  child: menuList(Icons.help, 'Pusat Bantuan', false),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
     Widget _infoPackage(String title, String packageInfo) {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin * 3,
+          top: defaultMargin * 2,
           left: defaultMargin,
         ),
         child: Text(
           '$title $packageInfo',
           style: GoogleFonts.inter(
-            color: greyColor,
+            color: themeProvider.darkMode ? darkGreyColor : greyColor,
           ),
         ),
       );
@@ -249,9 +423,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
         elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Profil',
           style: GoogleFonts.inter(
@@ -261,152 +433,12 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         centerTitle: true,
       ),
-      backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             header(),
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: defaultMargin,
-                vertical: defaultMargin,
-              ),
-              padding: EdgeInsets.all(defaultMargin),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(defaultRadius),
-                color: backgroundColor1,
-                boxShadow: [
-                  primaryBoxShadow,
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  sectionList('Akun'),
-                  SizedBox(height: defaultMargin),
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/edit-profile'),
-                    child: menuList(Icons.edit, 'Ubah Profil', true),
-                  ),
-                  GestureDetector(
-                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.amber,
-                        content: Text(
-                          'Fitur sedang dalam pengembangan 🔨',
-                          style: GoogleFonts.inter(
-                            color: blackColor,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    child: menuList(Icons.notifications, 'Pemberitahuan', true),
-                  ),
-                  GestureDetector(
-                    onTap: () =>
-                        Navigator.pushNamed(context, '/change-password'),
-                    child: menuList(Icons.lock, 'Ubah Kata Sandi', false),
-                  ),
-                ],
-              ),
-            ),
-            // SizedBox(height: defaultMargin),
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: defaultMargin,
-                vertical: defaultMargin,
-              ),
-              padding: EdgeInsets.all(defaultMargin),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(defaultRadius),
-                color: backgroundColor1,
-                boxShadow: [
-                  primaryBoxShadow,
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  sectionList('Tampilan'),
-                  SizedBox(height: defaultMargin),
-                  GestureDetector(
-                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.amber,
-                        content: Text(
-                          'Fitur sedang dalam pengembangan 🔨',
-                          style: GoogleFonts.inter(
-                            color: blackColor,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    child: menuList(Icons.sunny, 'Tema', false),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: defaultMargin),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-              padding: EdgeInsets.all(defaultMargin),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(defaultRadius),
-                color: backgroundColor1,
-                boxShadow: [
-                  primaryBoxShadow,
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  sectionList('Tentang'),
-                  SizedBox(height: defaultMargin),
-                  GestureDetector(
-                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.amber,
-                        content: Text(
-                          'Fitur sedang dalam pengembangan 🔨',
-                          style: GoogleFonts.inter(
-                            color: blackColor,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    child: menuList(Icons.star, 'Menilai Aplikasi', true),
-                  ),
-                  GestureDetector(
-                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.amber,
-                        content: Text(
-                          'Fitur sedang dalam pengembangan 🔨',
-                          style: GoogleFonts.inter(
-                            color: blackColor,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    child: menuList(
-                        Icons.text_snippet, 'Syarat dan Ketentuan', true),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/coming-soon'),
-                    child: menuList(Icons.help, 'Pusat Bantuan', false),
-                  ),
-                ],
-              ),
-            ),
+            content(),
             _infoPackage('Versi', _packageInfo.version),
             logoutButton(),
           ],

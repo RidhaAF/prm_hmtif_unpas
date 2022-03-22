@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
+import 'package:provider/provider.dart';
 
 class CandidateCard extends StatelessWidget {
   final CandidateModel? candidate;
@@ -10,6 +12,8 @@ class CandidateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(
         left: defaultMargin,
@@ -20,10 +24,8 @@ class CandidateCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(defaultRadius),
-        color: backgroundColor1,
-        boxShadow: [
-          primaryBoxShadow,
-        ],
+        color: themeProvider.darkMode ? darkBackgroundColor3 : backgroundColor1,
+        boxShadow: [primaryBoxShadow],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +55,6 @@ class CandidateCard extends StatelessWidget {
                 Text(
                   candidate?.name ?? '',
                   style: GoogleFonts.inter(
-                    color: subtitleColor,
                     fontSize: 16,
                     fontWeight: semiBold,
                   ),
@@ -74,12 +75,13 @@ class CandidateCard extends StatelessWidget {
             center: Text(
               '${candidate!.voteResult!.toStringAsFixed(2)}%',
               style: GoogleFonts.inter(
-                color: titleColor,
                 fontWeight: bold,
               ),
             ),
             barRadius: const Radius.circular(24),
-            backgroundColor: backgroundColor3,
+            backgroundColor: themeProvider.darkMode
+                ? darkBackgroundColor2
+                : backgroundColor3,
             progressColor: accentColor,
           ),
         ],

@@ -5,7 +5,8 @@ import 'package:prm_hmtif_unpas/pages/home/profile_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/quick_count_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/vote_page.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
@@ -24,14 +25,14 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of<PageProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
       body: _widgetOptions.elementAt(pageProvider.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: backgroundColor1,
         selectedItemColor: primaryColor,
-        unselectedItemColor: greyColor,
+        unselectedItemColor: themeProvider.darkMode ? darkGreyColor : greyColor,
         selectedLabelStyle: GoogleFonts.inter(
           fontSize: 14,
         ),

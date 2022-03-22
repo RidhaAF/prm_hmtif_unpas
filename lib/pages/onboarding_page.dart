@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class OnboardingPage extends StatefulWidget {
-  @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
-}
-
-class _OnboardingPageState extends State<OnboardingPage> {
-  void _firstTime() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    prefs.setBool('isFirstTime', false);
-    print(prefs.getBool('isFirstTime'));
-  }
+class OnboardingPage extends StatelessWidget {
+  const OnboardingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
+    void _firstTime() async {
+      final prefs = await SharedPreferences.getInstance();
+
+      prefs.setBool('isFirstTime', false);
+    }
+
     Widget illustration() {
       return Container(
         height: 250,
@@ -46,7 +46,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       return Text(
         'Pemilu Raya Mahasiswa HMTIF-UNPAS merupakan sebuah acara untuk pemilihan Ketua Umum HMTIF-UNPAS untuk 1 periode ke depan.',
         style: GoogleFonts.inter(
-          color: subtitleColor,
+          color: themeProvider.darkMode ? greyColor : subtitleColor,
           fontSize: 14,
         ),
         textAlign: TextAlign.center,
@@ -90,7 +90,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor1,
       body: Center(
         child: Container(
           margin: EdgeInsets.all(defaultMargin),

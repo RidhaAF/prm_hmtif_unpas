@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
+import 'package:provider/provider.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
     Widget header() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +27,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           Text(
             'Ubah kata sandi kamu',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 20,
               fontWeight: semiBold,
             ),
@@ -33,7 +35,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           Text(
             'Silakan masukkan kata sandi kamu saat ini dan buat kata sandi baru.',
             style: GoogleFonts.inter(
-              color: subtitleColor,
+              color: themeProvider.darkMode ? darkGreyColor : subtitleColor,
             ),
           ),
         ],
@@ -47,7 +49,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           Text(
             'Kata sandi saat ini',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 16,
               fontWeight: semiBold,
             ),
@@ -70,7 +71,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 border: InputBorder.none,
                 hintText: 'Masukkan kata sandi saat ini',
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                   fontSize: 14,
                 ),
                 suffixIcon: IconButton(
@@ -85,9 +86,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   },
                 ),
               ),
-              style: GoogleFonts.inter(
-                color: titleColor,
-              ),
+              style: GoogleFonts.inter(),
             ),
           ),
         ],
@@ -101,7 +100,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           Text(
             'Kata sandi baru',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 16,
               fontWeight: semiBold,
             ),
@@ -124,7 +122,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 border: InputBorder.none,
                 hintText: 'Masukkan kata sandi baru',
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                   fontSize: 14,
                 ),
                 suffixIcon: IconButton(
@@ -139,9 +137,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   },
                 ),
               ),
-              style: GoogleFonts.inter(
-                color: titleColor,
-              ),
+              style: GoogleFonts.inter(),
             ),
           ),
         ],
@@ -204,7 +200,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         centerTitle: true,
         automaticallyImplyLeading: true,
       ),
-      backgroundColor: backgroundColor2,
+      // backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(defaultMargin),

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/vote_card.dart';
 import 'package:provider/provider.dart';
 
@@ -92,7 +92,6 @@ class _VotePageState extends State<VotePage> {
         ),
         centerTitle: true,
       ),
-      backgroundColor: backgroundColor2,
       body: Consumer<AuthProvider>(
         builder: (context, authProvider, child) {
           return authProvider.user.voteStatus == 1 ? voted() : gridCandidate();

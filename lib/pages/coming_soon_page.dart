@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
+import 'package:provider/provider.dart';
 
 class ComingSoonPage extends StatelessWidget {
   const ComingSoonPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
     Widget illustration() {
       return Container(
         height: 200,
@@ -47,7 +51,8 @@ class ComingSoonPage extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: true,
       ),
-      backgroundColor: backgroundColor2,
+      backgroundColor:
+          themeProvider.darkMode ? darkBackgroundColor2 : backgroundColor2,
       body: Center(
         child: Container(
           margin: EdgeInsets.all(defaultMargin),

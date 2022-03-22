@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
 import 'package:prm_hmtif_unpas/pages/detail_vote_page.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
+import 'package:provider/provider.dart';
 
 class VoteCard extends StatelessWidget {
   final CandidateModel? candidate;
@@ -10,6 +12,8 @@ class VoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -24,7 +28,8 @@ class VoteCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(defaultRadius),
-          color: backgroundColor1,
+          color:
+              themeProvider.darkMode ? darkBackgroundColor3 : backgroundColor1,
           boxShadow: [
             primaryBoxShadow,
           ],
@@ -57,7 +62,6 @@ class VoteCard extends StatelessWidget {
                   Text(
                     candidate?.name ?? '',
                     style: GoogleFonts.inter(
-                      color: titleColor,
                       fontSize: 16,
                       fontWeight: semiBold,
                     ),
@@ -68,7 +72,9 @@ class VoteCard extends StatelessWidget {
                   Text(
                     candidate?.nrp ?? '',
                     style: GoogleFonts.inter(
-                      color: subtitleColor,
+                      color: themeProvider.darkMode
+                          ? darkGreyColor
+                          : subtitleColor,
                     ),
                   ),
                 ],

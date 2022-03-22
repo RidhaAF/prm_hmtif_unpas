@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
+import 'package:provider/provider.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   @override
@@ -12,6 +14,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
     Widget header() {
       return Container(
         padding: EdgeInsets.only(
@@ -54,7 +58,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           Text(
             'Email',
             style: GoogleFonts.inter(
-              color: titleColor,
+              color: themeProvider.darkMode ? whiteColor : titleColor,
               fontSize: 16,
               fontWeight: medium,
             ),
@@ -73,13 +77,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 border: InputBorder.none,
                 hintText: 'Masukkan email',
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                   fontSize: 14,
                 ),
               ),
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
-                  color: titleColor,
+                  color: themeProvider.darkMode ? whiteColor : titleColor,
                 ),
               ),
             ),
@@ -174,7 +178,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor2,
+      backgroundColor:
+          themeProvider.darkMode ? darkBackgroundColor2 : backgroundColor2,
       body: SingleChildScrollView(
         child: Column(
           children: [

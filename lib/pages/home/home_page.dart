@@ -5,7 +5,8 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     Widget countdownColumn(String time, String subtitle) {
       return Column(
@@ -28,7 +30,6 @@ class _HomePageState extends State<HomePage> {
           Text(
             time,
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 28,
               fontWeight: bold,
             ),
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           Text(
             subtitle,
             style: GoogleFonts.inter(
-              color: subtitleColor,
+              color: themeProvider.darkMode ? greyColor : subtitleColor,
               fontSize: 16,
             ),
           ),
@@ -49,7 +50,8 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.symmetric(horizontal: defaultMargin),
         height: 72,
         decoration: BoxDecoration(
-          color: whiteColor,
+          color:
+              themeProvider.darkMode ? darkBackgroundColor3 : backgroundColor1,
           borderRadius: BorderRadius.circular(defaultRadius),
           boxShadow: [primaryBoxShadow],
         ),
@@ -184,7 +186,8 @@ class _HomePageState extends State<HomePage> {
         ),
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: whiteColor,
+          color:
+              themeProvider.darkMode ? darkBackgroundColor3 : backgroundColor1,
           borderRadius: BorderRadius.circular(defaultRadius),
           boxShadow: [
             primaryBoxShadow,
@@ -212,7 +215,6 @@ class _HomePageState extends State<HomePage> {
             Text(
               subtitle,
               style: GoogleFonts.inter(
-                color: titleColor,
                 fontSize: 20,
                 fontWeight: bold,
               ),
@@ -270,13 +272,13 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           'PRM HMTIF-UNPAS',
           style: GoogleFonts.inter(
+            color: whiteColor,
             fontSize: 24,
             fontWeight: bold,
           ),
         ),
         centerTitle: true,
       ),
-      backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
         child: Column(
           children: [

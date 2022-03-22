@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/candidate_card.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -38,8 +39,7 @@ class _QuickCountPageState extends State<QuickCountPage> {
 
   @override
   Widget build(BuildContext context) {
-    // CandidateProvider candidateProvider =
-    //     Provider.of<CandidateProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,10 +55,13 @@ class _QuickCountPageState extends State<QuickCountPage> {
         ),
         centerTitle: true,
       ),
-      backgroundColor: backgroundColor2,
       body: SmartRefresher(
         controller: _refreshController,
-        header: MaterialClassicHeader(color: primaryColor),
+        header: MaterialClassicHeader(
+          backgroundColor:
+              themeProvider.darkMode ? darkBackgroundColor2 : backgroundColor2,
+          color: primaryColor,
+        ),
         onLoading: _onLoading,
         onRefresh: _onRefresh,
         child: SingleChildScrollView(

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     _nameController.text = authProvider.user.name!;
     _emailController.text = authProvider.user.email!;
@@ -43,6 +45,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             content: Text(
               'Berhasil merubah profil!',
               style: GoogleFonts.inter(
+                color: whiteColor,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
@@ -56,6 +59,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             content: Text(
               'Gagal mengubah profil!',
               style: GoogleFonts.inter(
+                color: whiteColor,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
@@ -122,7 +126,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           Text(
             'Nama',
             style: GoogleFonts.inter(
-              color: titleColor,
+              color: themeProvider.darkMode ? whiteColor : titleColor,
               fontSize: 16,
               fontWeight: semiBold,
             ),
@@ -144,12 +148,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 border: InputBorder.none,
                 hintText: 'Masukkan nama',
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                 ),
               ),
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
-                  color: titleColor,
+                  color: themeProvider.darkMode ? whiteColor : titleColor,
                 ),
               ),
             ),
@@ -165,7 +169,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           Text(
             'Email',
             style: GoogleFonts.inter(
-              color: titleColor,
+              color: themeProvider.darkMode ? whiteColor : titleColor,
               fontWeight: semiBold,
             ),
           ),
@@ -186,12 +190,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 border: InputBorder.none,
                 hintText: 'Masukkan email',
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                 ),
               ),
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
-                  color: titleColor,
+                  color: themeProvider.darkMode ? whiteColor : titleColor,
                 ),
               ),
             ),
@@ -223,7 +227,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         ],
       ),
-      backgroundColor: backgroundColor2,
+      backgroundColor:
+          themeProvider.darkMode ? darkBackgroundColor2 : backgroundColor2,
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(defaultMargin),

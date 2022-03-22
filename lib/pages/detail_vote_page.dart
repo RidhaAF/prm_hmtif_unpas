@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/models/candidate_model.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
 import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
 
 class DetailVotePage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     VoteProvider voteProvider = Provider.of<VoteProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     Widget backButton() {
       return SafeArea(
@@ -34,7 +36,9 @@ class _DetailVotePageState extends State<DetailVotePage> {
           height: 40,
           width: 40,
           decoration: BoxDecoration(
-            color: whiteColor,
+            color: themeProvider.darkMode
+                ? darkBackgroundColor2
+                : backgroundColor1,
             shape: BoxShape.circle,
             boxShadow: [
               primaryBoxShadow,
@@ -47,6 +51,24 @@ class _DetailVotePageState extends State<DetailVotePage> {
               color: primaryColor,
               size: 24,
             ),
+          ),
+        ),
+      );
+    }
+
+    Widget photoGradient() {
+      return Container(
+        height: 350,
+        width: double.infinity,
+        foregroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              blackColor.withOpacity(0.7),
+              Colors.transparent,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0, 0.2],
           ),
         ),
       );
@@ -75,7 +97,6 @@ class _DetailVotePageState extends State<DetailVotePage> {
           Text(
             widget.candidate?.name ?? '',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 32,
               fontWeight: bold,
             ),
@@ -84,7 +105,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
           Text(
             widget.candidate?.nrp ?? '',
             style: GoogleFonts.inter(
-              color: subtitleColor,
+              color: themeProvider.darkMode ? greyColor : subtitleColor,
               fontSize: 18,
             ),
           ),
@@ -100,7 +121,6 @@ class _DetailVotePageState extends State<DetailVotePage> {
           Text(
             'Visi',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 24,
               fontWeight: semiBold,
             ),
@@ -109,7 +129,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
           Text(
             widget.candidate?.vision ?? '',
             style: GoogleFonts.inter(
-              color: subtitleColor,
+              color: themeProvider.darkMode ? greyColor : subtitleColor,
               fontSize: 16,
             ),
           ),
@@ -125,7 +145,6 @@ class _DetailVotePageState extends State<DetailVotePage> {
           Text(
             'Misi',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 24,
               fontWeight: semiBold,
             ),
@@ -134,7 +153,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
           Text(
             widget.candidate?.mission ?? '',
             style: GoogleFonts.inter(
-              color: subtitleColor,
+              color: themeProvider.darkMode ? greyColor : subtitleColor,
               fontSize: 16,
             ),
           ),
@@ -163,6 +182,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
             content: Text(
               'Gagal melakukan pemilihan!',
               style: GoogleFonts.inter(
+                color: whiteColor,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
@@ -183,7 +203,6 @@ class _DetailVotePageState extends State<DetailVotePage> {
           title: Text(
             'Pilih Kandidat',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 20,
               fontWeight: semiBold,
             ),
@@ -191,7 +210,6 @@ class _DetailVotePageState extends State<DetailVotePage> {
           content: Text(
             'Pilih ${widget.candidate?.name ?? ''} sebagai Ketua Umum HMTIF-UNPAS Periode 2022/2023',
             style: GoogleFonts.inter(
-              color: titleColor,
               fontSize: 18,
             ),
           ),
@@ -201,7 +219,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
               child: Text(
                 'Batal',
                 style: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                   fontSize: 16,
                 ),
               ),
@@ -276,7 +294,6 @@ class _DetailVotePageState extends State<DetailVotePage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor2,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -289,21 +306,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
           ),
           Stack(
             children: [
-              Container(
-                height: 350,
-                width: double.infinity,
-                foregroundDecoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      blackColor.withOpacity(0.7),
-                      Colors.transparent,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0, 0.2],
-                  ),
-                ),
-              ),
+              photoGradient(),
               backButton(),
             ],
           ),

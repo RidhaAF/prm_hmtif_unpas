@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
-import 'package:prm_hmtif_unpas/theme/theme.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -20,6 +19,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     void _handleSignIn() async {
       setState(() {
@@ -30,14 +30,7 @@ class _SignInPageState extends State<SignInPage> {
         nrp: _nrpController.text,
         password: _passwordController.text,
       )) {
-        final prefs = await SharedPreferences.getInstance();
-        await Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MainPage()))
-            .then((value) => setState(() {
-                  prefs.setString('token', authProvider.user.token ?? '');
-                  print(prefs.getString('token'));
-                }));
-        // Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -45,6 +38,7 @@ class _SignInPageState extends State<SignInPage> {
             content: Text(
               'Gagal masuk!',
               style: GoogleFonts.inter(
+                color: whiteColor,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
@@ -100,7 +94,7 @@ class _SignInPageState extends State<SignInPage> {
           Text(
             'NRP',
             style: GoogleFonts.inter(
-              color: titleColor,
+              color: themeProvider.darkMode ? whiteColor : titleColor,
               fontSize: 16,
               fontWeight: medium,
             ),
@@ -122,13 +116,13 @@ class _SignInPageState extends State<SignInPage> {
                 border: InputBorder.none,
                 hintText: 'Masukkan NRP',
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                   fontSize: 14,
                 ),
               ),
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
-                  color: titleColor,
+                  color: themeProvider.darkMode ? whiteColor : titleColor,
                 ),
               ),
             ),
@@ -144,7 +138,7 @@ class _SignInPageState extends State<SignInPage> {
           Text(
             'Kata Sandi',
             style: GoogleFonts.inter(
-              color: titleColor,
+              color: themeProvider.darkMode ? whiteColor : titleColor,
               fontSize: 16,
               fontWeight: medium,
             ),
@@ -164,7 +158,7 @@ class _SignInPageState extends State<SignInPage> {
                 border: InputBorder.none,
                 hintText: 'Masukkan kata sandi',
                 hintStyle: GoogleFonts.inter(
-                  color: greyColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                   fontSize: 14,
                 ),
                 suffixIcon: IconButton(
@@ -180,7 +174,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
               style: GoogleFonts.inter(
-                color: titleColor,
+                color: themeProvider.darkMode ? whiteColor : titleColor,
               ),
             ),
           ),
@@ -268,7 +262,8 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor2,
+      backgroundColor:
+          themeProvider.darkMode ? darkBackgroundColor2 : backgroundColor2,
       body: SingleChildScrollView(
         child: Column(
           children: [
