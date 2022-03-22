@@ -22,6 +22,9 @@ Color yellowColor = Color(0XFFFFF500);
 Color backgroundColor1 = Color(0xFFFFFFFF);
 Color backgroundColor2 = Color(0xFFFAFAFC);
 Color backgroundColor3 = Color(0xFFE5E5E5);
+Color darkBackgroundColor1 = Color(0x0FF000000);
+Color darkBackgroundColor2 = Color(0xFF1D1D1D);
+Color darkBackgroundColor3 = Color(0xFF2C2C2C);
 
 TextStyle primaryTextStyle = GoogleFonts.inter(
   color: primaryColor,
