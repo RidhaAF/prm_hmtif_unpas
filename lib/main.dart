@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:prm_hmtif_unpas/pages/change_password_page.dart';
 import 'package:prm_hmtif_unpas/pages/coming_soon_page.dart';
@@ -34,12 +35,27 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _getTheme();
     super.initState();
+    _getTheme();
+    initPlatformState();
   }
 
   void _getTheme() async {
     themeProvider.darkMode = await themeProvider.getMode();
+  }
+
+  static final String oneSignalAppId = '7a38a16a-3652-41fc-985a-6f805a61ea03';
+  Future<void> initPlatformState() async {
+    OneSignal.shared.setAppId(oneSignalAppId);
+    OneSignal.shared
+        .promptUserForPushNotificationPermission()
+        .then((accepted) {});
+    OneSignal.shared.setNotificationWillShowInForegroundHandler(
+        (OSNotificationReceivedEvent event) {
+      // Will be called whenever a notification is received in foreground
+      // Display Notification, pass null param for not displaying the notification
+      event.complete(event.notification);
+    });
   }
 
   @override
