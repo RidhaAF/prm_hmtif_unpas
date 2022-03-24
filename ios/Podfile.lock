@@ -1,5 +1,9 @@
 PODS:
   - Flutter (1.0.0)
+  - onesignal_flutter (3.3.0):
+    - Flutter
+    - OneSignalXCFramework (= 3.10.1)
+  - OneSignalXCFramework (3.10.1)
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_ios (0.0.1):
@@ -11,14 +15,21 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
+SPEC REPOS:
+  trunk:
+    - OneSignalXCFramework
+
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  onesignal_flutter:
+    :path: ".symlinks/plugins/onesignal_flutter/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_ios:
@@ -30,6 +41,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  onesignal_flutter: a89207b9d7e97cc9d7d12bcfb4a25f62aedc445b
+  OneSignalXCFramework: fe027712118f2862ab193b72270487f11450ea63
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
