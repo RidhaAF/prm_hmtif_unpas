@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
@@ -57,19 +58,15 @@ class _VotePageState extends State<VotePage> {
             Container(
               height: 250,
               width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/il_voted.png'),
-                ),
-              ),
+              child: Lottie.asset('assets/an_voted.json'),
             ),
             SizedBox(height: 16),
             Text(
               'Terima kasih pilihan anda\nsudah tersimpan! 😊',
               style: GoogleFonts.inter(
                 color: primaryColor,
-                fontSize: 16,
-                fontWeight: semiBold,
+                fontSize: 18,
+                fontWeight: medium,
               ),
               textAlign: TextAlign.center,
             ),
