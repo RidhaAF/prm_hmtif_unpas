@@ -268,22 +268,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: () => Navigator.pushNamed(context, '/edit-profile'),
                   child: menuList(Icons.edit, 'Ubah Profil', true),
                 ),
-                GestureDetector(
-                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.amber,
-                      content: Text(
-                        'Fitur sedang dalam pengembangan 🔨',
-                        style: GoogleFonts.inter(
-                          color: blackColor,
-                          fontSize: 16,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  child: menuList(Icons.notifications, 'Pemberitahuan', true),
-                ),
+                // GestureDetector(
+                //   onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(
+                //       backgroundColor: Colors.amber,
+                //       content: Text(
+                //         'Fitur sedang dalam pengembangan 🔨',
+                //         style: GoogleFonts.inter(
+                //           color: blackColor,
+                //           fontSize: 16,
+                //         ),
+                //         textAlign: TextAlign.center,
+                //       ),
+                //     ),
+                //   ),
+                //   child: menuList(Icons.notifications, 'Pemberitahuan', true),
+                // ),
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/change-password'),
                   child: menuList(Icons.lock, 'Ubah Kata Sandi', false),
@@ -348,19 +348,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: menuList(Icons.star, 'Menilai Aplikasi', true),
                 ),
                 GestureDetector(
-                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.amber,
-                      content: Text(
-                        'Fitur sedang dalam pengembangan 🔨',
-                        style: GoogleFonts.inter(
-                          color: blackColor,
-                          fontSize: 16,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                  onTap: () => Navigator.pushNamed(context, '/coming-soon'),
                   child: menuList(
                       Icons.text_snippet, 'Syarat dan Ketentuan', true),
                 ),
