@@ -70,4 +70,23 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
+
+  Future<bool> changePassword({
+    required String? oldPassword,
+    required String? password,
+  }) async {
+    try {
+      if (await AuthService().changePassword(
+        oldPassword,
+        password,
+      )) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

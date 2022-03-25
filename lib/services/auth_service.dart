@@ -125,4 +125,35 @@ class AuthService {
       throw Exception('Gagal Keluar!');
     }
   }
+
+  Future<bool> changePassword(
+    String? oldPassword,
+    String? password,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    var url = '$baseUrl/change-password';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': prefs.getString('token') ?? '',
+    };
+    var body = jsonEncode({
+      'old_password': oldPassword,
+      'password': password,
+    });
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      print('Berhasil Mengubah Password!');
+      return true;
+    } else {
+      throw Exception('Gagal Mengubah Password!');
+    }
+  }
 }

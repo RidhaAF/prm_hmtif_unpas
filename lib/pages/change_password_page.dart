@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
+import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +14,63 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  TextEditingController _oldPasswordController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  TextEditingController _newPasswordController = TextEditingController();
   bool _isObscure = true;
   bool _isObscure2 = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
+    void _handleChangePassword() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await authProvider.changePassword(
+        oldPassword: _oldPasswordController.text,
+        password: _passwordController.text,
+      )) {
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
+        pageProvider.currentIndex = 3;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: primaryColor,
+            content: Text(
+              'Berhasil merubah kata sandi!',
+              style: GoogleFonts.inter(
+                color: whiteColor,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: redColor,
+            content: Text(
+              'Gagal mengubah kata sandi!',
+              style: GoogleFonts.inter(
+                color: whiteColor,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+
     Widget header() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +93,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       );
     }
 
-    Widget inputPassword() {
+    Widget inputOldPassword() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,7 +116,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               border: primaryBorder,
             ),
             child: TextField(
-              controller: _passwordController,
+              controller: _oldPasswordController,
               obscureText: _isObscure,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -77,7 +128,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 suffixIcon: IconButton(
                   icon: Icon(
                     _isObscure ? Icons.visibility : Icons.visibility_off,
-                    color: this._isObscure ? primaryColor : primaryColor,
+                    color: primaryColor,
                   ),
                   onPressed: () {
                     setState(() {
@@ -116,7 +167,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               border: primaryBorder,
             ),
             child: TextField(
-              controller: _newPasswordController,
+              controller: _passwordController,
               obscureText: _isObscure2,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -128,7 +179,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 suffixIcon: IconButton(
                   icon: Icon(
                     _isObscure2 ? Icons.visibility : Icons.visibility_off,
-                    color: this._isObscure2 ? primaryColor : primaryColor,
+                    color: primaryColor,
                   ),
                   onPressed: () {
                     setState(() {
@@ -148,19 +199,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       return Container(
         child: ElevatedButton(
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: Colors.amber,
-                content: Text(
-                  'Fitur sedang dalam pengembangan 🔨',
-                  style: GoogleFonts.inter(
-                    color: blackColor,
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
+            _handleChangePassword();
           },
           style: primaryButtonStyle,
           child: Ink(
@@ -200,7 +239,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         centerTitle: true,
         automaticallyImplyLeading: true,
       ),
-      // backgroundColor: backgroundColor2,
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(defaultMargin),
@@ -208,7 +246,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             children: [
               header(),
               SizedBox(height: 32),
-              inputPassword(),
+              inputOldPassword(),
               inputNewPassword(),
               SizedBox(height: 32),
               confirmButton(),
