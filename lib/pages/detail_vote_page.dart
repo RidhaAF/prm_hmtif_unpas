@@ -175,6 +175,19 @@ class _DetailVotePageState extends State<DetailVotePage> {
       )) {
         Navigator.pushReplacementNamed(context, '/main');
         pageProvider.currentIndex = 1;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: primaryColor,
+            content: Text(
+              'Berhasil melakukan pemilihan!',
+              style: GoogleFonts.inter(
+                color: whiteColor,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
