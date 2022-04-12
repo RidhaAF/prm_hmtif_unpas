@@ -211,14 +211,18 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               height: 48,
               width: double.infinity,
               alignment: Alignment.center,
-              child: Text(
-                'Konfirmasi',
-                style: GoogleFonts.inter(
-                  color: whiteColor,
-                  fontSize: 18,
-                  fontWeight: semiBold,
-                ),
-              ),
+              child: isLoading == true
+                  ? CircularProgressIndicator(
+                      color: whiteColor,
+                    )
+                  : Text(
+                      'Konfirmasi',
+                      style: GoogleFonts.inter(
+                        color: whiteColor,
+                        fontSize: 18,
+                        fontWeight: semiBold,
+                      ),
+                    ),
             ),
           ),
         ),

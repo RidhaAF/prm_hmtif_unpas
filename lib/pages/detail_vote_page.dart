@@ -272,14 +272,18 @@ class _DetailVotePageState extends State<DetailVotePage> {
               height: 48,
               width: double.infinity,
               alignment: Alignment.center,
-              child: Text(
-                'Pilih Kandidat',
-                style: GoogleFonts.inter(
-                  color: whiteColor,
-                  fontSize: 18,
-                  fontWeight: semiBold,
-                ),
-              ),
+              child: isLoading == true
+                  ? CircularProgressIndicator(
+                      color: whiteColor,
+                    )
+                  : Text(
+                      'Pilih Kandidat',
+                      style: GoogleFonts.inter(
+                        color: whiteColor,
+                        fontSize: 18,
+                        fontWeight: semiBold,
+                      ),
+                    ),
             ),
           ),
         ),

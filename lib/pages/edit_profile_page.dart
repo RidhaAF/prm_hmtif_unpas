@@ -238,6 +238,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
               SizedBox(height: 32),
               changeName(),
               changeEmail(),
+              SizedBox(height: 16),
+              isLoading == true ? CircularProgressIndicator() : SizedBox(),
             ],
           ),
         ),
