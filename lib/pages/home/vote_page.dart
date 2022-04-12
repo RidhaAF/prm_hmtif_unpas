@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
+import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/vote_card.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class VotePage extends StatefulWidget {
   const VotePage({Key? key}) : super(key: key);
@@ -28,12 +30,36 @@ class _VotePageState extends State<VotePage> {
     setState(() {});
   }
 
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    await Provider.of<CandidateProvider>(context, listen: false).getVotes();
+    setState(() {});
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (mounted)
+      setState(() {
+        Provider.of<CandidateProvider>(context, listen: false).getVotes();
+      });
+    _refreshController.loadComplete();
+  }
+
   @override
   Widget build(BuildContext context) {
     CandidateProvider candidateProvider =
         Provider.of<CandidateProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
-    Widget gridCandidate() {
+    Widget gridCandidates() {
       return GridView.count(
         crossAxisCount: 2,
         crossAxisSpacing: defaultMargin,
@@ -91,7 +117,20 @@ class _VotePageState extends State<VotePage> {
       ),
       body: Consumer<AuthProvider>(
         builder: (context, authProvider, child) {
-          return authProvider.user.voteStatus == 1 ? voted() : gridCandidate();
+          return authProvider.user.voteStatus == 1
+              ? voted()
+              : SmartRefresher(
+                  controller: _refreshController,
+                  header: MaterialClassicHeader(
+                    backgroundColor: themeProvider.darkMode
+                        ? darkBackgroundColor2
+                        : backgroundColor2,
+                    color: primaryColor,
+                  ),
+                  onLoading: _onLoading,
+                  onRefresh: _onRefresh,
+                  child: gridCandidates(),
+                );
         },
       ),
     );
