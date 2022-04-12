@@ -68,21 +68,32 @@ class CandidateCard extends StatelessWidget {
           SizedBox(
             width: 8.0,
           ),
-          LinearPercentIndicator(
-            width: MediaQuery.of(context).size.width - 162,
-            lineHeight: 24.0,
-            percent: candidate!.voteResult! / 100,
-            center: Text(
-              '${candidate!.voteResult!.toStringAsFixed(2)}%',
-              style: GoogleFonts.inter(
-                fontWeight: bold,
+          Column(
+            children: [
+              LinearPercentIndicator(
+                width: MediaQuery.of(context).size.width - 162,
+                lineHeight: 24.0,
+                percent: candidate!.voteResult! / 100,
+                center: Text(
+                  '${candidate!.voteResult!.toStringAsFixed(2)}%',
+                  style: GoogleFonts.inter(
+                    fontWeight: semiBold,
+                  ),
+                ),
+                barRadius: const Radius.circular(24),
+                backgroundColor: themeProvider.darkMode
+                    ? darkBackgroundColor2
+                    : backgroundColor3,
+                progressColor: accentColor,
               ),
-            ),
-            barRadius: const Radius.circular(24),
-            backgroundColor: themeProvider.darkMode
-                ? darkBackgroundColor2
-                : backgroundColor3,
-            progressColor: accentColor,
+              SizedBox(height: 8.0),
+              Text(
+                '${candidate!.voteCount!.toString()} Suara',
+                style: GoogleFonts.inter(
+                  color: themeProvider.darkMode ? greyColor : subtitleColor,
+                ),
+              ),
+            ],
           ),
         ],
       ),
