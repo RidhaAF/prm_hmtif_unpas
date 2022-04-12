@@ -182,29 +182,6 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
 
-    Widget forgotPassword() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/reset-password',
-              );
-            },
-            child: Text(
-              "Lupa kata sandi?",
-              style: GoogleFonts.inter(
-                color: primaryColor,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
     Widget loginButton() {
       return Container(
         margin: EdgeInsets.only(bottom: defaultMargin),
@@ -253,7 +230,6 @@ class _SignInPageState extends State<SignInPage> {
           children: [
             inputNRP(),
             inputPassword(),
-            forgotPassword(),
             SizedBox(height: 32),
             loginButton(),
           ],

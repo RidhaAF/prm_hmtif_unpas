@@ -16,7 +16,6 @@ import 'package:prm_hmtif_unpas/pages/auth/sign_in_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/profile_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/quick_count_page.dart';
-import 'package:prm_hmtif_unpas/pages/auth/reset_password_page.dart';
 import 'package:prm_hmtif_unpas/pages/onboarding_page.dart';
 import 'package:prm_hmtif_unpas/pages/splash_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/vote_page.dart';
@@ -89,7 +88,6 @@ class _MyAppState extends State<MyApp> {
               '/': (context) => SplashPage(),
               '/onboarding': (context) => OnboardingPage(),
               '/login': (context) => SignInPage(),
-              '/reset-password': (context) => ResetPasswordPage(),
               '/main': (context) => MainPage(),
               '/home': (context) => HomePage(),
               '/vote': (context) => VotePage(),
