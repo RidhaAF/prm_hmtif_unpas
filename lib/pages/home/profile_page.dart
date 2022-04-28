@@ -7,6 +7,7 @@ import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:mailto/mailto.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -43,6 +44,29 @@ class _ProfilePageState extends State<ProfilePage> {
     await Provider.of<AuthProvider>(context, listen: false).getUser();
     if (!mounted) return;
     setState(() {});
+  }
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    await Provider.of<AuthProvider>(context, listen: false).getUser();
+    setState(() {});
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (mounted)
+      setState(() {
+        Provider.of<AuthProvider>(context, listen: false).getUser();
+      });
+    _refreshController.loadComplete();
   }
 
   @override
@@ -89,6 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Widget header() {
       return Container(
         margin: EdgeInsets.all(defaultMargin),
+        padding: EdgeInsets.all(defaultMargin),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(defaultRadius),
           color:
@@ -102,7 +127,6 @@ class _ProfilePageState extends State<ProfilePage> {
             return Row(
               children: [
                 Container(
-                  margin: EdgeInsets.all(defaultMargin),
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
@@ -115,6 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
+                SizedBox(width: defaultMargin),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -414,15 +439,25 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            header(),
-            content(),
-            _infoPackage('Versi', _packageInfo.version),
-            logoutButton(),
-          ],
+      body: SmartRefresher(
+        controller: _refreshController,
+        header: MaterialClassicHeader(
+          backgroundColor:
+              themeProvider.darkMode ? darkBackgroundColor2 : backgroundColor2,
+          color: primaryColor,
+        ),
+        onLoading: _onLoading,
+        onRefresh: _onRefresh,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header(),
+              content(),
+              _infoPackage('Versi', _packageInfo.version),
+              logoutButton(),
+            ],
+          ),
         ),
       ),
     );
