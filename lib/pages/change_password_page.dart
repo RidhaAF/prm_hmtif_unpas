@@ -41,7 +41,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           SnackBar(
             backgroundColor: primaryColor,
             content: Text(
-              'Berhasil merubah kata sandi!',
+              'Berhasil mengubah kata sandi!',
               style: GoogleFonts.inter(
                 color: whiteColor,
                 fontSize: 16,

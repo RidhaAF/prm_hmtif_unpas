@@ -35,7 +35,7 @@ class AuthService {
 
       return user;
     } else {
-      throw Exception('Login Gagal!');
+      throw Exception('Login gagal!');
     }
   }
 
@@ -66,7 +66,7 @@ class AuthService {
 
       return user;
     } else {
-      throw Exception('Gagal Fetch User!');
+      throw Exception('Gagal fetch pemilih!');
     }
   }
 
@@ -97,7 +97,7 @@ class AuthService {
       print('Berhasil Mengubah Profile!');
       return true;
     } else {
-      throw Exception('Gagal Mengubah Profile!');
+      throw Exception('Gagal mengubah profil!');
     }
   }
 
@@ -119,10 +119,10 @@ class AuthService {
     if (response.statusCode == 200) {
       prefs.remove('token');
 
-      print('Berhasil Keluar!');
+      print('Berhasil keluar!');
       return true;
     } else {
-      throw Exception('Gagal Keluar!');
+      throw Exception('Gagal keluar!');
     }
   }
 
@@ -150,10 +150,10 @@ class AuthService {
     print(response.body);
 
     if (response.statusCode == 200) {
-      print('Berhasil Mengubah Password!');
+      print('Berhasil mengubah password!');
       return true;
     } else {
-      throw Exception('Gagal Mengubah Password!');
+      throw Exception('Gagal mengubah password!');
     }
   }
 }

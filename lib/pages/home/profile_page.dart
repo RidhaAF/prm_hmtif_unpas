@@ -97,6 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
             content: Text(
               'Gagal keluar!',
               style: GoogleFonts.inter(
+                color: whiteColor,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
@@ -132,9 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: NetworkImage(
-                        authProvider.user.profilePhotoUrl ?? '',
-                      ),
+                      image: AssetImage('assets/profile-picture-default.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
