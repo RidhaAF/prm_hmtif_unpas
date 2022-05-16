@@ -78,8 +78,9 @@ class _ProfilePageState extends State<ProfilePage> {
     launchMailto() async {
       final mailtoLink = Mailto(
         to: ['prmhmtifunpas@gmail.com'],
+        subject: 'Pusat Bantuan',
       );
-      await launch('$mailtoLink');
+      await launchUrl(Uri.parse(mailtoLink.toString()));
     }
 
     void _handleLogout() async {
