@@ -173,7 +173,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
         authProvider.user.id,
         widget.candidate?.id,
       )) {
-        Navigator.pushReplacementNamed(context, '/main');
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
         pageProvider.currentIndex = 1;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
