@@ -52,8 +52,10 @@ class _ProfilePageState extends State<ProfilePage> {
   void _onRefresh() async {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    await Provider.of<AuthProvider>(context, listen: false).getUser();
-    setState(() {});
+    if (mounted) {
+      await Provider.of<AuthProvider>(context, listen: false).getUser();
+      setState(() {});
+    }
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }

@@ -36,8 +36,10 @@ class _VotePageState extends State<VotePage> {
   void _onRefresh() async {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    await Provider.of<CandidateProvider>(context, listen: false).getVotes();
-    setState(() {});
+    if (mounted) {
+      await Provider.of<CandidateProvider>(context, listen: false).getVotes();
+      setState(() {});
+    }
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
