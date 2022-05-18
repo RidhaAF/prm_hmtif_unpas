@@ -83,9 +83,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: NetworkImage(
-                    authProvider.user.profilePhotoUrl ?? '',
-                  ),
+                  image: AssetImage('assets/profile-picture-default.png'),
                   fit: BoxFit.cover,
                 ),
               ),
