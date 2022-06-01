@@ -69,30 +69,6 @@ class _VoteCountPageState extends State<VoteCountPage> {
       );
     }
 
-    Widget onEnd() {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 200,
-              width: double.infinity,
-              child: Lottie.asset('assets/an_on-end.json'),
-            ),
-            Text(
-              'Waktu pemilihan sudah berakhir 🕔',
-              style: GoogleFonts.inter(
-                color: primaryColor,
-                fontSize: 18,
-                fontWeight: medium,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
