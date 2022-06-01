@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prm_hmtif_unpas/pages/home/home_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/profile_page.dart';
-import 'package:prm_hmtif_unpas/pages/home/quick_count_page.dart';
+import 'package:prm_hmtif_unpas/pages/home/vote_count_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/vote_page.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     VotePage(),
-    QuickCountPage(),
+    VoteCountPage(),
     ProfilePage(),
   ];
 
@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(
               Icons.bar_chart_rounded,
             ),
-            label: 'Hitung Cepat',
+            label: 'Hitungan',
           ),
           BottomNavigationBarItem(
             icon: Icon(

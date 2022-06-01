@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:prm_hmtif_unpas/providers/voting_time_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:prm_hmtif_unpas/pages/change_password_page.dart';
 import 'package:prm_hmtif_unpas/pages/coming_soon_page.dart';
@@ -15,7 +16,7 @@ import 'package:prm_hmtif_unpas/pages/home/home_page.dart';
 import 'package:prm_hmtif_unpas/pages/auth/sign_in_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/main_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/profile_page.dart';
-import 'package:prm_hmtif_unpas/pages/home/quick_count_page.dart';
+import 'package:prm_hmtif_unpas/pages/home/vote_count_page.dart';
 import 'package:prm_hmtif_unpas/pages/onboarding_page.dart';
 import 'package:prm_hmtif_unpas/pages/splash_page.dart';
 import 'package:prm_hmtif_unpas/pages/home/vote_page.dart';
@@ -76,6 +77,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => themeProvider,
         ),
+        ChangeNotifierProvider(
+          create: (context) => VotingTimeProvider(),
+        ),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
@@ -92,7 +96,7 @@ class _MyAppState extends State<MyApp> {
               '/home': (context) => HomePage(),
               '/vote': (context) => VotePage(),
               '/candidate': (context) => DetailVotePage(),
-              '/quick-count': (context) => QuickCountPage(),
+              '/vote-count': (context) => VoteCountPage(),
               '/profile': (context) => ProfilePage(),
               '/edit-profile': (context) => EditProfilePage(),
               '/change-password': (context) => ChangePasswordPage(),

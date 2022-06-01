@@ -8,12 +8,12 @@ import 'package:prm_hmtif_unpas/widgets/candidate_card.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class QuickCountPage extends StatefulWidget {
+class VoteCountPage extends StatefulWidget {
   @override
-  State<QuickCountPage> createState() => _QuickCountPageState();
+  State<VoteCountPage> createState() => _VoteCountPageState();
 }
 
-class _QuickCountPageState extends State<QuickCountPage> {
+class _VoteCountPageState extends State<VoteCountPage> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -49,7 +49,7 @@ class _QuickCountPageState extends State<QuickCountPage> {
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
-          'Hitung Cepat',
+          'Hitungan Suara',
           style: GoogleFonts.inter(
             fontSize: 18,
             fontWeight: semiBold,
