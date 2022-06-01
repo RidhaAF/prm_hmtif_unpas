@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
 import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/providers/voting_time_provider.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:prm_hmtif_unpas/widgets/vote_card.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +22,19 @@ class _VotePageState extends State<VotePage> {
   @override
   void initState() {
     _getUser();
+    _getVotingTime();
     super.initState();
   }
 
   void _getUser() async {
     await Provider.of<AuthProvider>(context, listen: false).getUser();
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  void _getVotingTime() async {
+    await Provider.of<VotingTimeProvider>(context, listen: false)
+        .getVotingTime();
     if (!mounted) return;
     setState(() {});
   }
@@ -84,13 +93,61 @@ class _VotePageState extends State<VotePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 250,
+              height: 200,
               width: double.infinity,
               child: Lottie.asset('assets/an_voted.json'),
             ),
             SizedBox(height: 16),
             Text(
               'Terima kasih pilihan Anda\nsudah tersimpan! 😊',
+              style: GoogleFonts.inter(
+                color: primaryColor,
+                fontSize: 18,
+                fontWeight: medium,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget beforeStart() {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 200,
+              width: double.infinity,
+              child: Lottie.asset('assets/an_before-start.json'),
+            ),
+            Text(
+              'Waktu pemilihan belum dimulai 🕖',
+              style: GoogleFonts.inter(
+                color: primaryColor,
+                fontSize: 18,
+                fontWeight: medium,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget onEnd() {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 200,
+              width: double.infinity,
+              child: Lottie.asset('assets/an_on-end.json'),
+            ),
+            Text(
+              'Waktu pemilihan sudah berakhir 🕔',
               style: GoogleFonts.inter(
                 color: primaryColor,
                 fontSize: 18,
@@ -117,22 +174,38 @@ class _VotePageState extends State<VotePage> {
         ),
         centerTitle: true,
       ),
-      body: Consumer<AuthProvider>(
-        builder: (context, authProvider, child) {
-          return authProvider.user.voteStatus == 1
-              ? voted()
-              : SmartRefresher(
-                  controller: _refreshController,
-                  header: MaterialClassicHeader(
-                    backgroundColor: themeProvider.darkMode
-                        ? darkBackgroundColor2
-                        : backgroundColor2,
-                    color: primaryColor,
-                  ),
-                  onLoading: _onLoading,
-                  onRefresh: _onRefresh,
-                  child: gridCandidates(),
-                );
+      body: Consumer<VotingTimeProvider>(
+        builder: (context, votingTimeProvider, child) {
+          return (DateTime.now().isAfter(DateTime.parse(
+                      votingTimeProvider.votingTime.startTime.toString())) &&
+                  DateTime.now().isBefore(
+                    DateTime.parse(
+                        votingTimeProvider.votingTime.endTime.toString()),
+                  ))
+              ? Consumer<AuthProvider>(
+                  builder: (context, authProvider, child) {
+                    return authProvider.user.voteStatus == 1
+                        ? voted()
+                        : SmartRefresher(
+                            controller: _refreshController,
+                            header: MaterialClassicHeader(
+                              backgroundColor: themeProvider.darkMode
+                                  ? darkBackgroundColor2
+                                  : backgroundColor2,
+                              color: primaryColor,
+                            ),
+                            onLoading: _onLoading,
+                            onRefresh: _onRefresh,
+                            child: gridCandidates(),
+                          );
+                  },
+                )
+              : (DateTime.now().isBefore(
+                  DateTime.parse(
+                      votingTimeProvider.votingTime.startTime.toString()),
+                ))
+                  ? beforeStart()
+                  : onEnd();
         },
       ),
     );
