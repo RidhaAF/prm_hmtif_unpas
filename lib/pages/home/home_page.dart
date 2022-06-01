@@ -3,11 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
+import 'package:prm_hmtif_unpas/providers/voting_time_provider.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,13 +18,44 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int endTime = DateTime.parse("2022-06-06 09:00:00").millisecondsSinceEpoch;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    if (mounted) {
+      await Provider.of<VotingTimeProvider>(context, listen: false)
+          .getVotingTime();
+      setState(() {});
+    }
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (mounted)
+      setState(() {
+        Provider.of<VotingTimeProvider>(context, listen: false).getVotingTime();
+      });
+    _refreshController.loadComplete();
+  }
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    VotingTimeProvider votingTimeProvider =
+        Provider.of<VotingTimeProvider>(context);
+
+    DateTime startTime =
+        DateTime.parse(votingTimeProvider.votingTime.startTime.toString());
+    DateTime endTime =
+        DateTime.parse(votingTimeProvider.votingTime.endTime.toString());
 
     Widget countdownColumn(String time, String subtitle) {
       return Column(
@@ -56,7 +90,7 @@ class _HomePageState extends State<HomePage> {
           boxShadow: [primaryBoxShadow],
         ),
         child: CountdownTimer(
-          endTime: endTime,
+          endTime: startTime.millisecondsSinceEpoch,
           widgetBuilder: (_, CurrentRemainingTime? time) {
             if (time == null) {
               return Container(
@@ -226,8 +260,9 @@ class _HomePageState extends State<HomePage> {
     Widget rowCard() {
       return Row(
         children: [
-          card('🗓', 'Senin', '6 Juni 2022'),
-          card('🕒', 'Pukul', '09:00 WIB'),
+          card('🗓', DateFormat('EEEE').format(startTime),
+              DateFormat('d MMM yyyy').format(startTime)),
+          card('🕒', 'Pukul', '${DateFormat.Hm().format(startTime)} WIB'),
         ],
       );
     }
@@ -278,13 +313,23 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            header(),
-            rowCard(),
-            voteButton(),
-          ],
+      body: SmartRefresher(
+        controller: _refreshController,
+        header: MaterialClassicHeader(
+          backgroundColor:
+              themeProvider.darkMode ? darkBackgroundColor2 : backgroundColor2,
+          color: primaryColor,
+        ),
+        onLoading: _onLoading,
+        onRefresh: _onRefresh,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              header(),
+              rowCard(),
+              voteButton(),
+            ],
+          ),
         ),
       ),
     );
