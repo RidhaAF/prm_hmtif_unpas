@@ -180,10 +180,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(defaultRadius),
-              border: primaryBorder,
+              border: Border.all(
+                color: darkGreyColor,
+              ),
             ),
             child: TextField(
               controller: _emailController,
+              readOnly: true,
+              enableInteractiveSelection: true,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Masukkan email',
@@ -193,7 +197,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
-                  color: themeProvider.darkMode ? whiteColor : titleColor,
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
                 ),
               ),
             ),
