@@ -30,6 +30,7 @@ dependencies:
   google_fonts: ^3.0.1
   http: ^0.13.3
   intl: ^0.17.0
+  local_auth: ^2.1.0
   lottie: ^1.2.2
   mailto: ^2.0.0
   onesignal_flutter: ^3.3.0
