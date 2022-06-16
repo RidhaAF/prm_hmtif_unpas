@@ -5,6 +5,7 @@ import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
 import 'package:prm_hmtif_unpas/providers/vote_provider.dart';
+import 'package:prm_hmtif_unpas/services/biometric_service.dart';
 import 'package:prm_hmtif_unpas/themes/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -238,8 +239,27 @@ class _DetailVotePageState extends State<DetailVotePage> {
               ),
             ),
             TextButton(
-              onPressed: () {
-                _handleVote();
+              onPressed: () async {
+                bool didAuthenticate =
+                    await BiometricService.authenticateUser();
+
+                if (didAuthenticate) {
+                  _handleVote();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: redColor,
+                      content: Text(
+                        'Autentikasi gagal!',
+                        style: GoogleFonts.inter(
+                          color: whiteColor,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                }
               },
               child: Text(
                 'Pilih',

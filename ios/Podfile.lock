@@ -1,5 +1,9 @@
 PODS:
+  - "app_settings (3.0.0+1)":
+    - Flutter
   - Flutter (1.0.0)
+  - local_auth_ios (0.0.1):
+    - Flutter
   - onesignal_flutter (3.3.0):
     - Flutter
     - OneSignalXCFramework (= 3.10.1)
@@ -14,7 +18,9 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - app_settings (from `.symlinks/plugins/app_settings/ios`)
   - Flutter (from `Flutter`)
+  - local_auth_ios (from `.symlinks/plugins/local_auth_ios/ios`)
   - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
@@ -26,8 +32,12 @@ SPEC REPOS:
     - OneSignalXCFramework
 
 EXTERNAL SOURCES:
+  app_settings:
+    :path: ".symlinks/plugins/app_settings/ios"
   Flutter:
     :path: Flutter
+  local_auth_ios:
+    :path: ".symlinks/plugins/local_auth_ios/ios"
   onesignal_flutter:
     :path: ".symlinks/plugins/onesignal_flutter/ios"
   package_info_plus:
@@ -40,7 +50,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
+  app_settings: d103828c9f5d515c4df9ee754dabd443f7cedcf3
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  local_auth_ios: 0d333dde7780f669e66f19d2ff6005f3ea84008d
   onesignal_flutter: a89207b9d7e97cc9d7d12bcfb4a25f62aedc445b
   OneSignalXCFramework: fe027712118f2862ab193b72270487f11450ea63
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
