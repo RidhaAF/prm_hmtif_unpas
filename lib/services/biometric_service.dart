@@ -1,5 +1,7 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 
 class BiometricService {
   static Future<bool> authenticateUser() async {
@@ -31,6 +33,16 @@ class BiometricService {
         );
       } on PlatformException catch (e) {
         print(e);
+        if (e.code == auth_error.notEnrolled ||
+            e.code == auth_error.notAvailable) {
+          // add handling of no hardware here.
+          AppSettings.openLockAndPasswordSettings();
+        } else if (e.code == auth_error.lockedOut ||
+            e.code == auth_error.permanentlyLockedOut) {
+          // ...
+        } else {
+          // ...
+        }
       }
     }
 
