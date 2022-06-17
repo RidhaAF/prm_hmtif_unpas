@@ -250,7 +250,7 @@ class _DetailVotePageState extends State<DetailVotePage> {
                     SnackBar(
                       backgroundColor: redColor,
                       content: Text(
-                        'Autentikasi gagal!',
+                        'Autentikasi biometrik gagal!',
                         style: GoogleFonts.inter(
                           color: whiteColor,
                           fontSize: 16,
