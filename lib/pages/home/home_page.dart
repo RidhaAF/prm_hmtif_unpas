@@ -140,62 +140,65 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Selamat datang,',
-                            style: GoogleFonts.inter(
-                              color: whiteColor,
-                              fontSize: 16,
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Selamat datang,',
+                              style: GoogleFonts.inter(
+                                color: whiteColor,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            authProvider.user.name ?? '',
-                            style: GoogleFonts.inter(
-                              color: whiteColor,
-                              fontSize: 32,
-                              fontWeight: bold,
+                            SizedBox(height: 4),
+                            Text(
+                              authProvider.user.name ?? '',
+                              style: GoogleFonts.inter(
+                                color: whiteColor,
+                                fontSize: 28,
+                                fontWeight: bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        pageProvider.currentIndex = 3;
-                      },
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        margin: EdgeInsets.only(left: 8),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage(
-                                'assets/profile-picture-default.png'),
-                            fit: BoxFit.cover,
+                      SizedBox(width: 8),
+                      GestureDetector(
+                        onTap: () {
+                          pageProvider.currentIndex = 3;
+                        },
+                        child: Container(
+                          width: 48,
+                          height: 48,
+                          // margin: EdgeInsets.only(left: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/profile-picture-default.png'),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: 40),
                 Text(
                   'Siap untuk memilih?',
                   style: GoogleFonts.inter(
                     color: whiteColor,
                     fontSize: 24,
-                    fontWeight: semiBold,
+                    fontWeight: medium,
                   ),
                 ),
               ],
@@ -260,9 +263,16 @@ class _HomePageState extends State<HomePage> {
     Widget rowCard() {
       return Row(
         children: [
-          card('🗓', DateFormat('EEEE').format(startTime),
-              DateFormat('d MMM yyyy').format(startTime)),
-          card('🕒', 'Pukul', '${DateFormat.Hm().format(startTime)} WIB'),
+          card(
+            '🗓',
+            DateFormat('EEEE').format(startTime),
+            DateFormat('d MMM yyyy').format(startTime),
+          ),
+          card(
+            '🕒',
+            'Pukul',
+            '${DateFormat.Hm().format(startTime)} - ${DateFormat.Hm().format(endTime)}',
+          ),
         ],
       );
     }
@@ -308,7 +318,7 @@ class _HomePageState extends State<HomePage> {
           style: GoogleFonts.inter(
             color: whiteColor,
             fontSize: 24,
-            fontWeight: bold,
+            fontWeight: semiBold,
           ),
         ),
         centerTitle: true,
