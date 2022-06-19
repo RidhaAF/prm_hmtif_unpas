@@ -359,11 +359,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: menuList(Icons.star, 'Menilai Aplikasi', true),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/coming-soon'),
-                  child: menuList(
-                      Icons.text_snippet, 'Syarat dan Ketentuan', true),
-                ),
-                GestureDetector(
                   onTap: () => launchMailto(),
                   child: menuList(Icons.help, 'Pusat Bantuan', false),
                 ),

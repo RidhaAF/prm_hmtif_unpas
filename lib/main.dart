@@ -3,7 +3,6 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:prm_hmtif_unpas/providers/voting_time_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:prm_hmtif_unpas/pages/change_password_page.dart';
-import 'package:prm_hmtif_unpas/pages/coming_soon_page.dart';
 import 'package:prm_hmtif_unpas/pages/edit_profile_page.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/candidate_provider.dart';
@@ -100,7 +99,6 @@ class _MyAppState extends State<MyApp> {
               '/profile': (context) => ProfilePage(),
               '/edit-profile': (context) => EditProfilePage(),
               '/change-password': (context) => ChangePasswordPage(),
-              '/coming-soon': (context) => ComingSoonPage(),
             },
           );
         },
