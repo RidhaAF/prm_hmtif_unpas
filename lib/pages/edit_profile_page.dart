@@ -43,7 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           SnackBar(
             backgroundColor: primaryColor,
             content: Text(
-              'Berhasil merubah profil!',
+              'Berhasil mengubah profil!',
               style: GoogleFonts.inter(
                 color: whiteColor,
                 fontSize: 16,
