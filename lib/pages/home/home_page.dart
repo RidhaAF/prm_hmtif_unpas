@@ -182,8 +182,11 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/profile-picture-default.png'),
+                              image: authProvider.user.photo != null
+                                  ? NetworkImage(authProvider.user.photo!)
+                                  : AssetImage(
+                                          'assets/profile-picture-default.png')
+                                      as ImageProvider,
                               fit: BoxFit.cover,
                             ),
                           ),

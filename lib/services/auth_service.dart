@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:prm_hmtif_unpas/models/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,27 +70,26 @@ class AuthService {
   }
 
   Future<bool> updateProfile(
-    String? name,
-    String? email,
+    String name,
+    String? photo,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     var url = '$baseUrl/voter';
+    var req = http.MultipartRequest('POST', Uri.parse(url));
+
     var headers = {
-      'Content-Type': 'application/json',
       'Authorization': prefs.getString('token') ?? '',
     };
-    var body = jsonEncode({
-      'name': name,
-      'email': email,
-    });
+    req.headers.addAll(headers);
 
-    var response = await http.post(
-      Uri.parse(url),
-      headers: headers,
-      body: body,
-    );
+    req.fields['name'] = name;
+    if (photo != null) {
+      req.files.add(await http.MultipartFile.fromPath('photo', photo));
+    }
 
-    print(response.body);
+    var response = await req.send();
+
+    print(response.toString());
 
     if (response.statusCode == 200) {
       print('Berhasil Mengubah Profile!');

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:prm_hmtif_unpas/providers/auth_provider.dart';
 import 'package:prm_hmtif_unpas/providers/page_provider.dart';
 import 'package:prm_hmtif_unpas/providers/theme_provider.dart';
@@ -18,6 +21,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController _emailController = TextEditingController();
 
   bool isLoading = false;
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +32,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _nameController.text = authProvider.user.name!;
     _emailController.text = authProvider.user.email!;
 
-    void _handleUpdateProfile() async {
+    Future<void> _handleUpdateProfile() async {
       setState(() {
         isLoading = true;
       });
 
       if (await authProvider.updateProfile(
-        name: _nameController.text,
-        email: _emailController.text,
+        _nameController.text,
+        _image?.path,
       )) {
         Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
         pageProvider.currentIndex = 3;
@@ -73,6 +77,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
       });
     }
 
+    Future<void> _openImagePicker() async {
+      final ImagePicker _picker = ImagePicker();
+      // Pick an image
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        setState(() {
+          _image = File(image.path);
+        });
+      }
+    }
+
     Widget changeProfilePicture() {
       return Center(
         child: Column(
@@ -80,29 +96,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Container(
               height: 120,
               width: 120,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/profile-picture-default.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              child: _image != null
+                  ? CircleAvatar(
+                      backgroundImage: FileImage(_image!),
+                    )
+                  : (authProvider.user.photo != null
+                      ? CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(authProvider.user.photo!),
+                        )
+                      : CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/profile-picture-default.png'),
+                        )),
             ),
             SizedBox(height: 8),
             GestureDetector(
-              onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Colors.amber,
-                  content: Text(
-                    'Fitur sedang dalam pengembangan 🔨',
-                    style: GoogleFonts.inter(
-                      color: blackColor,
-                      fontSize: 16,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
+              onTap: () async {
+                await _openImagePicker();
+              },
               child: Text(
                 'Ubah Foto',
                 style: GoogleFonts.inter(

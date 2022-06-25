@@ -39,14 +39,14 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> updateProfile({
-    String? name,
-    String? email,
-  }) async {
+  Future<bool> updateProfile(
+    String name,
+    String? photo,
+  ) async {
     try {
       if (await AuthService().updateProfile(
         name,
-        email,
+        photo,
       )) {
         return true;
       } else {
