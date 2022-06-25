@@ -195,6 +195,28 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       );
     }
 
+    Widget passwordValidationText() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '*Kata sandi minimal memiliki 8 karakter.',
+            style: GoogleFonts.inter(
+              color: themeProvider.darkMode ? darkGreyColor : subtitleColor,
+              fontSize: 12,
+            ),
+          ),
+          Text(
+            '*Kata sandi disarankan mengandung kombinasi huruf, angka, dan simbol.',
+            style: GoogleFonts.inter(
+              color: themeProvider.darkMode ? darkGreyColor : subtitleColor,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      );
+    }
+
     Widget confirmButton() {
       return Container(
         child: ElevatedButton(
@@ -247,11 +269,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         child: Container(
           padding: EdgeInsets.all(defaultMargin),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               header(),
               SizedBox(height: 32),
               inputOldPassword(),
               inputNewPassword(),
+              passwordValidationText(),
               SizedBox(height: 32),
               confirmButton(),
             ],
