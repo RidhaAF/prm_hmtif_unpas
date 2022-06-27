@@ -116,6 +116,7 @@ class AuthService {
 
     if (response.statusCode == 200) {
       print('Berhasil menghapus foto!');
+
       return true;
     } else {
       throw Exception('Gagal menghapus foto!');
@@ -147,7 +148,12 @@ class AuthService {
 
     if (response.statusCode == 200) {
       print('Berhasil mengubah password!');
+
       return true;
+    } else if (response.statusCode == 401) {
+      print('Password saat ini salah!');
+
+      return false;
     } else {
       throw Exception('Gagal mengubah password!');
     }
@@ -170,8 +176,8 @@ class AuthService {
 
     if (response.statusCode == 200) {
       prefs.remove('token');
-
       print('Berhasil keluar!');
+
       return true;
     } else {
       throw Exception('Gagal keluar!');
