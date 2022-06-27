@@ -58,9 +58,9 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> logout(String? token) async {
+  Future<bool> deletePhoto() async {
     try {
-      if (await AuthService().logout(token)) {
+      if (await AuthService().deletePhoto()) {
         return true;
       } else {
         return false;
@@ -80,6 +80,19 @@ class AuthProvider with ChangeNotifier {
         oldPassword,
         password,
       )) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> logout(String? token) async {
+    try {
+      if (await AuthService().logout(token)) {
         return true;
       } else {
         return false;

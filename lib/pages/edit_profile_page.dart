@@ -89,6 +89,92 @@ class _EditProfilePageState extends State<EditProfilePage> {
       }
     }
 
+    Future<void> _handleDeletePhoto() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await AuthProvider().deletePhoto()) {
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
+        pageProvider.currentIndex = 3;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: primaryColor,
+            content: Text(
+              'Berhasil menghapus foto!',
+              style: GoogleFonts.inter(
+                color: whiteColor,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: redColor,
+            content: Text(
+              'Gagal menghapus foto!',
+              style: GoogleFonts.inter(
+                color: whiteColor,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    _handleShowDialog() {
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(
+            'Hapus Foto',
+            style: GoogleFonts.inter(
+              fontSize: 20,
+              fontWeight: semiBold,
+            ),
+          ),
+          content: Text(
+            'Apakah anda yakin ingin menghapus foto?',
+            style: GoogleFonts.inter(
+              fontSize: 18,
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                'Tidak',
+                style: GoogleFonts.inter(
+                  color: themeProvider.darkMode ? darkGreyColor : greyColor,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text(
+                'Ya',
+                style: GoogleFonts.inter(
+                  color: redColor,
+                  fontSize: 16,
+                  fontWeight: semiBold,
+                ),
+              ),
+              onPressed: () async => await _handleDeletePhoto(),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget changeProfilePicture() {
       return Center(
         child: Column(
@@ -111,18 +197,42 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         )),
             ),
             SizedBox(height: 8),
-            GestureDetector(
-              onTap: () async {
-                await _openImagePicker();
-              },
-              child: Text(
-                'Ubah Foto',
-                style: GoogleFonts.inter(
-                  color: primaryColor,
-                  fontSize: 16,
-                  decoration: TextDecoration.underline,
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    await _openImagePicker();
+                  },
+                  child: Text(
+                    'Ubah Foto',
+                    style: GoogleFonts.inter(
+                      color: primaryColor,
+                      fontSize: 16,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
-              ),
+                authProvider.user.photo != null
+                    ? Column(
+                        children: [
+                          SizedBox(height: defaultMargin / 2),
+                          GestureDetector(
+                            onTap: () {
+                              _handleShowDialog();
+                            },
+                            child: Text(
+                              'Hapus Foto',
+                              style: GoogleFonts.inter(
+                                color: redColor,
+                                fontSize: 16,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox(),
+              ],
             ),
           ],
         ),

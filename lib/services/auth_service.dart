@@ -99,9 +99,9 @@ class AuthService {
     }
   }
 
-  Future<bool> logout(String? token) async {
+  Future<bool> deletePhoto() async {
     final prefs = await SharedPreferences.getInstance();
-    var url = '$baseUrl/logout';
+    var url = '$baseUrl/delete-photo';
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': prefs.getString('token') ?? '',
@@ -115,12 +115,10 @@ class AuthService {
     print(response.body);
 
     if (response.statusCode == 200) {
-      prefs.remove('token');
-
-      print('Berhasil keluar!');
+      print('Berhasil menghapus foto!');
       return true;
     } else {
-      throw Exception('Gagal keluar!');
+      throw Exception('Gagal menghapus foto!');
     }
   }
 
@@ -152,6 +150,31 @@ class AuthService {
       return true;
     } else {
       throw Exception('Gagal mengubah password!');
+    }
+  }
+
+  Future<bool> logout(String? token) async {
+    final prefs = await SharedPreferences.getInstance();
+    var url = '$baseUrl/logout';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': prefs.getString('token') ?? '',
+    };
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      prefs.remove('token');
+
+      print('Berhasil keluar!');
+      return true;
+    } else {
+      throw Exception('Gagal keluar!');
     }
   }
 }
