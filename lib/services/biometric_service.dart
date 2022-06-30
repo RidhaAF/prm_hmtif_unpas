@@ -33,18 +33,19 @@ class BiometricService {
         );
       } on PlatformException catch (e) {
         print(e);
-        if (e.code == auth_error.notEnrolled) {
-          // force to enable biometrics/pin/password/pattern authentication
-          AppSettings.openLockAndPasswordSettings();
-        } else if (e.code == auth_error.notAvailable) {
+        if (e.code == auth_error.notAvailable ||
+            e.code == auth_error.notEnrolled ||
+            e.code == auth_error.passcodeNotSet) {
           // add handling of no hardware here.
-          // force to vote without biometrics.
-          didAuthenticate = true;
+          // force to enable biometrics/pin/password/pattern authentication.
+          AppSettings.openSecuritySettings();
+          print(
+              'Biometrics not available or not enrolled or passcode not set.');
         } else if (e.code == auth_error.lockedOut ||
             e.code == auth_error.permanentlyLockedOut) {
-          // ...
+          print('Locked out.');
         } else {
-          // ...
+          print('Error...');
         }
       }
     }
