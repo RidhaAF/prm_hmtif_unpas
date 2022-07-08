@@ -31,7 +31,7 @@ class CandidateService {
   }
 
   Future<List<CandidateModel>> getVotes() async {
-    var url = '$baseUrl/quick-count';
+    var url = '$baseUrl/vote-count';
     var headers = {'Content-Type': 'application/json'};
 
     var response = await http.get(
