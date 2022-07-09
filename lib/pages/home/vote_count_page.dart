@@ -53,7 +53,8 @@ class _VoteCountPageState extends State<VoteCountPage> {
             Container(
               height: 200,
               width: double.infinity,
-              child: Lottie.asset('assets/an_before-start.json'),
+              child: Lottie.network(
+                  'https://assets7.lottiefiles.com/packages/lf20_6958h79x.json'),
             ),
             Text(
               'Waktu pemilihan belum dimulai 🕖',
