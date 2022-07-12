@@ -290,6 +290,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             'Email',
             style: GoogleFonts.inter(
               color: themeProvider.darkMode ? whiteColor : titleColor,
+              fontSize: 16,
               fontWeight: semiBold,
             ),
           ),
@@ -342,12 +343,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
         centerTitle: true,
         automaticallyImplyLeading: true,
         actions: [
-          IconButton(
-            onPressed: () {
-              _handleUpdateProfile();
-            },
-            icon: Icon(Icons.check_rounded),
-            tooltip: 'Simpan',
+          Padding(
+            padding: EdgeInsets.only(right: 4.0),
+            child: IconButton(
+              onPressed: () {
+                _handleUpdateProfile();
+              },
+              icon: Icon(Icons.check_rounded),
+              tooltip: 'Submit',
+            ),
           ),
         ],
       ),
