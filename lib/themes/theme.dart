@@ -78,6 +78,15 @@ ButtonStyle secondaryButtonStyle = ElevatedButton.styleFrom(
   shadowColor: lightRedColor,
 );
 
+ButtonStyle tertiaryButtonStyle = ElevatedButton.styleFrom(
+  padding: EdgeInsets.zero,
+  primary: darkGreyColor,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(defaultRadius),
+  ),
+  shadowColor: darkGreyColor,
+);
+
 Border primaryBorder = Border.all(
   width: 1.0,
   color: primaryColor,

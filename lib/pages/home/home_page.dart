@@ -97,7 +97,9 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 child: Center(
                   child: Text(
-                    'Waktunya Memilih! 🎉',
+                    DateTime.now().isAfter(endTime)
+                        ? 'Pemilihan Berakhir! ⏰'
+                        : 'Waktunya Memilih! 🎉',
                     style: GoogleFonts.inter(
                       color: primaryColor,
                       fontSize: 24,
@@ -311,6 +313,35 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    Widget disabledVoteButton() {
+      return Container(
+        margin: EdgeInsets.all(defaultMargin),
+        child: ElevatedButton(
+          onPressed: () {},
+          style: tertiaryButtonStyle,
+          child: Ink(
+            decoration: BoxDecoration(
+              color: themeProvider.darkMode ? darkGreyColor : greyColor,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Container(
+              height: 48,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                'Pilih Sekarang',
+                style: GoogleFonts.inter(
+                  color: themeProvider.darkMode ? greyColor : darkGreyColor,
+                  fontSize: 18,
+                  fontWeight: semiBold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -340,7 +371,12 @@ class _HomePageState extends State<HomePage> {
             children: [
               header(),
               rowCard(),
-              voteButton(),
+              DateTime.now().isAfter(startTime) &&
+                      DateTime.now().isBefore(endTime)
+                  ? authProvider.user.voteStatus == 1
+                      ? SizedBox()
+                      : voteButton()
+                  : disabledVoteButton(),
             ],
           ),
         ),
