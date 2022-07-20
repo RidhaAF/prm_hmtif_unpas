@@ -38,11 +38,27 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     Widget logo() {
-      return Container(
-        child: Image.asset(
-          'assets/logo_voting_box.png',
-          width: 132,
-        ),
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            child: Image.asset(
+              'assets/logo_hmtif.png',
+              width: 120,
+            ),
+          ),
+          Container(
+            width: 2,
+            height: 150,
+            color: Colors.white,
+          ),
+          Container(
+            child: Image.asset(
+              'assets/logo_voting_box.png',
+              width: 120,
+            ),
+          ),
+        ],
       );
     }
 
